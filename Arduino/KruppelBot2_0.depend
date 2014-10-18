@@ -1,0 +1,153 @@
+# depslib dependency file v1.0
+1411822106 source:e:\arduino\kruppelbot2_0\adafruit_pwmservodriver.cpp
+	"Adafruit_PWMServoDriver.h"
+	<Wire.h>
+
+1407944589 e:\arduino\kruppelbot2_0\adafruit_pwmservodriver.h
+	"Arduino.h"
+	"WProgram.h"
+
+1371036702 c:\program files (x86)\codeblocks\arduino\hardware\arduino\cores\arduino\arduino.h
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<avr/pgmspace.h>
+	<avr/io.h>
+	<avr/interrupt.h>
+	"binary.h"
+	"WCharacter.h"
+	"WString.h"
+	"HardwareSerial.h"
+	"pins_arduino.h"
+
+1362990550 c:\program files (x86)\codeblocks\arduino\hardware\arduino\cores\arduino\binary.h
+
+1362990550 c:\program files (x86)\codeblocks\arduino\hardware\arduino\cores\arduino\wcharacter.h
+	<ctype.h>
+
+1371036734 c:\program files (x86)\codeblocks\arduino\hardware\arduino\cores\arduino\wstring.h
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<avr/pgmspace.h>
+
+1362990550 c:\program files (x86)\codeblocks\arduino\hardware\arduino\cores\arduino\hardwareserial.h
+	<inttypes.h>
+	"Stream.h"
+	"USBAPI.h"
+
+1371036430 c:\program files (x86)\codeblocks\arduino\hardware\arduino\cores\arduino\stream.h
+	<inttypes.h>
+	"Print.h"
+
+1362990550 c:\program files (x86)\codeblocks\arduino\hardware\arduino\cores\arduino\print.h
+	<inttypes.h>
+	<stdio.h>
+	"WString.h"
+	"Printable.h"
+
+1362990550 c:\program files (x86)\codeblocks\arduino\hardware\arduino\cores\arduino\printable.h
+	<new.h>
+
+1362990550 c:\program files (x86)\codeblocks\arduino\hardware\arduino\cores\arduino\new.h
+	<stdlib.h>
+
+1362990550 c:\program files (x86)\codeblocks\arduino\hardware\arduino\cores\arduino\usbapi.h
+
+1362990550 c:\program files (x86)\codeblocks\arduino\hardware\arduino\variants\standard\pins_arduino.h
+	<avr/pgmspace.h>
+
+1410372566 source:e:\arduino\kruppelbot2_0\command.cpp
+	"Command.h"
+
+1410460644 e:\arduino\kruppelbot2_0\command.h
+	"Arduino.h"
+	"PeripheryContainer.h"
+
+1410294322 e:\arduino\kruppelbot2_0\peripherycontainer.h
+	"Arduino.h"
+	<Wire.h>
+	<Adafruit_PWMServoDriver.h>
+	"Leg.h"
+
+1413036150 e:\arduino\kruppelbot2_0\leg.h
+	"Servo.h"
+
+1409771093 e:\arduino\kruppelbot2_0\servo.h
+	"Arduino.h"
+	<Wire.h>
+	<Adafruit_PWMServoDriver.h>
+
+1410722130 source:e:\arduino\kruppelbot2_0\commandprocedure.cpp
+	"CommandProcedure.h"
+
+1410727781 e:\arduino\kruppelbot2_0\commandprocedure.h
+	"Command.h"
+
+1412108257 source:e:\arduino\kruppelbot2_0\commandserialprint.cpp
+	"CommandSerialPrint.h"
+	<string.h>
+
+1410727835 e:\arduino\kruppelbot2_0\commandserialprint.h
+	"Command.h"
+
+1412968254 source:e:\arduino\kruppelbot2_0\commandwalkforward.cpp
+	"CommandWalkForward.h"
+
+1412972483 e:\arduino\kruppelbot2_0\commandwalkforward.h
+	"Command.h"
+
+1413036158 source:e:\arduino\kruppelbot2_0\leg.cpp
+	"Leg.h"
+
+1412885995 source:e:\arduino\kruppelbot2_0\servo.cpp
+	"Servo.h"
+
+1413063792 source:e:\arduino\kruppelbot2_0\kruppelbot2_0.ino
+	<Wire.h>
+	<Adafruit_PWMServoDriver.h>
+	"Servo.h"
+	"PeripheryContainer.h"
+	"Command.h"
+	"CommandMove.h"
+	"CommandProcedure.h"
+	"CommandSerialPrint.h"
+	"MovementWalk.h"
+	"MovementStandUp.h"
+
+1412975811 e:\arduino\kruppelbot2_0\commandlaydown.h
+	"Command.h"
+
+1413033616 source:e:\arduino\kruppelbot2_0\utils.c
+
+1412976131 source:e:\arduino\kruppelbot2_0\commandlaydown.cpp
+	"CommandLayDown.h"
+	"Utils.h"
+
+1413023144 e:\arduino\kruppelbot2_0\utils.h
+
+1413063764 source:e:\arduino\kruppelbot2_0\movementwalk.cpp
+	"MovementWalk.h"
+
+1413063994 e:\arduino\kruppelbot2_0\movementwalk.h
+	"Movement.h"
+	"Utils.h"
+
+1413026351 e:\arduino\kruppelbot2_0\movement.h
+
+1413034144 source:e:\arduino\kruppelbot2_0\commandmove.cpp
+	"CommandMove.h"
+
+1413031352 e:\arduino\kruppelbot2_0\commandmove.h
+	"Command.h"
+	"Movement.h"
+
+1412967620 e:\arduino\kruppelbot2_0\include\commandlaydown.h
+
+1413035465 source:e:\arduino\kruppelbot2_0\movementstandup.cpp
+	"MovementStandUp.h"
+
+1413063881 e:\arduino\kruppelbot2_0\movementstandup.h
+	"Movement.h"
+	"Utils.h"
+
