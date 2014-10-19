@@ -1,2 +1,4 @@
 Arduino/build-uno
 *~
+/Programmer/nbproject/private/
+/Programmer/build/
