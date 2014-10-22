@@ -13,8 +13,17 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    serialport.cpp \
+    gui.cpp \
+    controllerconnect.cpp \
+    controllerdisconnect.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    serialport.h \
+    serialportsettings.h \
+    gui.h \
+    controllerconnect.h \
+    controllerdisconnect.h
 
 FORMS    += mainwindow.ui

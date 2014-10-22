@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>424</width>
-    <height>399</height>
+    <width>588</width>
+    <height>514</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,37 +20,19 @@
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string>Program</string>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
-        <property name="bottomMargin">
-         <number>2</number>
-        </property>
         <item>
-         <widget class="QGroupBox" name="groupBox">
-          <property name="title">
-           <string>Program</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <property name="leftMargin">
-            <number>0</number>
-           </property>
-           <property name="topMargin">
-            <number>0</number>
-           </property>
-           <property name="rightMargin">
-            <number>0</number>
-           </property>
-           <property name="bottomMargin">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QTextEdit" name="textEdit"/>
-           </item>
-          </layout>
-         </widget>
+         <widget class="QTextEdit" name="editProgram"/>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="btnUpload">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Upload</string>
           </property>
@@ -62,53 +44,87 @@
        <property name="title">
         <string>Terminal</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_5">
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <widget class="QWidget" name="widgetTerminal" native="true">
-          <layout class="QVBoxLayout" name="verticalLayout">
-           <property name="leftMargin">
-            <number>0</number>
-           </property>
-           <property name="topMargin">
-            <number>0</number>
-           </property>
-           <property name="rightMargin">
-            <number>0</number>
-           </property>
-           <property name="bottomMargin">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QTextEdit" name="editOutput"/>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-              <widget class="QLineEdit" name="editSendMessage"/>
-             </item>
-             <item>
-              <widget class="QPushButton" name="btnSend">
-               <property name="text">
-                <string>Send</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>Port:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="editPort">
+              <property name="text">
+               <string>/dev/ttyACM0</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Bauderate:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="comboBoxBaudrate">
+              <property name="editable">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnConnect">
+              <property name="text">
+               <string>Connect</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnDisconnect">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>Disconnect</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="editOutput">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QLineEdit" name="editMessage">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnSend">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>Send</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -121,7 +137,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>424</width>
+     <width>588</width>
      <height>22</height>
     </rect>
    </property>
@@ -153,5 +169,45 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>btnConnect</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>clickConnect()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>531</x>
+     <y>292</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>293</x>
+     <y>256</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnDisconnect</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>clickDisconnect()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>531</x>
+     <y>292</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>293</x>
+     <y>256</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <signal>connect()</signal>
+  <signal>disconnect()</signal>
+  <slot>clickConnect()</slot>
+  <slot>onConnected(bool)</slot>
+  <slot>clickDisconnect()</slot>
+ </slots>
 </ui>
