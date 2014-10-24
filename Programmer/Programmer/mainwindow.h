@@ -25,6 +25,8 @@ private slots:
     void clickConnect();
     void clickDisconnect();
     void onConnectedChanged(bool established);
+    void onSerialRead(QString readString);
+
 signals:
     void connect(const struct SerialPortSettings settings);
     void disconnect();

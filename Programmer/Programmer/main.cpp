@@ -13,7 +13,8 @@ int main(int argc, char *argv[])
 
     // Model
     SerialPort serialPort;
-    QObject::connect(&serialPort, SIGNAL(onConnectedChanged(bool)), &w, SLOT(onConnectedChanged(bool)));
+    QObject::connect(&serialPort, SIGNAL(connectedChanged(bool)), &w, SLOT(onConnectedChanged(bool)));
+    QObject::connect(&serialPort, SIGNAL(serialRead(QString)), &w, SLOT(onSerialRead(QString)));
 
     // Controller
     ControllerConnect controllerConnect(&serialPort);

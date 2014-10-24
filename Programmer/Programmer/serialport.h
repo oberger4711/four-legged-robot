@@ -5,18 +5,21 @@
 #include <termios.h>
 #include <iostream>
 #include <unistd.h>
+#include <pthread.h>
 #include <stdio.h>
 #include <fcntl.h>
 #include <errno.h>
 #include "serialportsettings.h"
+#include "serialreaderthread.h"
 
 class SerialPort : public QObject
 {
     Q_OBJECT
 
 private:
-    struct SerialPortSettings* serialPortSettings;
     int fdPort;
+    struct SerialPortSettings* serialPortSettings;
+    SerialReaderThread* serialReaderThread;
 
 public:
     explicit SerialPort();
@@ -25,7 +28,12 @@ public:
     void disconnect();
 
 signals:
-    void onConnectedChanged(bool established);
+    void connectedChanged(bool established);
+    void serialRead(QString readString);
+
+public slots:
+    void onSerialRead(QString readString);
+    void onSerialReadThreadFinished();
 
 };
 

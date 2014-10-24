@@ -17,13 +17,15 @@ SOURCES += main.cpp\
     serialport.cpp \
     gui.cpp \
     controllerconnect.cpp \
-    controllerdisconnect.cpp
+    controllerdisconnect.cpp \
+    serialreaderthread.cpp
 
 HEADERS  += mainwindow.h \
     serialport.h \
     serialportsettings.h \
     gui.h \
     controllerconnect.h \
-    controllerdisconnect.h
+    controllerdisconnect.h \
+    serialreaderthread.h
 
 FORMS    += mainwindow.ui

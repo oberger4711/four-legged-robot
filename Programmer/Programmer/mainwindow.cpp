@@ -48,3 +48,8 @@ void MainWindow::setSerialPortControlsEnabled(bool connected)
     ui->editMessage->setEnabled(connected);
     ui->btnSend->setEnabled(connected);
 }
+
+void MainWindow::onSerialRead(QString readString)
+{
+    ui->editOutput->append(readString);
+}
