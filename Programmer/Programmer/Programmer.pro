@@ -15,17 +15,17 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     serialport.cpp \
-    gui.cpp \
     controllerconnect.cpp \
     controllerdisconnect.cpp \
-    serialreaderthread.cpp
+    serialreaderthread.cpp \
+    controllerserialwrite.cpp
 
 HEADERS  += mainwindow.h \
     serialport.h \
     serialportsettings.h \
-    gui.h \
     controllerconnect.h \
     controllerdisconnect.h \
-    serialreaderthread.h
+    serialreaderthread.h \
+    controllerserialwrite.h
 
 FORMS    += mainwindow.ui

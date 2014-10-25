@@ -8,7 +8,7 @@ SerialReaderThread::SerialReaderThread(int fdSerialPort) :
 void SerialReaderThread::run()
 {
     char readBuffer[BUFFER_SIZE];
-    ssize_t receivedBytes = read(fdSerialPort, readBuffer, BUFFER_SIZE);
+    ssize_t receivedBytes = read(fdSerialPort, readBuffer, BUFFER_SIZE); // TODO: Resolve deadlock
 
     if (receivedBytes > 0)
     {

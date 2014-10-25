@@ -8,6 +8,9 @@
 
 #define BUFFER_SIZE 255
 
+#define READ_VMIN 1
+#define READ_VTIME 3
+
 class SerialReaderThread : public QThread
 {
     Q_OBJECT

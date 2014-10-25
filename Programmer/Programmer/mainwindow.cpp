@@ -25,12 +25,19 @@ void MainWindow::clickConnect()
     settings.portname = ui->editPort->text();
     settings.baudrate = (speed_t)ui->comboBoxBaudrate->currentData().toUInt();
 
-    connect(settings);
+    ui->editOutput->setText("");
+    emit connect(settings);
 }
 
 void MainWindow::clickDisconnect()
 {
-    disconnect();
+    emit disconnect();
+}
+
+void MainWindow::clickSend()
+{
+    emit serialWrite(ui->editMessage->text());
+    ui->editMessage->setText("");
 }
 
 void MainWindow::onConnectedChanged(bool established)
@@ -51,5 +58,7 @@ void MainWindow::setSerialPortControlsEnabled(bool connected)
 
 void MainWindow::onSerialRead(QString readString)
 {
-    ui->editOutput->append(readString);
+    ui->editOutput->moveCursor(QTextCursor::End);
+    ui->editOutput->insertPlainText(readString);
+    ui->editOutput->moveCursor(QTextCursor::End);
 }

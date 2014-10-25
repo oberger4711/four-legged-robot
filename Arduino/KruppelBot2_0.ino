@@ -64,8 +64,16 @@ void executeCommand(Command& command)
 
 void loop()
 {
-    while (!Serial.available() <= 0);
     Serial.println("Begin of program.");
+    // TEST Simple serial echo
+    while (true) {
+        if (Serial.available()) {
+            byte readByte = Serial.read();
+            Serial.write(readByte);
+        }
+    }
+    
+    // END TEST
 	Serial.println("Initialize legs...");
 
 	PeripheryContainer periphery;

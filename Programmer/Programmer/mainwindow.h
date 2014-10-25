@@ -2,14 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "gui.h"
 #include "serialportsettings.h"
 
 namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow, public Gui
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
 private:
@@ -24,12 +23,15 @@ public:
 private slots:
     void clickConnect();
     void clickDisconnect();
+    void clickSend();
+
     void onConnectedChanged(bool established);
     void onSerialRead(QString readString);
 
 signals:
     void connect(const struct SerialPortSettings settings);
     void disconnect();
+    void serialWrite(QString writeString);
 };
 
 #endif // MAINWINDOW_H

@@ -2,6 +2,7 @@
 #include <QApplication>
 #include "controllerconnect.h"
 #include "controllerdisconnect.h"
+#include "controllerserialwrite.h"
 #include "serialport.h"
 #include "serialportsettings.h"
 
@@ -22,6 +23,9 @@ int main(int argc, char *argv[])
 
     ControllerDisconnect controllerDisconnect(&serialPort);
     QObject::connect(&w, SIGNAL(disconnect()), &controllerDisconnect, SLOT(disconnect()));
+
+    ControllerSerialWrite ControllerSerialWrite(&serialPort);
+    QObject::connect(&w, SIGNAL(serialWrite(QString)), &ControllerSerialWrite, SLOT(onSerialWrite(QString)));
 
     w.show();
 

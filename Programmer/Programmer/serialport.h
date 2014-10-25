@@ -26,6 +26,7 @@ public:
     void setSerialPortSettings(const struct SerialPortSettings& settings);
     void connect();
     void disconnect();
+    void serialWrite(QString writeString);
 
 signals:
     void connectedChanged(bool established);
