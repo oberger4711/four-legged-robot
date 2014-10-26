@@ -34,7 +34,6 @@ signals:
 
 public slots:
     void onSerialRead(QString readString);
-    void onSerialReadThreadFinished();
 
 };
 

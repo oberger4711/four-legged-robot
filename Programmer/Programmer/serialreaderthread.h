@@ -2,14 +2,12 @@
 #define SERIALREADERTHREAD_H
 
 #include <QThread>
+#include<QAtomicInt>
 #include <unistd.h>
 #include <iostream>
 #include <string.h>
 
 #define BUFFER_SIZE 255
-
-#define READ_VMIN 1
-#define READ_VTIME 3
 
 class SerialReaderThread : public QThread
 {
@@ -18,10 +16,13 @@ class SerialReaderThread : public QThread
     void run();
 
 private:
+    QAtomicInt keepRunning;
     int fdSerialPort;
 
 public:
     explicit SerialReaderThread(int fdSerialPort);
+    void start(Priority priority = InheritPriority);
+    void stop();
 
 signals:
     void resultReady(QString readString);

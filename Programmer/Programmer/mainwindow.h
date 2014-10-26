@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include "serialportsettings.h"
 
+#define OUTPUT_COLOR_RECEIVED "Black"
+#define OUTPUT_COLOR_CONNECTION "DarkGray"
+
 namespace Ui {
 class MainWindow;
 }
@@ -14,7 +17,7 @@ class MainWindow : public QMainWindow
 private:
     Ui::MainWindow *ui;
 
-    void setSerialPortControlsEnabled(bool connected);
+    void addOutputText(QString string, QString htmlColorName);
 
 public:
     explicit MainWindow(QWidget *parent = 0);

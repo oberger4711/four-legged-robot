@@ -42,23 +42,37 @@ void MainWindow::clickSend()
 
 void MainWindow::onConnectedChanged(bool established)
 {
-    setSerialPortControlsEnabled(established);
-}
+    ui->btnConnect->setEnabled(!established);
+    ui->btnDisconnect->setEnabled(established);
+    ui->editPort->setEnabled(!established);
+    ui->comboBoxBaudrate->setEnabled(!established);
+    ui->btnUpload->setEnabled(established);
+    ui->editMessage->setEnabled(established);
+    ui->btnSend->setEnabled(established);
 
-void MainWindow::setSerialPortControlsEnabled(bool connected)
-{
-    ui->btnConnect->setEnabled(!connected);
-    ui->btnDisconnect->setEnabled(connected);
-    ui->editPort->setEnabled(!connected);
-    ui->comboBoxBaudrate->setEnabled(!connected);
-    ui->btnUpload->setEnabled(connected);
-    ui->editMessage->setEnabled(connected);
-    ui->btnSend->setEnabled(connected);
+    QString outputString;
+    if (established)
+    {
+        outputString = "Connected";
+    }
+    else
+    {
+        outputString = "Not Connected";
+    }
+    addOutputText(" - " + outputString + " - \n", OUTPUT_COLOR_CONNECTION);
 }
 
 void MainWindow::onSerialRead(QString readString)
 {
+    addOutputText(readString, OUTPUT_COLOR_RECEIVED);
+}
+
+
+void MainWindow::addOutputText(QString string, QString htmlColorName)
+{
+    string.replace("\n", "<br>");
+    QString insertString = "<font color=\"" + htmlColorName + "\">" + string + "</font>";
     ui->editOutput->moveCursor(QTextCursor::End);
-    ui->editOutput->insertPlainText(readString);
+    ui->editOutput->insertHtml(insertString);
     ui->editOutput->moveCursor(QTextCursor::End);
 }

@@ -65,12 +65,12 @@ void executeCommand(Command& command)
 void loop()
 {
     Serial.println("Begin of program.");
-    // TEST Serial echo
+    // TEST Simple serial echo
     while (true) {
-        if (Serial.available()) {
-            byte readByte = Serial.read();
-            Serial.write(readByte);
-        }
+//        if (Serial.available()) {
+//            byte readByte = Serial.read();
+//            Serial.write(readByte);
+//        }
     }
     
     // END TEST
