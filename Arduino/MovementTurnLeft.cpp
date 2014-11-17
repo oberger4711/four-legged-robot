@@ -16,6 +16,7 @@ LegState MovementTurnLeft::getLegStateBr(const unsigned int execTimeElapsedInMs)
     LegState res = mvWalkForward->getLegStateBr(execTimeElapsedInMs);
     return res;
 }
+
 LegState MovementTurnLeft::getLegStateBl(const unsigned int execTimeElapsedInMs)
 {
     LegState res = mvWalkForward->getLegStateBl(execTimeElapsedInMs);

@@ -14,6 +14,14 @@ public:
 	Leg* legBL;
 	Leg* legFR;
 	Leg* legFL;
+	
+	~PeripheryContainer()
+	{
+	    delete legBR;
+	    delete legBL;
+	    delete legFR;
+	    delete legFL;
+	}
 };
 
 #endif

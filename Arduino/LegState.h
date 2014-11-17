@@ -2,7 +2,7 @@
 #define LegState_h
 
 const static unsigned int ANGLE_X_LAY_DOWN = 120;
-const static unsigned int ANGLE_X_REPOSITION = 105;
+const static unsigned int ANGLE_X_REPOSITION = 120;
 const static unsigned int ANGLE_X_STAND = 90;
 
 const static unsigned int ANGLE_Y_STAND = 90;

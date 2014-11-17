@@ -1,3 +1,6 @@
 Arduino/build-uno
 *~
 Programmer/build-Programmer-Desktop-Debug
+/Simulation/nbproject/private/
+/SimulationTests/nbproject/private/
+/Simulation/build/

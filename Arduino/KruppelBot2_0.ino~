@@ -65,15 +65,7 @@ void executeCommand(Command& command)
 void loop()
 {
     Serial.println("Begin of program.");
-    // TEST Simple serial echo
-    while (true) {
-//        if (Serial.available()) {
-//            byte readByte = Serial.read();
-//            Serial.write(readByte);
-//        }
-    }
     
-    // END TEST
 	Serial.println("Initialize legs...");
 
 	PeripheryContainer periphery;
@@ -100,35 +92,39 @@ void loop()
 	cmdPrint.update();
 
 	executeCommand(cmdStandUp);
-
-    for (int i = 0; i < 2; i++)
-    {
-        executeCommand(cmdTurnLeft);
-    }
-    delay(500);
-    for (int i = 0; i < 2; i++)
+	delay(200);
+	
+	for (int i = 0; i < 6; i++)
     {
         executeCommand(cmdWalkForward);
     }
-    delay(500);
+    delay(200);
 
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < 4; i++)
     {
-        executeCommand(cmdWalkBackward);
+        executeCommand(cmdTurnLeft);
     }
-    delay(500);
-    for (int i = 0; i < 2; i++)
+    delay(200);
+    
+    for (int i = 0; i < 4; i++)
     {
         executeCommand(cmdTurnRight);
     }
-
     delay(200);
-
+    
+    for (int i = 0; i < 2; i++)
+    {
+        executeCommand(cmdWalkBackward);
+    }
+    delay(200);
+    
     executeCommand(cmdLayDown);
     Serial.println("End of program.");
     
     delete mvLayDown;
     delete mvStandUp;
+    delete mvTurnRight;
+    delete mvTurnLeft;
     delete mvWalkBackward;
     delete mvWalkForward;
     

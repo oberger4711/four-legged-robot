@@ -1,0 +1,8 @@
+{
+    walkForward;
+    turnLeft;
+    walkForward;
+    walkForward;
+    turnRight;
+    print "finished";
+}

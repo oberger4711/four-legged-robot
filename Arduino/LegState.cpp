@@ -29,5 +29,5 @@ unsigned int LegState::getRotationY()
 }
 void LegState::setRotationY(const unsigned int rotationY)
 {
-    this->rotationY;
+    this->rotationY = rotationY;
 }
