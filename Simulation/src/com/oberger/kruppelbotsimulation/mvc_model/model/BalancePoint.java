@@ -4,6 +4,8 @@ import com.oberger.kruppelbotsimulation.util.*;
 import java.util.List;
 
 public class BalancePoint {
+    
+    private final static float ZERO_WEIGHT_THRESHOLD = 0.00001f;
 
     private Vector2 globalPosition;
     private Vector2 offsetPosition;
@@ -15,6 +17,9 @@ public class BalancePoint {
     public BalancePoint(Vector2 offsetPosition, float offsetRotation, boolean counterClockwise, float weight) {
         if (offsetPosition == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+        }
+        if (weight < ZERO_WEIGHT_THRESHOLD) {
+            throw new IllegalArgumentException("Weight must be higher than " + ZERO_WEIGHT_THRESHOLD);
         }
         this.offsetPosition = new Vector2(offsetPosition);
         this.offsetRotation = offsetRotation;
@@ -39,7 +44,6 @@ public class BalancePoint {
             weightSum += balancePoint.getWeight();
             weightedOffsetPositionMean.add(balancePoint.getOffsetPosition().scale(balancePoint.getWeight()));
         }
-        // TODO: what if weightSum == 0?
         weightedOffsetPositionMean.scale(1f / weightSum);
         // TODO: counterclockwise berücksichtigen, 
         BalancePoint result = new BalancePoint(weightedOffsetPositionMean, 0, true, weightSum);

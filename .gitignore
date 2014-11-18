@@ -4,3 +4,5 @@ Programmer/build-Programmer-Desktop-Debug
 /Simulation/nbproject/private/
 /SimulationTests/nbproject/private/
 /Simulation/build/
+/Documents/*.working
+/Documents/*.vpp~*

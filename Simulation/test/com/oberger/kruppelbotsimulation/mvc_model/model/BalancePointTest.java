@@ -37,14 +37,21 @@ public class BalancePointTest {
     public void constructor_OnPassNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
         
-        createBalancePoint(null, 0, true, 0f);
+        createBalancePoint(null, 0, true, 1);
+    }
+    
+    @Test
+    public void contructor_OnPassWeightZero_ThrowsIllegalArgumentException() {
+        exception.expect(IllegalArgumentException.class);
+        
+        createBalancePoint(new Vector2(2, 2), 0, true, 0);
     }
 
     @Test
     public void constructor_OnCall_CopiesVectorParameter() {
         Vector2 offsetPosition = new Vector2(1, 2);
 
-        BalancePoint balancePoint = createBalancePoint(offsetPosition, 0, true, 0);
+        BalancePoint balancePoint = createBalancePoint(offsetPosition, 0, true, 1);
         offsetPosition.setX(2);
 
         assertFalse(Math.abs(2f - balancePoint.getOffsetPosition().getX()) < 0.001f);
@@ -53,7 +60,7 @@ public class BalancePointTest {
 
     @Test
     public void constructor_ByDefault_GlobalPositionIsOffsetPosition() {
-        BalancePoint balancePoint = createBalancePoint(new Vector2(1, 2), 0, true, 0);
+        BalancePoint balancePoint = createBalancePoint(new Vector2(1, 2), 0, true, 1);
 
         Vector2 globalPosition = balancePoint.getGlobalPosition();
 
@@ -62,7 +69,7 @@ public class BalancePointTest {
 
     @Test
     public void constructor_ByDefault_GloblaRotationIsOffsetPosition() {
-        BalancePoint balancePoint = createBalancePoint(new Vector2(1, 2), 12, true, 0);
+        BalancePoint balancePoint = createBalancePoint(new Vector2(1, 2), 12, true, 1);
 
         float globalRotation = balancePoint.getGlobalRotation();
 
