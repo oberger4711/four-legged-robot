@@ -6,6 +6,8 @@ package com.oberger.kruppelbotsimulation.util;
  * @author ole
  */
 public class Vector2 {
+    
+    private final static float EQUALS_THRESHOLD = 0.00001f;
 
     private float x = 0;
     private float y = 0;
@@ -101,12 +103,20 @@ public class Vector2 {
         boolean result;
         if (obj instanceof Vector2) {
             Vector2 objAsVector = (Vector2) obj;
-            result = (x == objAsVector.x && y == objAsVector.y);
+            result = ((Math.abs(objAsVector.getX() - x) < EQUALS_THRESHOLD) && (Math.abs(objAsVector.getY() - y) < EQUALS_THRESHOLD));
         } else {
             result = super.equals(obj);
         }
         
         return result;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Float.floatToIntBits(this.x);
+        hash = 79 * hash + Float.floatToIntBits(this.y);
+        return hash;
     }
 
 }

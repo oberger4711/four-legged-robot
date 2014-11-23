@@ -19,7 +19,7 @@ public class Vector2Test {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private Vector2 createVector2(float x, float y) {
+    private static Vector2 createVector2(float x, float y) {
         return new Vector2(x, y);
     }
 
