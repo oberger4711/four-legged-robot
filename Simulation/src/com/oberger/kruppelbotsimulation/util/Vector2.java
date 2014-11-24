@@ -49,6 +49,10 @@ public class Vector2 {
         this.x = x;
         this.y = y;
     }
+    
+    public void set(Vector2 vector) {
+        set(vector.getX(), vector.getY());
+    }
 
     /**
      * Returns the sum of the two vectors. Does not modify this vector but
@@ -95,6 +99,19 @@ public class Vector2 {
         x = x * factor;
         y = y * factor;
 
+        return this;
+    }
+    
+    public Vector2 rotate(Vector2 center, float degreesCC) {
+        if (center == null) {
+            throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+        }
+        double radiansCC = Math.toRadians(degreesCC);
+        double rotatedX = Math.cos(radiansCC) * (x - center.getX()) - Math.sin(radiansCC) * (y - center.getY()) + center.getX();
+        double rotatedY = Math.sin(radiansCC * (x - center.getX())) + Math.cos(radiansCC) * (y - center.getY()) + center.getY();
+        x = (float)rotatedX;
+        y = (float)rotatedY;
+        
         return this;
     }
 

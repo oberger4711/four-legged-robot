@@ -103,6 +103,44 @@ public class Vector2Test {
     }
     
     @Test
+    public void rotate_OnPassNull_ThrowsIllegalArgumentsException() {
+        Vector2 v1 = createVector2(1, 2);
+        
+        exception.expect(IllegalArgumentException.class);
+        
+        v1.rotate(null, 0f);
+    }
+    
+    @Test
+    public void rotate_OnCall_ReturnsSelf() {
+        Vector2 v1 = createVector2(1, 2);
+        
+        Vector2 result = v1.rotate(new Vector2(), 0f);
+        
+        assertTrue(v1 == result);
+    }
+    
+    @Test
+    public void rotate_OnPassDegrees180_RotatesBy180Degrees() {
+        Vector2 v1 = createVector2(1, 2);
+        
+        Vector2 result = v1.rotate(new Vector2(), 180);
+        
+        assertEquals(-1, result.getX(), 0.0001);
+        assertEquals(-2, result.getY(), 0.0001);
+    }
+    
+    @Test
+    public void rotate_OnPassDegrees90_RotatesBy90DegreesCC() {
+        Vector2 v1 = createVector2(1, 2);
+        
+        Vector2 result = v1.rotate(new Vector2(), 90);
+        
+        assertEquals(-2, result.getX(), 0.0001);
+        assertEquals(1, result.getY(), 0.0001);
+    }
+    
+    @Test
     public void equals_OnPassVector2WithSameCoordinates_ReturnsTrue() {
         Vector2 v1 = createVector2(0.123f, 0.123f);
         Vector2 v2 = createVector2(0.123f, 0.123f);
