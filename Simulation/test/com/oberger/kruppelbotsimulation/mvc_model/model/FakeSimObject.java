@@ -11,13 +11,21 @@ import com.oberger.kruppelbotsimulation.util.Weight;
 
 public class FakeSimObject extends SimObject {
 
+    private boolean updateCalled = false;
     private boolean updateChildsCalled = false;
     
     public FakeSimObject(Vector2 offsetPosition, Weight offsetWeight, Rotation offsetRotation) {
         super(offsetPosition, offsetWeight, offsetRotation);
+        updateCalled = false;
         updateChildsCalled = false;
     }
 
+    @Override
+    public void update() {
+        super.update();
+        updateCalled = true;
+    }
+    
     @Override
     protected void updateChilds() {
         updateChildsCalled = true;
@@ -25,7 +33,7 @@ public class FakeSimObject extends SimObject {
 
     @Override
     public BalancePoint getGlobalBalancePoint() {
-        return new BalancePoint(new Vector2(), new Weight());
+        return new BalancePoint(getGlobalPosition(), getGlobalWeight());
     }
 
     @Override
@@ -43,6 +51,10 @@ public class FakeSimObject extends SimObject {
         return super.getOffsetRotation();
     }
 
+    public boolean isUpdateCalled() {
+        return updateCalled;
+    }
+    
     public boolean isUpdateChildsCalled() {
         return updateChildsCalled;
     }
