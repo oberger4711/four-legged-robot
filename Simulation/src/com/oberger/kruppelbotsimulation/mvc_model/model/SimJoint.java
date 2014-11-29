@@ -1,7 +1,10 @@
 package com.oberger.kruppelbotsimulation.mvc_model.model;
 
-import java.util.*;
-import com.oberger.kruppelbotsimulation.util.*;
+import com.oberger.kruppelbotsimulation.util.Rotation;
+import com.oberger.kruppelbotsimulation.util.Vector2;
+import com.oberger.kruppelbotsimulation.util.Weight;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A composite {@link SimObject} with zero weight that can be rotated.

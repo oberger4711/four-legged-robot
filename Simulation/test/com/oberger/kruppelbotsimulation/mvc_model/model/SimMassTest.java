@@ -12,6 +12,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.Mockito;
 
 /**
  *
@@ -26,8 +27,12 @@ public class SimMassTest {
         return new SimMass(offsetPosition, offsetWeight);
     }
     
-    private static FakeParentSimObject createFakeParentSimObject(Vector2 globalPosition, Rotation globalRotation) {
-        return new FakeParentSimObject(globalPosition, globalRotation);
+    private static IParentSimObject createFakeParentSimObject(Vector2 globalPosition, Rotation globalRotation) {
+        IParentSimObject fakeParentSimObject = Mockito.mock(IParentSimObject.class);
+        Mockito.doReturn(globalPosition).when(fakeParentSimObject).getGlobalPosition();
+        Mockito.doReturn(globalRotation).when(fakeParentSimObject).getGlobalRotation();
+        
+        return fakeParentSimObject;
     }
 
     @Test
@@ -57,7 +62,7 @@ public class SimMassTest {
 
     @Test
     public void getBalancePoint_AfterUpdate_UsesUpdatedGlobalPosition() {
-        FakeParentSimObject parent = createFakeParentSimObject(new Vector2(1, 2), new Rotation(0, true));
+        IParentSimObject parent = createFakeParentSimObject(new Vector2(1, 2), new Rotation(0, true));
         SimMass simMass = createSimMass(new Vector2(2, 4), new Weight(5));
         simMass.setParent(parent);
         

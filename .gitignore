@@ -6,3 +6,4 @@ Programmer/build-Programmer-Desktop-Debug
 /Simulation/build/
 /Documents/*.working
 /Documents/*.vpp~*
+/Simulation/dist/

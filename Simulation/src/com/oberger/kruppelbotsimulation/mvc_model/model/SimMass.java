@@ -1,6 +1,8 @@
 package com.oberger.kruppelbotsimulation.mvc_model.model;
 
-import com.oberger.kruppelbotsimulation.util.*;
+import com.oberger.kruppelbotsimulation.util.Rotation;
+import com.oberger.kruppelbotsimulation.util.Vector2;
+import com.oberger.kruppelbotsimulation.util.Weight;
 
 public class SimMass extends SimObject {
 
