@@ -1,9 +1,15 @@
 package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-public class State implements IEvaluatable, IManipulatable {
+/**
+ * Represent a state that can be optimized and evaluated using a heuristic.
+ * @author ole
+ * @param <T> The type of the neighbour {@link State}.
+ */
+public class State<T extends State<T>> implements IEvaluatable, IManipulatable<T> {
 
     private List<WeightedEvaluatable> weightedEvaluatables = null;
     private List<IManipulatable> manipulatables = null;
@@ -39,14 +45,29 @@ public class State implements IEvaluatable, IManipulatable {
 
     @Override
     public float getScore() {
-        // TODO
-        throw new UnsupportedOperationException();
+        if (weightedEvaluatables.isEmpty()) {
+            throw new IllegalStateException("No WeightedEvaluatables added.");
+        }
+        float weightedScore = 0;
+        float weightSum = 0;
+        
+        for (WeightedEvaluatable weightedEvaluatable : weightedEvaluatables) {
+            weightedScore += weightedEvaluatable.getScore() * weightedEvaluatable.getWeight();
+            weightSum += weightedEvaluatable.getWeight();
+        }
+        weightedScore /= weightSum;
+        
+        return weightedScore;
     }
 
     @Override
-    public List<State> getNeighbours() {
-        // TODO - implement State.getNeighbours
-        throw new UnsupportedOperationException();
+    public List<T> getNeighbours() {
+        List<T> neighbours = new LinkedList<>();
+        for (IManipulatable<T> manipulatable : manipulatables) {
+            neighbours.addAll(manipulatable.getNeighbours());
+        }
+        
+        return neighbours;
     }
 
     public int getGeneration() {

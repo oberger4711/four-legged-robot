@@ -1,15 +1,22 @@
 package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
 
-public abstract class LocalSearchAlgorithm {
+import java.util.List;
 
-    private State currentState;
-    private ExitCriterium exitCriterium;
+public abstract class LocalSearchAlgorithm<T extends State> {
 
-    public State run(State startState, ExitCriterium exitCriterium) {
-        // TODO - implement LocalSearchAlgorithm.run
-        throw new UnsupportedOperationException();
+    public T run(T startState, IExitCriterium exitCriterium) {
+        if (startState == null || exitCriterium == null) {
+            throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+        }
+        T currentState = startState;
+        List<T> neighbours = null;
+        while (!(neighbours = currentState.getNeighbours()).isEmpty() && !exitCriterium.isFinishState(currentState)) {
+            currentState = getNextState(neighbours);
+        }
+
+        return currentState;
     }
 
-    public abstract State getNextState(State currentState);
+    abstract T getNextState(List<T> neighbours);
 
 }

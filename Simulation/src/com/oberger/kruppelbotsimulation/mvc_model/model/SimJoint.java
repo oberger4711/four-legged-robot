@@ -25,6 +25,9 @@ public class SimJoint extends SimObject implements IParentSimObject {
 
     @Override
     public BalancePoint getGlobalBalancePoint() {
+        if (childs.isEmpty()) {
+            throw new IllegalStateException("No childs are added.");
+        }
         List<BalancePoint> childBalancePoints = new ArrayList<>();
         for (SimObject child : childs) {
             childBalancePoints.add(child.getGlobalBalancePoint());

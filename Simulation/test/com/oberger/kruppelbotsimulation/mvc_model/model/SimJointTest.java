@@ -60,8 +60,17 @@ public class SimJointTest {
     @Test
     public void constructor_OnCall_SetsWeightZero() {
         SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true));
-
+        
         assertTrue(simJoint.getOffsetWeight().isZero());
+    }
+    
+    @Test
+    public void getBalancePoint_WithoutSimMassChilds_ThrowsIllegalStateException() {
+        SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true));
+        
+        exception.expect(IllegalStateException.class);
+        
+        simJoint.getGlobalBalancePoint();
     }
 
     @Test
