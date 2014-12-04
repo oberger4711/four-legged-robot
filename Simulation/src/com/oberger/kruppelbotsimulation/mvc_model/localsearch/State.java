@@ -6,72 +6,103 @@ import java.util.List;
 
 /**
  * Represent a state that can be optimized and evaluated using a heuristic.
+ *
  * @author ole
- * @param <T> The type of the neighbour {@link State}.
+ * @param <T> The type of the object in this state.
  */
-public class State<T extends State<T>> implements IEvaluatable, IManipulatable<T> {
+public class State<T extends IImmutableInnerState<T>> {
 
-    private List<WeightedEvaluatable> weightedEvaluatables = null;
-    private List<IManipulatable> manipulatables = null;
     private int generation = 0;
-    
-    State(int generation, List<WeightedEvaluatable> weightedEvaluatables, List<IManipulatable> manipulatables) {
-        if (weightedEvaluatables == null || manipulatables == null) {
+    private T innerState = null;
+    private List<WeightedEvaluator<T>> weightedEvaluators = null;
+    private List<IManipulator<T>> manipulators = null;
+    private Float scoreCache = null;
+    private List<State<T>> neighboursCache = null;
+
+    State(int generation, T innerState, List<WeightedEvaluator<T>> weightedEvaluators, List<IManipulator<T>> manipulators) {
+        if (weightedEvaluators == null || manipulators == null || innerState == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+        }
+        if (weightedEvaluators.isEmpty()) {
+            throw new IllegalArgumentException("Passing empty weightedEvaluators is not allowed.");
+        }
+        if (manipulators.isEmpty()) {
+            throw new IllegalArgumentException("Passing empty manipulators is not allowed");
         }
         this.generation = generation;
-        this.weightedEvaluatables = weightedEvaluatables;
-        this.manipulatables = manipulatables;
-    }
-    
-    protected State(int generation) {
-        this(generation, new ArrayList<>(), new ArrayList<>());
-    }
-    
-    public State() {
-        this(0);
-    }
-    
-    protected void addWeightedEvaluatable(WeightedEvaluatable weightedEvaluatable) {
-        if (weightedEvaluatable == null) {
-            throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
-        }
-        weightedEvaluatables.add(weightedEvaluatable);
-    }
-    
-    protected void addManipulatable(IManipulatable manipulatable) {
-        manipulatables.add(manipulatable);
+        this.innerState = innerState;
+        this.weightedEvaluators = new ArrayList<>(weightedEvaluators);
+        this.manipulators = new ArrayList<>(manipulators);
+        scoreCache = null;
+
     }
 
-    @Override
+    protected State(int generation, T innerState) {
+        this(generation, innerState, new ArrayList<>(), new ArrayList<>());
+    }
+
+    public State(T innerState) {
+        this(0, innerState);
+    }
+
     public float getScore() {
-        if (weightedEvaluatables.isEmpty()) {
-            throw new IllegalStateException("No WeightedEvaluatables added.");
+        float score;
+        if (scoreCache == null) {
+            score = createEvaluatedScore();
+            scoreCache = score;
+        }
+        else {
+            score = scoreCache;
+        }
+
+        return score;
+    }
+    
+    private float createEvaluatedScore() {
+        if (weightedEvaluators.isEmpty()) {
+            throw new IllegalStateException("No WeightedEvaluators added.");
         }
         float weightedScore = 0;
         float weightSum = 0;
-        
-        for (WeightedEvaluatable weightedEvaluatable : weightedEvaluatables) {
-            weightedScore += weightedEvaluatable.getScore() * weightedEvaluatable.getWeight();
-            weightSum += weightedEvaluatable.getWeight();
+
+        for (WeightedEvaluator weightedEvaluator : weightedEvaluators) {
+            weightedScore += weightedEvaluator.getScore(innerState) * weightedEvaluator.getWeight();
+            weightSum += weightedEvaluator.getWeight();
         }
         weightedScore /= weightSum;
         
         return weightedScore;
     }
 
-    @Override
-    public List<T> getNeighbours() {
-        List<T> neighbours = new LinkedList<>();
-        for (IManipulatable<T> manipulatable : manipulatables) {
-            neighbours.addAll(manipulatable.getNeighbours());
+    public List<State<T>> getNeighbours() {
+        List<State<T>> neighbourStates = null;
+        if (neighboursCache == null) {
+            neighbourStates = createManipulatedNeighbours();
+            neighboursCache = neighbourStates;
+        } else {
+            neighbourStates = neighboursCache;
+        }
+
+        return neighbourStates;
+    }
+
+    private List<State<T>> createManipulatedNeighbours() {
+        List<State<T>> neighbourStates = new LinkedList<>();
+        for (IManipulator<T> manipulator : manipulators) {
+            T manipulatedInnerState = manipulator.manipulateCopy(innerState);
+            State<T> newNeighbourState = new State<>(generation + 1, manipulatedInnerState, weightedEvaluators, manipulators);
+            neighbourStates.add(newNeighbourState);
         }
         
-        return neighbours;
+        return neighbourStates;
     }
 
     public int getGeneration() {
         return generation;
+    }
+
+    public T getInnerState() {
+        return innerState;
     }
     
 }

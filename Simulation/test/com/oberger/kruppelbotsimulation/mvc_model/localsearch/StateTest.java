@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,127 +29,179 @@ public class StateTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private State createState() {
-        return new State();
+    private State createState(int generation, IImmutableInnerState innerState, List<WeightedEvaluator> weightedEvaluators, List<IManipulator> manipulators) {
+        return new State(generation, innerState, weightedEvaluators, manipulators);
     }
 
-    private State createState(int generation, List<WeightedEvaluatable> weightedEvaluatables, List<IManipulatable> manipulatables) {
-        return new State(generation, weightedEvaluatables, manipulatables);
+    private IImmutableInnerState createFakeInnerState(IImmutableInnerState copyToReturn) {
+        IImmutableInnerState fakeInnerState = Mockito.mock(IImmutableInnerState.class);
+        Mockito.doReturn(copyToReturn).when(fakeInnerState).getCopy();
+
+        return fakeInnerState;
     }
 
-    private WeightedEvaluatable createFakeWeightedEvaluatable(float score, float scoreWeight) {
-        WeightedEvaluatable fakeWeightedEvaluatable = Mockito.mock(WeightedEvaluatable.class);
-        Mockito.doReturn(score).when(fakeWeightedEvaluatable).getScore();
-        Mockito.doReturn(scoreWeight).when(fakeWeightedEvaluatable).getWeight();
+    private WeightedEvaluator createFakeWeightedEvaluator(IImmutableInnerState evaluatable, float score, float scoreWeight) {
+        WeightedEvaluator fakeWeightedEvaluator = Mockito.mock(WeightedEvaluator.class);
+        Mockito.doReturn(score).when(fakeWeightedEvaluator).getScore(evaluatable);
+        Mockito.doReturn(scoreWeight).when(fakeWeightedEvaluator).getWeight();
 
-        return fakeWeightedEvaluatable;
+        return fakeWeightedEvaluator;
     }
-    
-    private IManipulatable createFakeManipulatable(State... neighbours) {
-        IManipulatable fakeManipulatable = Mockito.mock(IManipulatable.class);
-        Mockito.doReturn(Arrays.asList(neighbours)).when(fakeManipulatable).getNeighbours();
-        
-        return fakeManipulatable;
+
+    private IManipulator createFakeManipulator(IImmutableInnerState parameter, IImmutableInnerState manipulatedParameterCopy) {
+        IManipulator fakeManipulator = Mockito.mock(IManipulator.class);
+        Mockito.doReturn(manipulatedParameterCopy).when(fakeManipulator).manipulateCopy(parameter);
+
+        return fakeManipulator;
+    }
+
+    private List<WeightedEvaluator> createDummyWeightedEvaluators() {
+        WeightedEvaluator fakeWeightedEvaluator = Mockito.mock(WeightedEvaluator.class);
+        return new ArrayList(Arrays.asList(fakeWeightedEvaluator));
+    }
+
+    private List<IManipulator> createDummyManipulators() {
+        return new ArrayList(Arrays.asList(createFakeManipulator(null, null)));
     }
 
     @Test
-    public void constructor_OnPassEvaluatablesNull_ThrowsIllegalArgumentException() {
+    public void constructor_OnPassInnerStateNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
 
-        State state = createState(0, null, Collections.<IManipulatable>emptyList());
+        createState(0, null, createDummyWeightedEvaluators(), createDummyManipulators());
     }
 
     @Test
-    public void constructor_OnPassManipulatablesNull_ThrowsIllegalArgumentException() {
+    public void constructor_OnPassWeightedEvaluatorsNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
 
-        State state = createState(0, Collections.<WeightedEvaluatable>emptyList(), null);
+        createState(0, createFakeInnerState(null), null, createDummyManipulators());
     }
 
     @Test
-    public void addEvaluatable_OnPassNull_ThrowsIllegalArgumentException() {
-        State state = createState();
-
+    public void constructor_OnPassEmptyWeightedEvaluators_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
 
-        state.addWeightedEvaluatable(null);
+        createState(0, createFakeInnerState(null), Collections.<WeightedEvaluator>emptyList(), createDummyManipulators());
     }
 
     @Test
-    public void addEvaluatable_OnCall_AddsToEvaluatableList() {
-        List<WeightedEvaluatable> weightedEvaluatables = new ArrayList<>();
-        State state = createState(0, weightedEvaluatables, Collections.<IManipulatable>emptyList());
-        WeightedEvaluatable fakeWeightedEvaluatable = createFakeWeightedEvaluatable(1, 1);
+    public void constructor_OnPassManipulatorsNull_ThrowsIllegalArgumentException() {
+        exception.expect(IllegalArgumentException.class);
 
-        state.addWeightedEvaluatable(fakeWeightedEvaluatable);
+        createState(0, createFakeInnerState(null), createDummyWeightedEvaluators(), null);
+    }
+
+    @Test
+    public void constructor_OnPassEmptyManipulators_ThrowsIllegalArgumentException() {
+        exception.expect(IllegalArgumentException.class);
+
+        createState(0, createFakeInnerState(null), createDummyWeightedEvaluators(), Collections.emptyList());
     }
     
     @Test
-    public void getScore_WithoutEvaluatables_ThrowsIllegalStateException() {
-        State state = createState();
+    public void constructor_OnCall_CopiesWeightedEvaluators() {
+        List<WeightedEvaluator> weightedEvaluatorsPassedInConstructor = createDummyWeightedEvaluators();
         
-        exception.expect(IllegalStateException.class);
-        state.getScore();
+        State state = createState(0, createFakeInnerState(null), weightedEvaluatorsPassedInConstructor, createDummyManipulators());
+        
+        weightedEvaluatorsPassedInConstructor.clear(); // This should not clear the copied list.
+        state.getScore(); // No exception should be thrown.
     }
     
     @Test
-    public void getScore_WithOneWeightedEvaluatable_ReturnsWeightedEvaluatableScore() {
-        State state = createState();
-        state.addWeightedEvaluatable(createFakeWeightedEvaluatable(12, 1));
+    public void constructor_OnCall_CopiesManipulators() {
+        IImmutableInnerState innerState = createFakeInnerState(null);
+        List<IManipulator> manipulatorsPassedInConstructor = new ArrayList<>(Arrays.asList(createFakeManipulator(innerState, createFakeInnerState(null))));
         
+        State state = createState(0, innerState, createDummyWeightedEvaluators(), manipulatorsPassedInConstructor);
+        
+        manipulatorsPassedInConstructor.clear(); // This should not clear the copied list.
+        state.getNeighbours(); // No exception should be thrown.
+    }
+
+    @Test
+    public void getScore_WithOneWeightedEvaluator_ReturnsWeightedEvaluatorScore() {
+        IImmutableInnerState fakeInnerState = createFakeInnerState(null);
+        List<WeightedEvaluator> weightedEvaluators = Arrays.asList(createFakeWeightedEvaluator(fakeInnerState, 0.7f, 1));
+        State state = createState(0, fakeInnerState, weightedEvaluators, createDummyManipulators());
+
         float returnedScore = state.getScore();
-        
-        assertEquals(12, returnedScore, 0.0001f);
+
+        assertEquals(0.7f, returnedScore, 0.0001f);
     }
-    
+
     @Test
-    public void getScore_WithTwoWeightedEvaluatables_ReturnsWeightedScoreMean() {
-        State state = createState();
-        state.addWeightedEvaluatable(createFakeWeightedEvaluatable(1, 1));
-        state.addWeightedEvaluatable(createFakeWeightedEvaluatable(2, 2));
-        
+    public void getScore_WithTwoWeightedEvaluators_ReturnsWeightedScoreMean() {
+        IImmutableInnerState fakeInnerState = createFakeInnerState(null);
+        List<WeightedEvaluator> weightedEvaluators = new ArrayList<>();
+        weightedEvaluators.add(createFakeWeightedEvaluator(fakeInnerState, 1, 1));
+        weightedEvaluators.add(createFakeWeightedEvaluator(fakeInnerState, 2, 2));
+        State state = createState(0, fakeInnerState, weightedEvaluators, createDummyManipulators());
+
         float returnedWeightedScore = state.getScore();
-        
+
         assertEquals(1.66667, returnedWeightedScore, 0.0001f);
     }
-    
+
     @Test
-    public void getScore_WithThreeWeightedEvaluatables_ReturnWeightedScoreMean() {
-        State state = createState();
-        state.addWeightedEvaluatable(createFakeWeightedEvaluatable(1, 0.5f));
-        state.addWeightedEvaluatable(createFakeWeightedEvaluatable(2, 2f));
-        state.addWeightedEvaluatable(createFakeWeightedEvaluatable(3, 0.5f));
-        
+    public void getScore_WithThreeWeightedEvaluators_ReturnWeightedScoreMean() {
+        IImmutableInnerState fakeInnerState = createFakeInnerState(null);
+        List<WeightedEvaluator> weightedEvaluators = new ArrayList<>();
+        weightedEvaluators.add(createFakeWeightedEvaluator(fakeInnerState, 1, 0.5f));
+        weightedEvaluators.add(createFakeWeightedEvaluator(fakeInnerState, 2, 2f));
+        weightedEvaluators.add(createFakeWeightedEvaluator(fakeInnerState, 3, 0.5f));
+        State state = createState(0, fakeInnerState, weightedEvaluators, createDummyManipulators());
+
         float returnedWeightedScore = state.getScore();
-        
+
         assertEquals(2, returnedWeightedScore, 0.0001f);
     }
-    
+
     @Test
-    public void getNeighbours_WithoutManipulatables_ReturnsEmptyList() {
-        State state = createState();
-        
-        List<State> states = state.getNeighbours();
-        
-        assertTrue(states.isEmpty());
+    public void getScore_OnSecondCall_UsesCacheAndReturnsSameValue() {
+        IImmutableInnerState fakeInnerState = createFakeInnerState(null);
+        WeightedEvaluator fakeWeightedEvaluator = createFakeWeightedEvaluator(fakeInnerState, 12, 1);
+        State state = createState(0, fakeInnerState, Arrays.asList(fakeWeightedEvaluator), createDummyManipulators());
+
+        float uncachedScore = state.getScore();
+        Mockito.verify(fakeWeightedEvaluator, Mockito.times(1)).getScore(fakeInnerState);
+
+        float cachedScore = state.getScore();
+        Mockito.verify(fakeWeightedEvaluator, Mockito.times(1)).getScore(fakeInnerState);
+
+        assertEquals(uncachedScore, cachedScore, 0.00001f);
     }
-    
+
     @Test
-    public void getNeighbours_WithManipulatables_ReturnsUnitedListed() {
-        State<State> state = createState();
-        State neighbourState1 = createState();
-        State neighbourState2 = createState();
-        State neighbourState3 = createState();
-        
-        IManipulatable fakeManipulatable1 = createFakeManipulatable(neighbourState1, neighbourState2);
-        IManipulatable fakeManipulatable2 = createFakeManipulatable(neighbourState3);
-        state.addManipulatable(fakeManipulatable1);
-        state.addManipulatable(fakeManipulatable2);
-        
+    public void getNeighbours_WithManipulators_ReturnsUnitedListed() {
+        IImmutableInnerState fakeInnerState = createFakeInnerState(createFakeInnerState(null));
+        IImmutableInnerState fakeNeighbourInnerState1 = createFakeInnerState(null);
+        IImmutableInnerState fakeNeighbourInnerState2 = createFakeInnerState(null);
+        IManipulator fakeManipulator1 = createFakeManipulator(fakeInnerState, fakeNeighbourInnerState1);
+        IManipulator fakeManipulator2 = createFakeManipulator(fakeInnerState, fakeNeighbourInnerState2);
+        List<IManipulator> manipulators = Arrays.asList(fakeManipulator1, fakeManipulator2);
+        State state = createState(0, fakeInnerState, createDummyWeightedEvaluators(), manipulators);
+
         List<State> resultNeighbours = state.getNeighbours();
-        
-        assertTrue(resultNeighbours.contains(neighbourState1));
-        assertTrue(resultNeighbours.contains(neighbourState2));
-        assertTrue(resultNeighbours.contains(neighbourState3));
+
+        assertTrue(resultNeighbours.stream().anyMatch(s -> s.getInnerState() == fakeNeighbourInnerState1));
+        assertTrue(resultNeighbours.stream().anyMatch(s -> s.getInnerState() == fakeNeighbourInnerState2));
+    }
+
+    @Test
+    public void getNeighbours_OnSecondCall_UsesCacheAndReturnsSameValue() {
+        IImmutableInnerState fakeInnerState = createFakeInnerState(createFakeInnerState(null));
+        IImmutableInnerState fakeNeighbourInnerState = createFakeInnerState(null);
+        IManipulator fakeManipulator = createFakeManipulator(fakeInnerState, fakeNeighbourInnerState);
+        State state = createState(0, fakeInnerState, createDummyWeightedEvaluators(), Arrays.asList(fakeManipulator));
+
+        List<State> uncachedNeighbours = state.getNeighbours();
+        Mockito.verify(fakeManipulator, Mockito.times(1)).manipulateCopy(fakeInnerState);
+
+        List<State> cachedNeighbours = state.getNeighbours();
+        Mockito.verify(fakeManipulator, Mockito.times(1)).manipulateCopy(fakeInnerState);
+
+        assertEquals(uncachedNeighbours, cachedNeighbours);
     }
 }

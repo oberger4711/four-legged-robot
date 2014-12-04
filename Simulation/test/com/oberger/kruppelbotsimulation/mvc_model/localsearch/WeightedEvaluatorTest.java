@@ -18,54 +18,56 @@ import org.mockito.runners.MockitoJUnitRunner;
  * @author ole
  */
 @RunWith(MockitoJUnitRunner.class)
-public class WeightedEvaluatableTest {
+public class WeightedEvaluatorTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private WeightedEvaluatable createWeightedEvaluatable(IEvaluatable decorated, float weight) {
-        return new WeightedEvaluatable(decorated, weight);
+    private WeightedEvaluator createWeightedEvaluator(IEvaluator decorated, float weight) {
+        return new WeightedEvaluator(decorated, weight);
     }
 
-    private IEvaluatable createFakeEvaluatable(float score) {
-        IEvaluatable evaluatableMock = Mockito.mock(IEvaluatable.class);
-        Mockito.when(evaluatableMock.getScore()).thenReturn(score);
+    private IEvaluator createFakeEvaluator(float score) {
+        IEvaluator fakeEvaluator = Mockito.mock(IEvaluator.class);
+        Mockito.when(fakeEvaluator.getScore(null)).thenReturn(score);
         
-        return evaluatableMock;
+        return fakeEvaluator;
     }
 
     @Test
     public void constructor_OnPassDecoratedNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
 
-        createWeightedEvaluatable(null, 1f);
+        createWeightedEvaluator(null, 1f);
     }
 
     @Test
     public void constructor_OnPassWeightUnderThreshold_ThrowsIllegalArgumentException() {
-        float illegalWeight = WeightedEvaluatable.MINIMAL_WEIGHT_THRESHOLD / 2f;
-        IEvaluatable evaluatable = createFakeEvaluatable(1);
+        float illegalWeight = WeightedEvaluator.MINIMAL_WEIGHT_THRESHOLD / 2f;
+        IEvaluator evaluator = createFakeEvaluator(1);
 
         exception.expect(IllegalArgumentException.class);
 
-        createWeightedEvaluatable(evaluatable, illegalWeight);
+        createWeightedEvaluator(evaluator, illegalWeight);
     }
 
     @Test
     public void constructor_OnCall_SetsWeight() {
         float weight = 0.5f;
-        IEvaluatable evaluatable = createFakeEvaluatable(0.2f);
-        WeightedEvaluatable weightedEvaluatable = createWeightedEvaluatable(evaluatable, weight);
+        IEvaluator evaluator = createFakeEvaluator(0.2f);
+        WeightedEvaluator weightedEvaluator = createWeightedEvaluator(evaluator, weight);
 
-        assertEquals(weight, weightedEvaluatable.getWeight(), 0.0001f);
+        assertEquals(weight, weightedEvaluator.getWeight(), 0.0001f);
     }
 
     @Test
     public void getScore_OnCall_ReturnsDecoratedScore() {
-        IEvaluatable evaluatable = createFakeEvaluatable(0.5f);
-        WeightedEvaluatable weightedEvaluatable = createWeightedEvaluatable(evaluatable, 0.5f);
+        IEvaluator evaluator = createFakeEvaluator(0.5f);
+        WeightedEvaluator weightedEvaluator = createWeightedEvaluator(evaluator, 0.5f);
 
-        assertEquals(0.5f, weightedEvaluatable.getScore(), 0.00001f);
+        float scoreResult = weightedEvaluator.getScore(null);
+        
+        assertEquals(0.5f, scoreResult, 0.00001f);
     }
 
 }

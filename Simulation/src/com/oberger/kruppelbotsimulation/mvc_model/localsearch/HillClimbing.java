@@ -2,16 +2,16 @@ package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
 
 import java.util.List;
 
-public class HillClimbing<T extends State<T>> extends LocalSearchAlgorithm<T> {
+public class HillClimbing<T extends IImmutableInnerState<T>> extends LocalSearchAlgorithm<T> {
 
     @Override
-    T getNextState(List<T> neighbours) {
-        if (neighbours == null) {
+    State<T> getNextState(List<State<T>> neighbourStates) {
+        if (neighbourStates == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
-        T bestNeighbour = null;
+        State<T> bestNeighbour = null;
         float bestNeighbourScore = Float.NEGATIVE_INFINITY;
-        for (T currentNeighbour : neighbours) {
+        for (State<T> currentNeighbour : neighbourStates) {
             float currentNeighbourScore = currentNeighbour.getScore();
             if (currentNeighbourScore > bestNeighbourScore) {
                 bestNeighbour = currentNeighbour;

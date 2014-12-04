@@ -6,17 +6,17 @@
 package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
 
 /**
- * Decorator for IEvaluatables that provides additionally a weight.
+ * Decorator for {@link IEvaluator} that provides additionally a weight.
  * @author ole
  */
-public class WeightedEvaluatable implements IEvaluatable {
+public class WeightedEvaluator<T extends IImmutableInnerState<T>> implements IEvaluator<T> {
     
     static final float MINIMAL_WEIGHT_THRESHOLD = 0.001f;
 
-    private IEvaluatable decorated = null;
+    private IEvaluator<T> decorated = null;
     private float weight = 0;
     
-    public WeightedEvaluatable(IEvaluatable decorated, float weight) {
+    public WeightedEvaluator(IEvaluator<T> decorated, float weight) {
         if (decorated == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
@@ -28,8 +28,8 @@ public class WeightedEvaluatable implements IEvaluatable {
     }
     
     @Override
-    public float getScore() {
-        return decorated.getScore();
+    public float getScore(T evaluatable) {
+        return decorated.getScore(evaluatable);
     }
     
     public float getWeight() {
