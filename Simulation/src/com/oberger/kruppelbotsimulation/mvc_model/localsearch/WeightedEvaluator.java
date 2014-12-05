@@ -8,8 +8,9 @@ package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
 /**
  * Decorator for {@link IEvaluator} that provides additionally a weight.
  * @author ole
+ * @param <T>
  */
-public class WeightedEvaluator<T extends IImmutableInnerState<T>> implements IEvaluator<T> {
+public class WeightedEvaluator<T extends IImmutableInnerState> implements IEvaluator<T> {
     
     static final float MINIMAL_WEIGHT_THRESHOLD = 0.001f;
 

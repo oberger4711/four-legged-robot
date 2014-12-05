@@ -12,7 +12,7 @@ import java.util.List;
  * @author ole
  * @param <T>
  */
-public class FakeLocalSearchAlgorithm<T extends IImmutableInnerState<T>> extends LocalSearchAlgorithm<T> {
+public class FakeLocalSearchAlgorithm<T extends IImmutableInnerState> extends LocalSearchAlgorithm<T> {
 
     public FakeLocalSearchAlgorithm() {
     }
@@ -20,7 +20,7 @@ public class FakeLocalSearchAlgorithm<T extends IImmutableInnerState<T>> extends
     @Override
     State<T> getNextState(List<State<T>> neighbourStates) {
         State<T> nextState = null;
-        if (neighbourStates != null || !neighbourStates.isEmpty()) {
+        if (neighbourStates != null && !neighbourStates.isEmpty()) {
             nextState = neighbourStates.get(0);
         }
         

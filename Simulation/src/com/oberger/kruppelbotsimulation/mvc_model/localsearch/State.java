@@ -10,7 +10,7 @@ import java.util.List;
  * @author ole
  * @param <T> The type of the object in this state.
  */
-public class State<T extends IImmutableInnerState<T>> {
+public class State<T extends IImmutableInnerState> {
 
     private int generation = 0;
     private T innerState = null;
@@ -37,12 +37,8 @@ public class State<T extends IImmutableInnerState<T>> {
 
     }
 
-    protected State(int generation, T innerState) {
-        this(generation, innerState, new ArrayList<>(), new ArrayList<>());
-    }
-
-    public State(T innerState) {
-        this(0, innerState);
+    public State(T innerState, List<WeightedEvaluator<T>> weightedEvaluators, List<IManipulator<T>> manipulators) {
+        this(0, innerState, weightedEvaluators, manipulators);
     }
 
     public float getScore() {
@@ -89,7 +85,7 @@ public class State<T extends IImmutableInnerState<T>> {
     private List<State<T>> createManipulatedNeighbours() {
         List<State<T>> neighbourStates = new LinkedList<>();
         for (IManipulator<T> manipulator : manipulators) {
-            T manipulatedInnerState = manipulator.manipulateCopy(innerState);
+            T manipulatedInnerState = manipulator.createNeighbour(innerState);
             State<T> newNeighbourState = new State<>(generation + 1, manipulatedInnerState, weightedEvaluators, manipulators);
             neighbourStates.add(newNeighbourState);
         }

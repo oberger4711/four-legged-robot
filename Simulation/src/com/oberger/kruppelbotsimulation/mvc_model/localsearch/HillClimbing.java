@@ -2,7 +2,7 @@ package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
 
 import java.util.List;
 
-public class HillClimbing<T extends IImmutableInnerState<T>> extends LocalSearchAlgorithm<T> {
+public class HillClimbing<T extends IImmutableInnerState> extends LocalSearchAlgorithm<T> {
 
     @Override
     State<T> getNextState(List<State<T>> neighbourStates) {

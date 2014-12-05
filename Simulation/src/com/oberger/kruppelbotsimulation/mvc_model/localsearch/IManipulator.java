@@ -2,6 +2,11 @@ package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
 
 public interface IManipulator<T extends IImmutableInnerState> {
 
-    public T manipulateCopy(T originalInnerState);
+    /**
+     * Creates slightly modified copies of the given state.
+     * @param originalInnerState
+     * @return 
+     */
+    public T createNeighbour(T originalInnerState);
 
 }
