@@ -1,5 +1,6 @@
 package com.oberger.kruppelbotsimulation.mvc_model.model;
 
+import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import com.oberger.kruppelbotsimulation.util.Vector2;
 import com.oberger.kruppelbotsimulation.util.Weight;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ public class BalancePoint {
     private Vector2 position;
     private Weight weight;
 
-    public BalancePoint(Vector2 position, Weight weight) {
+    public BalancePoint(IReadOnlyVector2 position, Weight weight) {
         if (position == null || weight == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }

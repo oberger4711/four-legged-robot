@@ -41,7 +41,7 @@ public class SimMassTest {
 
         assertEquals(new Rotation(0, true), simMass.getOffsetRotation());
     }
-
+    
     @Test
     public void getBalancePoint_OnCall_UsesGlobalPosition() {
         SimMass simMass = createSimMass(new Vector2(2, 4), new Weight(5));

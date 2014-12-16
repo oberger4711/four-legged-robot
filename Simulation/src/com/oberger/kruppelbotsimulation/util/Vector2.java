@@ -5,7 +5,7 @@ package com.oberger.kruppelbotsimulation.util;
  *
  * @author ole
  */
-public class Vector2 {
+public class Vector2 implements IReadOnlyVector2 {
     
     private final static float EQUALS_THRESHOLD = 0.00001f;
 
@@ -20,7 +20,7 @@ public class Vector2 {
         this(0, 0);
     }
 
-    public Vector2(Vector2 vectorToCopy) {
+    public Vector2(IReadOnlyVector2 vectorToCopy) {
         this(vectorToCopy.getX(), vectorToCopy.getY());
     }
 
@@ -29,10 +29,12 @@ public class Vector2 {
         this.y = y;
     }
 
+    @Override
     public float getX() {
         return this.x;
     }
 
+    @Override
     public float getY() {
         return this.y;
     }
@@ -50,7 +52,7 @@ public class Vector2 {
         this.y = y;
     }
     
-    public void set(Vector2 vector) {
+    public void set(IReadOnlyVector2 vector) {
         set(vector.getX(), vector.getY());
     }
 
@@ -61,7 +63,7 @@ public class Vector2 {
      * @param otherVector
      * @return
      */
-    public Vector2 add(Vector2 otherVector) {
+    public Vector2 add(IReadOnlyVector2 otherVector) {
         if (otherVector == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
@@ -78,7 +80,7 @@ public class Vector2 {
      * @param otherVector
      * @return
      */
-    public Vector2 subtract(Vector2 otherVector) {
+    public Vector2 subtract(IReadOnlyVector2 otherVector) {
         if (otherVector == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
@@ -133,7 +135,20 @@ public class Vector2 {
         int hash = 7;
         hash = 79 * hash + Float.floatToIntBits(this.x);
         hash = 79 * hash + Float.floatToIntBits(this.y);
+        
         return hash;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("( ");
+        sb.append(x);
+        sb.append(" | ");
+        sb.append(y);
+        sb.append(" )");
+        
+        return sb.toString();
     }
 
 }

@@ -17,6 +17,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.Mockito;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -104,17 +105,16 @@ public class SimJointTest {
 
         assertTrue(childs.contains(fakeChild));
     }
-
+    
     @Test
-    public void addChild_OnCall_UpdatesAddedChild() {
-        SimJoint simJoint = createSimJoint(new Vector2(1, 1), new Rotation(1, true));
+    public void addChild_OnCall_SetsChildsParent() {
+        List<SimObject> childs = new ArrayList<>();
+        SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true), childs);
         SimObject fakeChild = createFakeSimObject();
 
-        verify(fakeChild, never()).update();
-
         simJoint.addChild(fakeChild);
-
-        verify(fakeChild, times(1)).update();
+        
+        verify(fakeChild, times(1)).setParent(simJoint);
     }
 
     @Test
@@ -136,18 +136,16 @@ public class SimJointTest {
 
         assertFalse(childs.contains(fakeChild));
     }
-
+    
     @Test
-    public void removeChild_OnCall_UpdatesRemovedChild() {
+    public void removeChild_OnCall_SetsChildsParentNull() {
         SimObject fakeChild = createFakeSimObject();
         List<SimObject> childs = createSimObjectList(fakeChild);
         SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true), childs);
 
-        verify(fakeChild, never()).update();
+        simJoint.removeChild(fakeChild);
 
-        simJoint.addChild(fakeChild);
-
-        verify(fakeChild, times(1)).update();
+        Mockito.verify(fakeChild, times(1)).setParent(null);
     }
 
     @Test

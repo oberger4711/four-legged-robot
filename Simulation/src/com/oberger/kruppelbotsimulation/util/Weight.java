@@ -72,5 +72,10 @@ public class Weight {
         hash = 89 * hash + (this.zero ? 1 : 0);
         return hash;
     }
+
+    @Override
+    public String toString() {
+        return Float.toString(value);
+    }
     
 }

@@ -8,7 +8,6 @@ package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.exitcriterium.ExitCriterium;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.exitcriterium.LocalMaximumExitCriterium;
 import java.util.Arrays;
-import java.util.List;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 

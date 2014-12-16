@@ -1,7 +1,7 @@
 package com.oberger.kruppelbotsimulation.mvc_model.model;
 
+import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import com.oberger.kruppelbotsimulation.util.Rotation;
-import com.oberger.kruppelbotsimulation.util.Vector2;
 import com.oberger.kruppelbotsimulation.util.Weight;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +14,12 @@ public class SimJoint extends SimObject implements IParentSimObject {
 
     private List<SimObject> childs = null;
 
-    SimJoint(Vector2 offsetPosition, Rotation offsetRotation, List<SimObject> childs) {
+    SimJoint(IReadOnlyVector2 offsetPosition, Rotation offsetRotation, List<SimObject> childs) {
         super(offsetPosition, new Weight(), offsetRotation);
         this.childs = childs;
     }
     
-    public SimJoint(Vector2 offsetPosition, Rotation offsetRotation) {
+    public SimJoint(IReadOnlyVector2 offsetPosition, Rotation offsetRotation) {
         this(offsetPosition, offsetRotation, new ArrayList<>());
     }
 
@@ -48,7 +48,7 @@ public class SimJoint extends SimObject implements IParentSimObject {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
         childs.add(child);
-        child.update();
+        child.setParent(this);
     }
     
     public void removeChild(SimObject child) {
@@ -56,11 +56,11 @@ public class SimJoint extends SimObject implements IParentSimObject {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
         childs.remove(child);
-        child.update();
+        child.setParent(null);
     }
 
     @Override
-    public void setOffsetPosition(Vector2 newOffsetPosition) {
+    public void setOffsetPosition(IReadOnlyVector2 newOffsetPosition) {
         super.setOffsetPosition(newOffsetPosition);
     }
 

@@ -55,6 +55,16 @@ public class Rotation {
         rotationInDegreesCC = FULL_ROTATION_IN_DEGREES - mapOntoZeroToFullRotationInDegrees(rotationInDegreesClockwise);
     }
 
+    private static float mapOntoZeroToFullRotationInDegrees(float rotationInDegrees) {
+        float mappedRotationInDegrees = rotationInDegrees;
+        while (mappedRotationInDegrees < 0) {
+            mappedRotationInDegrees += FULL_ROTATION_IN_DEGREES;
+        }
+        mappedRotationInDegrees %= FULL_ROTATION_IN_DEGREES; // Map rotation into positive.
+
+        return mappedRotationInDegrees;
+    }
+
     public float getRotationInDegreesCC() {
         return rotationInDegreesCC;
     }
@@ -73,6 +83,7 @@ public class Rotation {
         } else {
             areEqual = super.equals(obj);
         }
+        
         return areEqual;
     }
 
@@ -80,17 +91,19 @@ public class Rotation {
     public int hashCode() {
         int hash = 7;
         hash = 53 * hash + Float.floatToIntBits(this.rotationInDegreesCC);
+        
         return hash;
     }
 
-    private static float mapOntoZeroToFullRotationInDegrees(float rotationInDegrees) {
-        float mappedRotationInDegrees = rotationInDegrees;
-        while (mappedRotationInDegrees < 0) {
-            mappedRotationInDegrees += FULL_ROTATION_IN_DEGREES;
-        }
-        mappedRotationInDegrees %= FULL_ROTATION_IN_DEGREES; // Map rotation into positive.
-
-        return mappedRotationInDegrees;
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(rotationInDegreesCC);
+        sb.append("°");
+        
+        return sb.toString();
     }
 
+    
+    
 }

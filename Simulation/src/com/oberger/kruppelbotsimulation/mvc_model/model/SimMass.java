@@ -1,12 +1,12 @@
 package com.oberger.kruppelbotsimulation.mvc_model.model;
 
+import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import com.oberger.kruppelbotsimulation.util.Rotation;
-import com.oberger.kruppelbotsimulation.util.Vector2;
 import com.oberger.kruppelbotsimulation.util.Weight;
 
 public class SimMass extends SimObject {
 
-    public SimMass(Vector2 offsetPosition, Weight offsetWeight) {
+    public SimMass(IReadOnlyVector2 offsetPosition, Weight offsetWeight) {
         super(offsetPosition, offsetWeight, new Rotation(0f, true));
     }
 
@@ -21,7 +21,7 @@ public class SimMass extends SimObject {
     }
 
     @Override
-    public void setOffsetPosition(Vector2 newOffsetPosition) {
+    public void setOffsetPosition(IReadOnlyVector2 newOffsetPosition) {
         super.setOffsetPosition(newOffsetPosition);
     }
 

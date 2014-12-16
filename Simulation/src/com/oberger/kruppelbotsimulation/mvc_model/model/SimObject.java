@@ -1,5 +1,6 @@
 package com.oberger.kruppelbotsimulation.mvc_model.model;
 
+import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import com.oberger.kruppelbotsimulation.util.Rotation;
 import com.oberger.kruppelbotsimulation.util.Vector2;
 import com.oberger.kruppelbotsimulation.util.Weight;
@@ -20,7 +21,7 @@ public abstract class SimObject {
     private Weight offsetWeight = null;
     private Rotation offsetRotation = null;
 
-    protected SimObject(Vector2 offsetPosition, Weight offsetWeight, Rotation offsetRotation) {
+    protected SimObject(IReadOnlyVector2 offsetPosition, Weight offsetWeight, Rotation offsetRotation) {
         if (offsetPosition == null || offsetWeight == null || offsetRotation == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
@@ -78,13 +79,13 @@ public abstract class SimObject {
         return new Vector2(offsetPosition);
     }
 
-    protected void setOffsetPosition(Vector2 offsetPosition) {
+    protected void setOffsetPosition(IReadOnlyVector2 offsetPosition) {
         if (offsetPosition == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
         this.offsetPosition.set(offsetPosition);
         
-        updateChilds();
+        update();
     }
 
     protected Rotation getOffsetRotation() {
@@ -97,7 +98,7 @@ public abstract class SimObject {
         }
         this.offsetRotation.set(offsetRotation);
         
-        updateChilds();
+        update();
     }
 
     protected Weight getOffsetWeight() {
