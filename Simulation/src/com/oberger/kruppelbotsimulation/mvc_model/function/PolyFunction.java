@@ -1,31 +1,31 @@
 package com.oberger.kruppelbotsimulation.mvc_model.function;
 
 import com.oberger.kruppelbotsimulation.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PolyFunction {
 
     private IInterpolator interpolator;
-    private List<Vector2> polygons;
-    
-    public PolyFunction(List<IReadOnlyVector2> polygons) {
-        // TODO - implement PolyFunction.PolyFunction
-        throw new UnsupportedOperationException();
-    }
+    private List<IReadOnlyVector2> polygons;
 
     public PolyFunction(IInterpolator interpolator, List<IReadOnlyVector2> polygons) {
-        // TODO - implement PolyFunction.PolyFunction
-        throw new UnsupportedOperationException();
+        if (interpolator == null || polygons == null) {
+            throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+        }
+        if (polygons.size() < 2) {
+            throw new IllegalArgumentException("List must contain at least two polygons.");
+        }
+        this.interpolator = interpolator;
+        this.polygons = new ArrayList<>(polygons);
     }
 
     public float getValue(float x) {
-        // TODO - implement PolyFunction.getValue
-        throw new UnsupportedOperationException();
+        return interpolator.getValue(polygons, x);
     }
 
     public List<IReadOnlyVector2> getPolygons() {
-        // TODO - implement PolyFunction.getPolygons
-        throw new UnsupportedOperationException();
+        return polygons;
     }
 
 }
