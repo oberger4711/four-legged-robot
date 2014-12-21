@@ -10,6 +10,7 @@ public class HillClimbing<T extends IImmutableInnerState> extends LocalSearchAlg
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
         State<T> bestNeighbour = null;
+        
         float bestNeighbourScore = Float.NEGATIVE_INFINITY;
         for (State<T> currentNeighbour : neighbourStates) {
             float currentNeighbourScore = currentNeighbour.getScore();

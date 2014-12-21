@@ -43,8 +43,9 @@ public class State<T extends IImmutableInnerState> {
 
     public float getScore() {
         float score;
+        
         if (scoreCache == null) {
-            score = createEvaluatedScore();
+            score = evaluate();
             scoreCache = score;
         }
         else {
@@ -54,7 +55,7 @@ public class State<T extends IImmutableInnerState> {
         return score;
     }
     
-    private float createEvaluatedScore() {
+    private float evaluate() {
         if (weightedEvaluators.isEmpty()) {
             throw new IllegalStateException("No WeightedEvaluators added.");
         }
@@ -72,6 +73,7 @@ public class State<T extends IImmutableInnerState> {
 
     public List<State<T>> getNeighbours() {
         List<State<T>> neighbourStates = null;
+        
         if (neighboursCache == null) {
             neighbourStates = createManipulatedNeighbours();
             neighboursCache = neighbourStates;
@@ -84,6 +86,7 @@ public class State<T extends IImmutableInnerState> {
 
     private List<State<T>> createManipulatedNeighbours() {
         List<State<T>> neighbourStates = new LinkedList<>();
+        
         for (IManipulator<T> manipulator : manipulators) {
             T manipulatedInnerState = manipulator.createNeighbour(innerState);
             State<T> newNeighbourState = new State<>(generation + 1, manipulatedInnerState, weightedEvaluators, manipulators);
