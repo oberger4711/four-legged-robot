@@ -5,22 +5,24 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator;
 
-import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.WeightedEvaluator;
-import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.WeightedEvaluatorGroup;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  *
  * @author ole
  */
+@RunWith(MockitoJUnitRunner.class)
 public class WeightedEvaluatorGroupTest {
     
     @Rule
@@ -51,6 +53,17 @@ public class WeightedEvaluatorGroupTest {
         exception.expect(IllegalArgumentException.class);
         
         WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(Collections.emptyList());
+    }
+    
+    
+    @Test
+    public void constructor_OnCall_CopiesEvaluatorList() {
+        List<WeightedEvaluator> fakeWeightedEvaluators = new ArrayList<>(Arrays.asList(createFakeWeightedEvaluator(1, 1)));
+        WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(fakeWeightedEvaluators);
+        
+        List<WeightedEvaluator> returned = testee.getEvaluators();
+        
+        assertFalse(returned == fakeWeightedEvaluators);
     }
     
     @Test
