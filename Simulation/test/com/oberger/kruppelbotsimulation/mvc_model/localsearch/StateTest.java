@@ -7,6 +7,8 @@ package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
 
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.manipulator.IManipulator;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.IEvaluator;
+import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.WeightedEvaluator;
+import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.WeightedEvaluatorGroup;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.manipulator.ManipulatorGroup;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -92,6 +94,21 @@ public class StateTest {
         Mockito.verify(fakeManipulator, Mockito.times(1)).createNeighbours(fakeInnerState);
 
         assertEquals(uncachedNeighbours, cachedNeighbours);
+    }
+
+    @Test
+    public void getScore_OnSecondCall_UsesCacheAndReturnsSameValue() {
+        IEvaluator fakeWeightedEvaluator = createFakeEvaluator(12);
+        IImmutableInnerState fakeInnerState = createDummyInnerState();
+        State testee = new State(fakeInnerState, fakeWeightedEvaluator, createDummyManipulator());
+
+        float uncachedScore = testee.getScore();
+        Mockito.verify(fakeWeightedEvaluator, Mockito.times(1)).getScore(fakeInnerState);
+
+        float cachedScore = testee.getScore();
+        Mockito.verify(fakeWeightedEvaluator, Mockito.times(1)).getScore(fakeInnerState);
+
+        assertEquals(uncachedScore, cachedScore, 0.00001f);
     }
 
 }

@@ -9,7 +9,6 @@ import jdk.nashorn.internal.ir.annotations.Immutable;
 public class WeightedEvaluatorGroup<T> implements IEvaluator<T> {
 
     private List<WeightedEvaluator<T>> evaluators;
-    private Float scoreCache = null;
 
     WeightedEvaluatorGroup(List<WeightedEvaluator<T>> evaluatorList) {
         if (evaluatorList == null) {
@@ -27,19 +26,6 @@ public class WeightedEvaluatorGroup<T> implements IEvaluator<T> {
 
     @Override
     public float getScore(T innerState) {
-        float score;
-
-        if (scoreCache == null) {
-            score = evaluate(innerState);
-            scoreCache = score;
-        } else {
-            score = scoreCache;
-        }
-
-        return score;
-    }
-
-    private float evaluate(T innerState) {
         float weightedScore = 0;
         float weightSum = 0;
 

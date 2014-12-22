@@ -133,18 +133,4 @@ public class WeightedEvaluatorGroupTest {
         assertEquals(2, returnedWeightedScore, 0.0001f);
     }
 
-    @Test
-    public void getScore_OnSecondCall_UsesCacheAndReturnsSameValue() {
-        WeightedEvaluator fakeWeightedEvaluator = createFakeWeightedEvaluator(12, 1);
-        WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(Arrays.asList(fakeWeightedEvaluator));
-
-        float uncachedScore = testee.getScore(null);
-        Mockito.verify(fakeWeightedEvaluator, Mockito.times(1)).getScore(null);
-
-        float cachedScore = testee.getScore(null);
-        Mockito.verify(fakeWeightedEvaluator, Mockito.times(1)).getScore(null);
-
-        assertEquals(uncachedScore, cachedScore, 0.00001f);
-    }
-    
 }
