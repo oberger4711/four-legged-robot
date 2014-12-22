@@ -5,6 +5,7 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
 
+import com.oberger.kruppelbotsimulation.mvc_model.localsearch.manipulator.IManipulator;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.IEvaluator;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.exitcriterium.ExitCriterium;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.exitcriterium.LocalMaximumExitCriterium;
@@ -27,7 +28,7 @@ public class IntegrationTest {
         NumericInnerState startInnerState = new NumericInnerState(0);
         IEvaluator<NumericInnerState> evaluator = new NumericEvaluator();
         IManipulator<NumericInnerState> manipulator = new NumericManipulator();
-        State<NumericInnerState> startState = new State<>(startInnerState, evaluator, Arrays.asList(manipulator));
+        State<NumericInnerState> startState = new State<>(startInnerState, evaluator, manipulator);
         
         ExitCriterium exitCriterium = new LocalMaximumExitCriterium();
         LocalSearchAlgorithm<NumericInnerState> searchAlgo = new HillClimbing<>();

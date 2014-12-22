@@ -5,14 +5,14 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
 
-import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.WeightedEvaluator;
+import com.oberger.kruppelbotsimulation.mvc_model.localsearch.manipulator.IManipulator;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.IEvaluator;
+import com.oberger.kruppelbotsimulation.mvc_model.localsearch.manipulator.ManipulatorGroup;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -30,14 +30,12 @@ public class StateTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private State createState(int generation, IImmutableInnerState innerState, IEvaluator evaluator, List<IManipulator> manipulators) {
-        return new State(generation, innerState, evaluator, manipulators);
+    private State createState(int generation, IImmutableInnerState innerState, IEvaluator evaluator, IManipulator manipulator) {
+        return new State(generation, innerState, evaluator, manipulator);
     }
 
-    private IImmutableInnerState createFakeInnerState() {
-        IImmutableInnerState fakeInnerState = Mockito.mock(IImmutableInnerState.class);
-
-        return fakeInnerState;
+    private IImmutableInnerState createDummyInnerState() {
+        return Mockito.mock(IImmutableInnerState.class);
     }
 
     private IManipulator createFakeManipulator(IImmutableInnerState parameter, IImmutableInnerState... manipulatedParameterCopies) {
@@ -49,86 +47,51 @@ public class StateTest {
 
     private IEvaluator createFakeEvaluator(float score) {
         IEvaluator fake = Mockito.mock(IEvaluator.class);
-        
+
         Mockito.doReturn(score).when(fake).getScore(Mockito.any());
-        
+
         return fake;
     }
 
-    private List<IManipulator> createDummyManipulators() {
-        return new ArrayList(Arrays.asList(createFakeManipulator(null, (IImmutableInnerState)null)));
+    private IManipulator createDummyManipulator() {
+        return createFakeManipulator(null, (IImmutableInnerState) null);
     }
 
     @Test
     public void constructor_OnPassInnerStateNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
 
-        createState(0, null, createFakeEvaluator(0), createDummyManipulators());
+        createState(0, null, createFakeEvaluator(0), createDummyManipulator());
     }
 
     @Test
     public void constructor_OnPassEvaluatorNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
 
-        createState(0, createFakeInnerState(), null, createDummyManipulators());
+        createState(0, createDummyInnerState(), null, createDummyManipulator());
     }
 
     @Test
     public void constructor_OnPassManipulatorsNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
 
-        createState(0, createFakeInnerState(), createFakeEvaluator(0), null);
-    }
-
-    @Test
-    public void constructor_OnPassEmptyManipulators_ThrowsIllegalArgumentException() {
-        exception.expect(IllegalArgumentException.class);
-
-        createState(0, createFakeInnerState(), createFakeEvaluator(0), Collections.emptyList());
-    }
-    
-    @Test
-    public void constructor_OnCall_CopiesManipulators() {
-        IImmutableInnerState innerState = createFakeInnerState();
-        List<IManipulator> manipulatorsPassedInConstructor = new ArrayList<>(Arrays.asList(createFakeManipulator(innerState, createFakeInnerState())));
-        
-        State state = createState(0, innerState, createFakeEvaluator(0), manipulatorsPassedInConstructor);
-        
-        manipulatorsPassedInConstructor.clear(); // This should not clear the copied list.
-        state.getNeighbours(); // No exception should be thrown.
-    }
-
-    @Test
-    public void getNeighbours_WithManipulators_ReturnsUnitedListed() {
-        IImmutableInnerState fakeInnerState = createFakeInnerState();
-        IImmutableInnerState fakeNeighbourInnerState1 = createFakeInnerState();
-        IImmutableInnerState fakeNeighbourInnerState2 = createFakeInnerState();
-        IImmutableInnerState fakeNeighbourInnerState3 = createFakeInnerState();
-        IManipulator fakeManipulator1 = createFakeManipulator(fakeInnerState, fakeNeighbourInnerState1);
-        IManipulator fakeManipulator2 = createFakeManipulator(fakeInnerState, fakeNeighbourInnerState2, fakeNeighbourInnerState3);
-        List<IManipulator> manipulators = Arrays.asList(fakeManipulator1, fakeManipulator2);
-        State state = createState(0, fakeInnerState, createFakeEvaluator(0), manipulators);
-
-        List<State> resultNeighbours = state.getNeighbours();
-
-        assertTrue(resultNeighbours.stream().anyMatch(s -> s.getInnerState() == fakeNeighbourInnerState1));
-        assertTrue(resultNeighbours.stream().anyMatch(s -> s.getInnerState() == fakeNeighbourInnerState2));
-        assertTrue(resultNeighbours.stream().anyMatch(s -> s.getInnerState() == fakeNeighbourInnerState3));
+        createState(0, createDummyInnerState(), createFakeEvaluator(0), null);
     }
 
     @Test
     public void getNeighbours_OnSecondCall_UsesCacheAndReturnsSameValue() {
-        IImmutableInnerState fakeInnerState = createFakeInnerState();
-        IImmutableInnerState fakeNeighbourInnerState = createFakeInnerState();
+        IImmutableInnerState fakeInnerState = createDummyInnerState();
+        IImmutableInnerState fakeNeighbourInnerState = createDummyInnerState();
         IManipulator fakeManipulator = createFakeManipulator(fakeInnerState, fakeNeighbourInnerState);
-        State state = createState(0, fakeInnerState, createFakeEvaluator(0), Arrays.asList(fakeManipulator));
+        State testee = createState(0, fakeInnerState, createFakeEvaluator(0), fakeManipulator);
 
-        List<State> uncachedNeighbours = state.getNeighbours();
+        List<State> uncachedNeighbours = testee.getNeighbours();
         Mockito.verify(fakeManipulator, Mockito.times(1)).createNeighbours(fakeInnerState);
 
-        List<State> cachedNeighbours = state.getNeighbours();
+        List<State> cachedNeighbours = testee.getNeighbours();
         Mockito.verify(fakeManipulator, Mockito.times(1)).createNeighbours(fakeInnerState);
 
         assertEquals(uncachedNeighbours, cachedNeighbours);
     }
+
 }

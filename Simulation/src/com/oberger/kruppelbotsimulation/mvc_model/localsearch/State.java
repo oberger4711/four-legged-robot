@@ -1,5 +1,6 @@
 package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
 
+import com.oberger.kruppelbotsimulation.mvc_model.localsearch.manipulator.IManipulator;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.IEvaluator;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -16,24 +17,21 @@ public class State<T extends IImmutableInnerState> {
     private int generation = 0;
     private T innerState = null;
     private IEvaluator<T> evaluator = null;
-    private List<IManipulator<T>> manipulators = null;
+    private IManipulator<T> manipulator = null;
     private List<State<T>> neighboursCache = null;
 
-    State(int generation, T innerState, IEvaluator<T> evaluator, List<IManipulator<T>> manipulators) {
-        if (evaluator == null || manipulators == null || innerState == null) {
+    State(int generation, T innerState, IEvaluator<T> evaluator, IManipulator<T> manipulator) {
+        if (evaluator == null || manipulator == null || innerState == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
-        }
-        if (manipulators.isEmpty()) {
-            throw new IllegalArgumentException("Passing empty manipulators is not allowed");
         }
         this.generation = generation;
         this.innerState = innerState;
         this.evaluator = evaluator;
-        this.manipulators = new ArrayList<>(manipulators);
+        this.manipulator = manipulator;
     }
 
-    public State(T innerState, IEvaluator<T> weightedEvaluators, List<IManipulator<T>> manipulators) {
-        this(0, innerState, weightedEvaluators, manipulators);
+    public State(T innerState, IEvaluator<T> weightedEvaluators, IManipulator<T> manipulator) {
+        this(0, innerState, weightedEvaluators, manipulator);
     }
 
     public float getScore() {
@@ -56,12 +54,10 @@ public class State<T extends IImmutableInnerState> {
     private List<State<T>> createManipulatedNeighbours() {
         List<State<T>> neighbourStates = new LinkedList<>();
 
-        for (IManipulator<T> manipulator : manipulators) {
-            List<T> manipulatedInnerStates = manipulator.createNeighbours(innerState);
-            for (T manipulatedInnerState : manipulatedInnerStates) {
-                State<T> newNeighbourState = new State<>(generation + 1, manipulatedInnerState, evaluator, manipulators);
-                neighbourStates.add(newNeighbourState);
-            }
+        List<T> manipulatedInnerStates = manipulator.createNeighbours(innerState);
+        for (T manipulatedInnerState : manipulatedInnerStates) {
+            State<T> newNeighbourState = new State<>(generation + 1, manipulatedInnerState, evaluator, manipulator);
+            neighbourStates.add(newNeighbourState);
         }
 
         return neighbourStates;
