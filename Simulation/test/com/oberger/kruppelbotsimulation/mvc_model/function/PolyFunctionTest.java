@@ -69,4 +69,17 @@ public class PolyFunctionTest {
         assertEquals(42, value, 0.0001f);
     }
     
+    @Test
+    public void getPolygons_OnCall_ReturnsUnmodifiableList() {
+        IInterpolator fakeInterpolator = Mockito.mock(IInterpolator.class);
+        List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1)));
+        PolyFunction testee = createPolyFunction(fakeInterpolator, polygons);
+        
+        List<IReadOnlyVector2> returned = testee.getPolygons();
+        
+        exception.expect(UnsupportedOperationException.class);
+        
+        returned.clear();
+    }
+    
 }

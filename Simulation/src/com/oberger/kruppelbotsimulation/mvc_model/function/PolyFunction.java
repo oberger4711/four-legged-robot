@@ -2,9 +2,10 @@ package com.oberger.kruppelbotsimulation.mvc_model.function;
 
 import com.oberger.kruppelbotsimulation.util.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class PolyFunction {
+public class PolyFunction implements IPolyFunction {
 
     private IInterpolator interpolator;
     private List<IReadOnlyVector2> polygons;
@@ -20,12 +21,13 @@ public class PolyFunction {
         this.polygons = new ArrayList<>(polygons);
     }
 
+    @Override
     public float getValue(float x) {
         return interpolator.getValue(polygons, x);
     }
-
+    @Override
     public List<IReadOnlyVector2> getPolygons() {
-        return polygons;
+        return Collections.unmodifiableList(polygons);
     }
 
 }
