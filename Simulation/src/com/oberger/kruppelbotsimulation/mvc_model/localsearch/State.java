@@ -1,5 +1,6 @@
 package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
 
+import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.IEvaluator;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,10 +39,10 @@ public class State<T extends IImmutableInnerState> {
     public float getScore() {
         return evaluator.getScore(innerState);
     }
-    
+
     public List<State<T>> getNeighbours() {
         List<State<T>> neighbourStates = null;
-        
+
         if (neighboursCache == null) {
             neighbourStates = createManipulatedNeighbours();
             neighboursCache = neighbourStates;
@@ -54,13 +55,15 @@ public class State<T extends IImmutableInnerState> {
 
     private List<State<T>> createManipulatedNeighbours() {
         List<State<T>> neighbourStates = new LinkedList<>();
-        
+
         for (IManipulator<T> manipulator : manipulators) {
-            T manipulatedInnerState = manipulator.createNeighbour(innerState);
-            State<T> newNeighbourState = new State<>(generation + 1, manipulatedInnerState, evaluator, manipulators);
-            neighbourStates.add(newNeighbourState);
+            List<T> manipulatedInnerStates = manipulator.createNeighbours(innerState);
+            for (T manipulatedInnerState : manipulatedInnerStates) {
+                State<T> newNeighbourState = new State<>(generation + 1, manipulatedInnerState, evaluator, manipulators);
+                neighbourStates.add(newNeighbourState);
+            }
         }
-        
+
         return neighbourStates;
     }
 
@@ -71,5 +74,5 @@ public class State<T extends IImmutableInnerState> {
     public T getInnerState() {
         return innerState;
     }
-    
+
 }

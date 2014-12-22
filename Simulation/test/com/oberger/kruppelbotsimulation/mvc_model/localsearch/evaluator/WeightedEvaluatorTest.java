@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
+package com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator;
 
+import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.WeightedEvaluator;
+import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.IEvaluator;
 import static org.junit.Assert.assertEquals;
 import org.junit.Rule;
 import org.junit.Test;

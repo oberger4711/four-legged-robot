@@ -1,4 +1,4 @@
-package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
+package com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator;
 
 import java.util.ArrayList;
 import java.util.Collections;

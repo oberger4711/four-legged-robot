@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
+package com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator;
 
 /**
  * Decorator for {@link IEvaluator} that provides additionally a weight.

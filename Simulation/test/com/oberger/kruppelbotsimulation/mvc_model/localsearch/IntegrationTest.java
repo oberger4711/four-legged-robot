@@ -5,9 +5,12 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
 
+import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.IEvaluator;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.exitcriterium.ExitCriterium;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.exitcriterium.LocalMaximumExitCriterium;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
@@ -64,11 +67,11 @@ public class IntegrationTest {
         }
 
         @Override
-        public NumericInnerState createNeighbour(NumericInnerState originalInnerState) {
+        public List<NumericInnerState> createNeighbours(NumericInnerState originalInnerState) {
             int original = originalInnerState.getNumber();
             int manipulated = (original + 1) % NumericInnerState.MAX_NUMBER;
             
-            return new NumericInnerState(manipulated);
+            return new LinkedList(Arrays.asList(new NumericInnerState(manipulated)));
         }
     }
     

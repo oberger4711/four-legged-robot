@@ -1,5 +1,7 @@
 package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
 
+import java.util.List;
+
 public interface IManipulator<T extends IImmutableInnerState> {
 
     /**
@@ -7,6 +9,6 @@ public interface IManipulator<T extends IImmutableInnerState> {
      * @param originalInnerState
      * @return 
      */
-    public T createNeighbour(T originalInnerState);
+    public List<T> createNeighbours(T originalInnerState);
 
 }

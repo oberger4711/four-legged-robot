@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
+package com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator;
 
+import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.WeightedEvaluator;
+import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.WeightedEvaluatorGroup;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
