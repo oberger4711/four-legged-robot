@@ -10,7 +10,7 @@ package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
  * @author ole
  * @param <T>
  */
-public class WeightedEvaluator<T extends IImmutableInnerState> implements IEvaluator<T> {
+public class WeightedEvaluator<T> implements IEvaluator<T> {
     
     static final float MINIMAL_WEIGHT_THRESHOLD = 0.001f;
 

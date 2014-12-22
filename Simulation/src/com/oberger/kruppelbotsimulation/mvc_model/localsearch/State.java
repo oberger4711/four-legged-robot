@@ -14,63 +14,31 @@ public class State<T extends IImmutableInnerState> {
 
     private int generation = 0;
     private T innerState = null;
-    private List<WeightedEvaluator<T>> weightedEvaluators = null;
+    private IEvaluator<T> evaluator = null;
     private List<IManipulator<T>> manipulators = null;
-    private Float scoreCache = null;
     private List<State<T>> neighboursCache = null;
 
-    State(int generation, T innerState, List<WeightedEvaluator<T>> weightedEvaluators, List<IManipulator<T>> manipulators) {
-        if (weightedEvaluators == null || manipulators == null || innerState == null) {
+    State(int generation, T innerState, IEvaluator<T> evaluator, List<IManipulator<T>> manipulators) {
+        if (evaluator == null || manipulators == null || innerState == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
-        }
-        if (weightedEvaluators.isEmpty()) {
-            throw new IllegalArgumentException("Passing empty weightedEvaluators is not allowed.");
         }
         if (manipulators.isEmpty()) {
             throw new IllegalArgumentException("Passing empty manipulators is not allowed");
         }
         this.generation = generation;
         this.innerState = innerState;
-        this.weightedEvaluators = new ArrayList<>(weightedEvaluators);
+        this.evaluator = evaluator;
         this.manipulators = new ArrayList<>(manipulators);
-        scoreCache = null;
-
     }
 
-    public State(T innerState, List<WeightedEvaluator<T>> weightedEvaluators, List<IManipulator<T>> manipulators) {
+    public State(T innerState, IEvaluator<T> weightedEvaluators, List<IManipulator<T>> manipulators) {
         this(0, innerState, weightedEvaluators, manipulators);
     }
 
     public float getScore() {
-        float score;
-        
-        if (scoreCache == null) {
-            score = evaluate();
-            scoreCache = score;
-        }
-        else {
-            score = scoreCache;
-        }
-
-        return score;
+        return evaluator.getScore(innerState);
     }
     
-    private float evaluate() {
-        if (weightedEvaluators.isEmpty()) {
-            throw new IllegalStateException("No WeightedEvaluators added.");
-        }
-        float weightedScore = 0;
-        float weightSum = 0;
-
-        for (WeightedEvaluator weightedEvaluator : weightedEvaluators) {
-            weightedScore += weightedEvaluator.getScore(innerState) * weightedEvaluator.getWeight();
-            weightSum += weightedEvaluator.getWeight();
-        }
-        weightedScore /= weightSum;
-        
-        return weightedScore;
-    }
-
     public List<State<T>> getNeighbours() {
         List<State<T>> neighbourStates = null;
         
@@ -89,7 +57,7 @@ public class State<T extends IImmutableInnerState> {
         
         for (IManipulator<T> manipulator : manipulators) {
             T manipulatedInnerState = manipulator.createNeighbour(innerState);
-            State<T> newNeighbourState = new State<>(generation + 1, manipulatedInnerState, weightedEvaluators, manipulators);
+            State<T> newNeighbourState = new State<>(generation + 1, manipulatedInnerState, evaluator, manipulators);
             neighbourStates.add(newNeighbourState);
         }
         

@@ -23,9 +23,8 @@ public class IntegrationTest {
     public void hillClimbing_OnCall_FindsLocalOptimum() {
         NumericInnerState startInnerState = new NumericInnerState(0);
         IEvaluator<NumericInnerState> evaluator = new NumericEvaluator();
-        WeightedEvaluator<NumericInnerState> weightedEvaluator = new WeightedEvaluator<>(evaluator, 1);
         IManipulator<NumericInnerState> manipulator = new NumericManipulator();
-        State<NumericInnerState> startState = new State<>(startInnerState, Arrays.asList(weightedEvaluator), Arrays.asList(manipulator));
+        State<NumericInnerState> startState = new State<>(startInnerState, evaluator, Arrays.asList(manipulator));
         
         ExitCriterium exitCriterium = new LocalMaximumExitCriterium();
         LocalSearchAlgorithm<NumericInnerState> searchAlgo = new HillClimbing<>();
