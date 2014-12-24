@@ -5,7 +5,7 @@ Programmer/build-Programmer-Desktop-Debug
 /SimulationTests/nbproject/private/
 /Simulation/build/
 /Documents/*.working
-/Documents/*.vpp~*
-/Documents/*.vpp.*
+/Documents/KruppelBotSimulation.vpp~*
+/Documents/KruppelBotSimulation.vpp.*
 /Simulation/dist/
 /Simulation/.jacocoverage/
