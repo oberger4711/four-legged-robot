@@ -6,5 +6,6 @@ Programmer/build-Programmer-Desktop-Debug
 /Simulation/build/
 /Documents/*.working
 /Documents/*.vpp~*
+/Documents/*.vpp.*
 /Simulation/dist/
 /Simulation/.jacocoverage/
