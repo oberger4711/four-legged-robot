@@ -1,32 +1,35 @@
 package com.oberger.kruppelbotsimulation.mvc_model.domain;
 
-import com.oberger.kruppelbotsimulation.mvc_model.function.*;
+import com.oberger.kruppelbotsimulation.util.Rotation;
 
 public class KruppelBotSimulation {
 
     private float totalElapsedTimeInS;
-    private IPolyFunction functionBR;
-    private IPolyFunction functionBL;
-    private IPolyFunction functionFR;
-    private IPolyFunction functionFL;
+    private ILegPolyFunctions legFunctions = null;
+    private KruppelBotModel model = null;
 
-    /**
-     *
-     * @param legFunctions
-     * @param model
-     */
     public KruppelBotSimulation(ILegPolyFunctions legFunctions, KruppelBotModel model) {
-        // TODO - implement KruppelBotSimulation.KruppelBotSimulation
-        throw new UnsupportedOperationException();
+        if (legFunctions == null || model == null) {
+            throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+        }
+        this.legFunctions = legFunctions;
+        this.model = model;
     }
 
-    /**
-     *
-     * @param totalElapsedTimeInS
-     */
-    public void simulate(float totalElapsedTimeInS) {
-        // TODO - implement KruppelBotSimulation.simulate
-        throw new UnsupportedOperationException();
+    public final void simulate(float totalElapsedTimeInS) {
+        this.totalElapsedTimeInS = totalElapsedTimeInS;
+        
+        Rotation rotationBL = new Rotation(legFunctions.getLegFunctionBL().getValue(totalElapsedTimeInS), true);
+        model.getServoBL().setOffsetRotation(rotationBL);
+        
+        Rotation rotationBR = new Rotation(legFunctions.getLegFunctionBR().getValue(totalElapsedTimeInS), true);
+        model.getServoBR().setOffsetRotation(rotationBR);
+        
+        Rotation rotationFL = new Rotation(legFunctions.getLegFunctionFL().getValue(totalElapsedTimeInS), true);
+        model.getServoFL().setOffsetRotation(rotationFL);
+        
+        Rotation rotationFR = new Rotation(legFunctions.getLegFunctionFR().getValue(totalElapsedTimeInS), true);
+        model.getServoFR().setOffsetRotation(rotationFR);
     }
 
     public float getTotalElapsedTimeInS() {
