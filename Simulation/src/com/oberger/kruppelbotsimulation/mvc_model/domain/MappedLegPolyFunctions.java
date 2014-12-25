@@ -2,14 +2,14 @@ package com.oberger.kruppelbotsimulation.mvc_model.domain;
 
 import com.oberger.kruppelbotsimulation.mvc_model.function.*;
 
-public class MappedOffsetLegPolyFunctions implements ILegPolyFunctions {
+public class MappedLegPolyFunctions implements ILegPolyFunctions {
 
 	/**
 	 * 
 	 * @param legFunction
 	 * @param period
 	 */
-	public MappedOffsetLegPolyFunctions(IPolyFunction legFunction, float period) {
+	public MappedLegPolyFunctions(IPolyFunction legFunction, float period) {
 		// TODO - implement MappedOffsetLegPolyFunctions.MappedOffsetLegPolyFunctions
 		throw new UnsupportedOperationException();
 	}

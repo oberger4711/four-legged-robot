@@ -16,50 +16,50 @@ import org.junit.rules.ExpectedException;
  *
  * @author ole
  */
-public class KruppelBotSimulationEvaluatorParametersTest {
+public class SimulationEvaluatorParametersTest {
     
     @Rule
     public ExpectedException exception = ExpectedException.none();
     
-    private KruppelBotSimulationEvaluatorParameters createKruppelBotSimulationevaluatorParameters(List<Float> sampleTimesInS) {
-        return new KruppelBotSimulationEvaluatorParameters(sampleTimesInS);
+    private SimulationEvaluatorParameters createSimulationEvaluatorParameters(List<Float> sampleTimesInS) {
+        return new SimulationEvaluatorParameters(sampleTimesInS);
     }
     
-    private KruppelBotSimulationEvaluatorParameters createKruppelBotSimulationEvaluatorParameters(float simulationPeriodInS, int samplesPerPeriod) {
-        return new KruppelBotSimulationEvaluatorParameters(simulationPeriodInS, samplesPerPeriod);
+    private SimulationEvaluatorParameters createSimulationEvaluatorParameters(float simulationPeriodInS, int samplesPerPeriod) {
+        return new SimulationEvaluatorParameters(simulationPeriodInS, samplesPerPeriod);
     }
 
     @Test
     public void constructor_OnPassSimulationPeriodLowerThanZero_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
         
-        createKruppelBotSimulationEvaluatorParameters(-1f, 12);
+        createSimulationEvaluatorParameters(-1f, 12);
     }
     
     @Test
     public void constructor_OnPassSamplesPerPeriodLowerThanZero_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
         
-        createKruppelBotSimulationEvaluatorParameters(12, -1);
+        createSimulationEvaluatorParameters(12, -1);
     }
     
     @Test
     public void constructor_OnPassSampleTimesInSNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
         
-        createKruppelBotSimulationevaluatorParameters(null);
+        createSimulationEvaluatorParameters(null);
     }
     
     @Test
     public void constructor_OnPassEmptyList_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
         
-        createKruppelBotSimulationevaluatorParameters(Collections.emptyList());
+        createSimulationEvaluatorParameters(Collections.emptyList());
     }
     
     @Test
     public void constructorInterpolation_OnPassSamplesPerPeriodOne_CreatesInterpolatedSampleTimeList() {
-        KruppelBotSimulationEvaluatorParameters testee = createKruppelBotSimulationEvaluatorParameters(1f, 1);
+        SimulationEvaluatorParameters testee = createSimulationEvaluatorParameters(1f, 1);
         
         List<Float> returnedSampleTimesInS = testee.getSampleTimesInS();
         
@@ -68,7 +68,7 @@ public class KruppelBotSimulationEvaluatorParametersTest {
     
     @Test
     public void constructorInterpolation_OnPassSamplesPerPeriodThree_CreatesInterpolatedSampleTimeList() {
-        KruppelBotSimulationEvaluatorParameters testee = createKruppelBotSimulationEvaluatorParameters(1f, 3);
+        SimulationEvaluatorParameters testee = createSimulationEvaluatorParameters(1f, 3);
         
         List<Float> returnedSampleTimesInS = testee.getSampleTimesInS();
         
@@ -79,7 +79,7 @@ public class KruppelBotSimulationEvaluatorParametersTest {
     
     @Test
     public void constructorInterpolation_OnPassSamplesPerPeriodOne_CreatesSampleTimeListOfGivenSize() {
-        KruppelBotSimulationEvaluatorParameters testee = createKruppelBotSimulationEvaluatorParameters(1f, 1);
+        SimulationEvaluatorParameters testee = createSimulationEvaluatorParameters(1f, 1);
         
         List<Float> returnedSampleTimesInS = testee.getSampleTimesInS();
         
@@ -88,7 +88,7 @@ public class KruppelBotSimulationEvaluatorParametersTest {
     
     @Test
     public void constructorInterpolation_OnPassSamplesPerPeriodThree_CreatesSampleTimeListOfGivenSize() {
-        KruppelBotSimulationEvaluatorParameters testee = createKruppelBotSimulationEvaluatorParameters(1f, 3);
+        SimulationEvaluatorParameters testee = createSimulationEvaluatorParameters(1f, 3);
         
         List<Float> returnedSampleTimesInS = testee.getSampleTimesInS();
         

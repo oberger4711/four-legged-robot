@@ -20,17 +20,17 @@ import org.mockito.runners.MockitoJUnitRunner;
  * @author ole
  */
 @RunWith(MockitoJUnitRunner.class)
-public class KruppelBotSimulationTest {
+public class SimulationTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private KruppelBotSimulation createKruppelBotSimulation(ILegPolyFunctions legFunctions, KruppelBotModel model) {
-        return new KruppelBotSimulation(legFunctions, model);
+    private Simulation createSimulation(ILegPolyFunctions legFunctions, Model model) {
+        return new Simulation(legFunctions, model);
     }
 
-    private KruppelBotModel createDummyKruppelBotModel() {
-        KruppelBotModel dummy = Mockito.mock(KruppelBotModel.class);
+    private Model createDummyModel() {
+        Model dummy = Mockito.mock(Model.class);
 
         Mockito.doReturn(createDummySimJoint()).when(dummy).getRoot();
         Mockito.doReturn(createDummySimJoint()).when(dummy).getServoBL();
@@ -41,8 +41,8 @@ public class KruppelBotSimulationTest {
         return dummy;
     }
 
-    private KruppelBotModel createFakeKruppelBotModel(SimJoint fakeServoBL, SimJoint fakeServoBR, SimJoint fakeServoFL, SimJoint fakeServoFR) {
-        KruppelBotModel fake = Mockito.mock(KruppelBotModel.class);
+    private Model createFakeModel(SimJoint fakeServoBL, SimJoint fakeServoBR, SimJoint fakeServoFL, SimJoint fakeServoFR) {
+        Model fake = Mockito.mock(Model.class);
 
         Mockito.doReturn(fakeServoBL).when(fake).getServoBL();
         Mockito.doReturn(fakeServoBR).when(fake).getServoBR();
@@ -90,14 +90,14 @@ public class KruppelBotSimulationTest {
     public void constructor_OnPassLegFunctionsNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
 
-        createKruppelBotSimulation(null, createDummyKruppelBotModel());
+        createSimulation(null, createDummyModel());
     }
 
     @Test
-    public void constructor_OnPassKruppelBotModelNull_ThrowsIllegalArgumentException() {
+    public void constructor_OnPassModelNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
 
-        createKruppelBotSimulation(createDummyLegFunctions(), null);
+        createSimulation(createDummyLegFunctions(), null);
     }
 
     @Test
@@ -116,9 +116,9 @@ public class KruppelBotSimulationTest {
         SimJoint fakeServoBR = createDummySimJoint();
         SimJoint fakeServoFL = createDummySimJoint();
         SimJoint fakeServoFR = createDummySimJoint();
-        KruppelBotModel fakeModel = createFakeKruppelBotModel(fakeServoBL, fakeServoBR, fakeServoFL, fakeServoFR);
+        Model fakeModel = createFakeModel(fakeServoBL, fakeServoBR, fakeServoFL, fakeServoFR);
 
-        KruppelBotSimulation testee = createKruppelBotSimulation(fakeLegFunctions, fakeModel);
+        Simulation testee = createSimulation(fakeLegFunctions, fakeModel);
         testee.simulate(0);
 
         Mockito.verify(fakeServoBL).setOffsetRotation(new Rotation(1f, true));

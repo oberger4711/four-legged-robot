@@ -18,17 +18,17 @@ import org.mockito.Mockito;
  *
  * @author ole
  */
-public class KruppelBotSimulationEvaluatorTest {
+public class SimulationEvaluatorTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private KruppelBotSimulationEvaluator createKruppelBotSimulationEvaluator(KruppelBotSimulationEvaluatorParameters simulationParameter, WeightedEvaluatorGroup<IKruppelBotSimulationState> stateEvaluators) {
-        return new KruppelBotSimulationEvaluator(simulationParameter, stateEvaluators);
+    private SimulationEvaluator createSimulationEvaluator(SimulationEvaluatorParameters simulationParameter, WeightedEvaluatorGroup<ISimulationState> stateEvaluators) {
+        return new SimulationEvaluator(simulationParameter, stateEvaluators);
     }
 
-    private KruppelBotSimulationEvaluatorParameters createDummyParameters() {
-        KruppelBotSimulationEvaluatorParameters fake = Mockito.mock(KruppelBotSimulationEvaluatorParameters.class);
+    private SimulationEvaluatorParameters createDummyParameters() {
+        SimulationEvaluatorParameters fake = Mockito.mock(SimulationEvaluatorParameters.class);
 
         Mockito.doReturn(Arrays.asList(0f)).when(fake).getSampleTimesInS();
 
@@ -43,27 +43,27 @@ public class KruppelBotSimulationEvaluatorTest {
         return fake;
     }
     
-    private KruppelBotSimulation createDummyKruppelBotSimulation() {
-        return Mockito.mock(KruppelBotSimulation.class);
+    private Simulation createDummySimulation() {
+        return Mockito.mock(Simulation.class);
     }
 
     @Test
     public void constructor_OnPassSimulationParametersNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
 
-        createKruppelBotSimulationEvaluator(null, createFakeEvaluatorGroup(1));
+        createSimulationEvaluator(null, createFakeEvaluatorGroup(1));
     }
 
     @Test
     public void constructor_OnPassStateEvaluatorsNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
 
-        createKruppelBotSimulationEvaluator(createDummyParameters(), null);
+        createSimulationEvaluator(createDummyParameters(), null);
     }
 
     @Test
     public void getScore_OnPassNull_ThrowsIllegalArgumentException() {
-        KruppelBotSimulationEvaluator testee = createKruppelBotSimulationEvaluator(createDummyParameters(), createFakeEvaluatorGroup(1f));
+        SimulationEvaluator testee = createSimulationEvaluator(createDummyParameters(), createFakeEvaluatorGroup(1f));
 
         exception.expect(IllegalArgumentException.class);
 
@@ -72,18 +72,18 @@ public class KruppelBotSimulationEvaluatorTest {
 
     @Test
     public void getScore_OnCall_ReturnsAverageMeanOfScores() {
-        KruppelBotSimulationEvaluator testee = createKruppelBotSimulationEvaluator(createDummyParameters(), createFakeEvaluatorGroup(2f));
+        SimulationEvaluator testee = createSimulationEvaluator(createDummyParameters(), createFakeEvaluatorGroup(2f));
         
-        float returnedScore = testee.getScore(createDummyKruppelBotSimulation());
+        float returnedScore = testee.getScore(createDummySimulation());
         
         assertEquals(2f, returnedScore, 0.0001f);
     }
     
     @Test
     public void getScore_OnCall_SimulatesAndThenEvaluates() {
-        WeightedEvaluatorGroup<IKruppelBotSimulationState> fakeEvaluator = createFakeEvaluatorGroup(2f);
-        KruppelBotSimulationEvaluator testee = createKruppelBotSimulationEvaluator(createDummyParameters(), fakeEvaluator);
-        KruppelBotSimulation fakeSimulation = createDummyKruppelBotSimulation();
+        WeightedEvaluatorGroup<ISimulationState> fakeEvaluator = createFakeEvaluatorGroup(2f);
+        SimulationEvaluator testee = createSimulationEvaluator(createDummyParameters(), fakeEvaluator);
+        Simulation fakeSimulation = createDummySimulation();
         
         testee.getScore(fakeSimulation);
         

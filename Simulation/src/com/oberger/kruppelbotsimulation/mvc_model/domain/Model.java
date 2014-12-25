@@ -5,7 +5,7 @@ import com.oberger.kruppelbotsimulation.util.Rotation;
 import com.oberger.kruppelbotsimulation.util.Vector2;
 import com.oberger.kruppelbotsimulation.util.Weight;
 
-public class KruppelBotModel {
+public class Model {
     
     private final static float PLATFORM_WIDTH = 2;
     private final static float PLATFORM_HEIGHT = 4;
@@ -22,7 +22,7 @@ public class KruppelBotModel {
     private final SimJoint servoFL;
     private final SimMass legFL;
     
-    public KruppelBotModel() {
+    public Model() {
         root = new SimJoint(new Vector2(0, 0), new Rotation(0, true));
         
         servoBR = new SimJoint(new Vector2(PLATFORM_WIDTH / 2, -PLATFORM_HEIGHT / 2f), new Rotation(0, true));

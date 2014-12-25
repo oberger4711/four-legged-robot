@@ -1,9 +1,9 @@
 package com.oberger.kruppelbotsimulation.mvc_model.domain;
 
-public interface IKruppelBotSimulationState {
+public interface ISimulationState {
 
     public float getTotalElapsedTimeInS();
 
-    public KruppelBotModel getModel();
+    public Model getModel();
 
 }

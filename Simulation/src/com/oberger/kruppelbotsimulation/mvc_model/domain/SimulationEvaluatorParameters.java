@@ -3,11 +3,11 @@ package com.oberger.kruppelbotsimulation.mvc_model.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KruppelBotSimulationEvaluatorParameters {
+public class SimulationEvaluatorParameters {
 
     private final List<Float> sampleTimesInS;
 
-    public KruppelBotSimulationEvaluatorParameters(List<Float> sampleTimesInS) {
+    public SimulationEvaluatorParameters(List<Float> sampleTimesInS) {
         if (sampleTimesInS == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
@@ -17,7 +17,7 @@ public class KruppelBotSimulationEvaluatorParameters {
         this.sampleTimesInS = new ArrayList<>(sampleTimesInS);
     }
     
-    public KruppelBotSimulationEvaluatorParameters(float periodInS, int samplesPerPeriod) {
+    public SimulationEvaluatorParameters(float periodInS, int samplesPerPeriod) {
         if (periodInS <= 0) {
             throw new IllegalArgumentException("Simulation period must be higher than 0 but was " + periodInS);
         }

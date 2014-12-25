@@ -3,12 +3,12 @@ package com.oberger.kruppelbotsimulation.mvc_model.domain;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.*;
 import java.util.List;
 
-public class KruppelBotSimulationEvaluator implements IEvaluator<KruppelBotSimulation> {
+public class SimulationEvaluator implements IEvaluator<Simulation> {
 
-    private KruppelBotSimulationEvaluatorParameters simulationParameters = null;
-    private WeightedEvaluatorGroup<IKruppelBotSimulationState> simulationEvaluators = null;
+    private SimulationEvaluatorParameters simulationParameters = null;
+    private WeightedEvaluatorGroup<ISimulationState> simulationEvaluators = null;
     
-    public KruppelBotSimulationEvaluator(KruppelBotSimulationEvaluatorParameters simulationParameters, WeightedEvaluatorGroup<IKruppelBotSimulationState> simulationStateEvaluators) {
+    public SimulationEvaluator(SimulationEvaluatorParameters simulationParameters, WeightedEvaluatorGroup<ISimulationState> simulationStateEvaluators) {
         if (simulationParameters == null || simulationStateEvaluators == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
@@ -17,7 +17,7 @@ public class KruppelBotSimulationEvaluator implements IEvaluator<KruppelBotSimul
     }
 
     @Override
-    public float getScore(KruppelBotSimulation simulation) {
+    public float getScore(Simulation simulation) {
         if (simulation == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
