@@ -2,7 +2,7 @@ package com.oberger.kruppelbotsimulation.mvc_model.domain;
 
 import com.oberger.kruppelbotsimulation.util.Rotation;
 
-public class KruppelBotSimulation {
+public class KruppelBotSimulation implements IKruppelBotSimulationState {
 
     private float totalElapsedTimeInS;
     private ILegPolyFunctions legFunctions = null;
@@ -16,7 +16,7 @@ public class KruppelBotSimulation {
         this.model = model;
     }
 
-    public final void simulate(float totalElapsedTimeInS) {
+    public void simulate(float totalElapsedTimeInS) {
         this.totalElapsedTimeInS = totalElapsedTimeInS;
         
         Rotation rotationBL = new Rotation(legFunctions.getLegFunctionBL().getValue(totalElapsedTimeInS), true);
@@ -32,8 +32,14 @@ public class KruppelBotSimulation {
         model.getServoFR().setOffsetRotation(rotationFR);
     }
 
+    @Override
     public float getTotalElapsedTimeInS() {
         return this.totalElapsedTimeInS;
     }
 
+    @Override
+    public KruppelBotModel getModel() {
+        return model;
+    }
+    
 }
