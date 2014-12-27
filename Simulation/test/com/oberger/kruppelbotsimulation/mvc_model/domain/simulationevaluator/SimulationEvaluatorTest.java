@@ -5,12 +5,10 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator;
 
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.SimulationEvaluator;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.Simulation;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.SimulationEvaluatorParameters;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.ISimulationState;
-import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.WeightedEvaluatorGroup;
+import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.IEvaluator;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import static org.junit.Assert.assertEquals;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,20 +25,24 @@ public class SimulationEvaluatorTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private SimulationEvaluator createSimulationEvaluator(SimulationEvaluatorParameters simulationParameter, WeightedEvaluatorGroup<ISimulationState> stateEvaluators) {
+    private SimulationEvaluator createSimulationEvaluator(SimulationEvaluatorParameters simulationParameter, IEvaluator<ISimulationState> stateEvaluators) {
         return new SimulationEvaluator(simulationParameter, stateEvaluators);
     }
 
     private SimulationEvaluatorParameters createDummyParameters() {
+        return createFakeParameters(Arrays.asList(0f));
+    }
+    
+    private SimulationEvaluatorParameters createFakeParameters(List<Float> sampleTimes) {
         SimulationEvaluatorParameters fake = Mockito.mock(SimulationEvaluatorParameters.class);
 
-        Mockito.doReturn(Arrays.asList(0f)).when(fake).getSampleTimesInS();
-
+        Mockito.doReturn(sampleTimes).when(fake).getSampleTimesInS();
+        
         return fake;
     }
 
-    private WeightedEvaluatorGroup createFakeEvaluatorGroup(float score) {
-        WeightedEvaluatorGroup fake = Mockito.mock(WeightedEvaluatorGroup.class);
+    private IEvaluator createFakeEvaluator(float score) {
+        IEvaluator fake = Mockito.mock(IEvaluator.class);
 
         Mockito.doReturn(score).when(fake).getScore(Mockito.any());
 
@@ -55,7 +57,7 @@ public class SimulationEvaluatorTest {
     public void constructor_OnPassSimulationParametersNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
 
-        createSimulationEvaluator(null, createFakeEvaluatorGroup(1));
+        createSimulationEvaluator(null, createFakeEvaluator(1));
     }
 
     @Test
@@ -67,7 +69,7 @@ public class SimulationEvaluatorTest {
 
     @Test
     public void getScore_OnPassNull_ThrowsIllegalArgumentException() {
-        SimulationEvaluator testee = createSimulationEvaluator(createDummyParameters(), createFakeEvaluatorGroup(1f));
+        SimulationEvaluator testee = createSimulationEvaluator(createDummyParameters(), createFakeEvaluator(1f));
 
         exception.expect(IllegalArgumentException.class);
 
@@ -76,7 +78,7 @@ public class SimulationEvaluatorTest {
 
     @Test
     public void getScore_OnCall_ReturnsAverageMeanOfScores() {
-        SimulationEvaluator testee = createSimulationEvaluator(createDummyParameters(), createFakeEvaluatorGroup(2f));
+        SimulationEvaluator testee = createSimulationEvaluator(createDummyParameters(), createFakeEvaluator(2f));
         
         float returnedScore = testee.getScore(createDummySimulation());
         
@@ -85,7 +87,7 @@ public class SimulationEvaluatorTest {
     
     @Test
     public void getScore_OnCall_SimulatesAndThenEvaluates() {
-        WeightedEvaluatorGroup<ISimulationState> fakeEvaluator = createFakeEvaluatorGroup(2f);
+        IEvaluator<ISimulationState> fakeEvaluator = createFakeEvaluator(2f);
         SimulationEvaluator testee = createSimulationEvaluator(createDummyParameters(), fakeEvaluator);
         Simulation fakeSimulation = createDummySimulation();
         
@@ -96,4 +98,19 @@ public class SimulationEvaluatorTest {
         inOrder.verify(fakeSimulation).simulate(0f);
         inOrder.verify(fakeEvaluator).getScore(fakeSimulation);
     }
+    
+    @Test
+    public void getScore_OnPassThreeSampleTimes_SimulatesEverySampleTimeFromList() {
+        IEvaluator<ISimulationState> fakeEvaluator = createFakeEvaluator(2f);
+        List<Float> fakeSampleTimes = new ArrayList<>(Arrays.asList(1f, 2f, 3f));
+        SimulationEvaluator testee = createSimulationEvaluator(createFakeParameters(fakeSampleTimes), fakeEvaluator);
+        Simulation fakeSimulation = createDummySimulation();
+        
+        testee.getScore(fakeSimulation);
+        
+        Mockito.verify(fakeSimulation).simulate(1f);
+        Mockito.verify(fakeSimulation).simulate(2f);
+        Mockito.verify(fakeSimulation).simulate(3f);
+    }
+    
 }
