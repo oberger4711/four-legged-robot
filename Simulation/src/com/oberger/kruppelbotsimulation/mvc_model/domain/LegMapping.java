@@ -6,8 +6,10 @@ import com.oberger.kruppelbotsimulation.mvc_model.function.*;
 public abstract class LegMapping {
 
     public LegPolyFunctions getLegFunctions(IPolyFunction originalFunction) {
-        // TODO - implement ILegMapping.getLegFunctions
-        throw new UnsupportedOperationException();
+        if (originalFunction == null) {
+            throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+        }
+        return new LegPolyFunctions(getLegFunctionBr(originalFunction), getLegFunctionBl(originalFunction), getLegFunctionFr(originalFunction), getLegFunctionFl(originalFunction));
     }
 
     protected abstract IPolyFunction getLegFunctionBl(IPolyFunction originalFunction);
