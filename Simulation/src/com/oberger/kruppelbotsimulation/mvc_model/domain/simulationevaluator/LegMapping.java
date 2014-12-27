@@ -1,6 +1,5 @@
-package com.oberger.kruppelbotsimulation.mvc_model.domain;
+package com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator;
 
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.LegPolyFunctions;
 import com.oberger.kruppelbotsimulation.mvc_model.function.*;
 
 public abstract class LegMapping {

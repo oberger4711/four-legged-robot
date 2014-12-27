@@ -1,6 +1,5 @@
 package com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator;
 
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.ISimulationState;
 import com.oberger.kruppelbotsimulation.util.Rotation;
 
 public class Simulation<T extends LegPolyFunctions> implements ISimulationState {
