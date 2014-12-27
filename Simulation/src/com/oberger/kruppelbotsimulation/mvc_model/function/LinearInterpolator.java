@@ -5,6 +5,7 @@ import java.util.List;
 
 public class LinearInterpolator implements IInterpolator {
 
+    @Override
     public float getValue(List<IReadOnlyVector2> polygons, float x) {
         if (polygons == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
