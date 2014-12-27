@@ -49,4 +49,12 @@ public class WrappedPolyFunction implements IPolyFunction {
         return decorated.getPolygons();
     }
 
+    public float getPeriod() {
+        return period;
+    }
+    
+    public float getOffsetX() {
+        return offsetX;
+    }
+
 }
