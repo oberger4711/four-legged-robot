@@ -1,4 +1,4 @@
-package com.oberger.kruppelbotsimulation.mvc_model.domain;
+package com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator;
 
 import com.oberger.kruppelbotsimulation.mvc_model.model.*;
 import com.oberger.kruppelbotsimulation.util.Rotation;

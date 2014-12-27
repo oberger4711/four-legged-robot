@@ -1,4 +1,4 @@
-package com.oberger.kruppelbotsimulation.mvc_model.domain;
+package com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oberger.kruppelbotsimulation.mvc_model.domain;
+package com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator;
 
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.SimulationEvaluator;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.Simulation;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.SimulationEvaluatorParameters;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.ISimulationState;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.WeightedEvaluatorGroup;
 import java.util.Arrays;
 import static org.junit.Assert.assertEquals;

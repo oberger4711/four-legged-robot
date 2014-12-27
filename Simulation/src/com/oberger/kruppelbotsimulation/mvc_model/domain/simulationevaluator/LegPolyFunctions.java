@@ -1,15 +1,39 @@
-package com.oberger.kruppelbotsimulation.mvc_model.domain;
+package com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator;
 
 import com.oberger.kruppelbotsimulation.mvc_model.function.*;
 
-public interface ILegPolyFunctions {
+public class LegPolyFunctions {
 
-    public IPolyFunction getLegFunctionBR();
+    private IPolyFunction functionBR = null;
+    private IPolyFunction functionBL = null;
+    private IPolyFunction functionFR = null;
+    private IPolyFunction functionFL = null;
 
-    public IPolyFunction getLegFunctionBL();
+    public LegPolyFunctions(IPolyFunction functionBR, IPolyFunction functionBL, IPolyFunction functionFR, IPolyFunction functionFL) {
+        if (functionBR == null || functionBL == null || functionFR == null || functionFL == null) {
+            throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+        }
+        this.functionBR = functionBR;
+        this.functionBL = functionBL;
+        this.functionFR = functionFR;
+        this.functionFL = functionFL;
+    }
 
-    public IPolyFunction getLegFunctionFR();
+    public IPolyFunction getLegFunctionBR() {
+        return functionBR;
+    }
 
-    public IPolyFunction getLegFunctionFL();
+    public IPolyFunction getLegFunctionBL() {
+        return functionBL;
+    }
+
+    public IPolyFunction getLegFunctionFR() {
+        return functionFR;
+    }
+
+    public IPolyFunction getLegFunctionFL() {
+        return functionFL;
+    }
 
 }
+
