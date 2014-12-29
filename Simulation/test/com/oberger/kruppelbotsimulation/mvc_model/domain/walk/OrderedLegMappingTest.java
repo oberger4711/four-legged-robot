@@ -34,6 +34,13 @@ public class OrderedLegMappingTest {
     private IPolyFunction createDummyFunction() {
         return Mockito.mock(IPolyFunction.class);
     }
+    
+    @Test
+    public void constructor_OnPassLegOrderNull_ThrowsIllegalArgumentException() {
+        exception.expect(IllegalArgumentException.class);
+        
+        createOrderedLegMapping(null, 12f);
+    }
 
     @Test
     public void getLegFunctions_OnCall_ReturnsLegFunctionBrWrappedWithCorrectParameters() {
