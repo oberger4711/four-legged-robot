@@ -7,9 +7,7 @@ package com.oberger.kruppelbotsimulation.mvc_model.function;
 
 import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import com.oberger.kruppelbotsimulation.util.Vector2;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 import org.junit.Rule;
@@ -29,81 +27,45 @@ public class LinearInterpolatorTest {
     public ExpectedException exception = ExpectedException.none();
     
     @Test
-    public void getValue_OnPassNullPolygons_ThrowsIllegalArgumentException() {
+    public void getPolygons_OnPassNumberOfPolygonsThree_ReturnsStartAndInterpolatedAndEnd() {
         LinearInterpolator testee = createLinearInterpolator();
+        Vector2 start = new Vector2(0, 0);
+        Vector2 end = new Vector2(1, 1);
         
-        exception.expect(IllegalArgumentException.class);
+        List<Vector2> returnedPolygons = testee.getPolygons(start, end, 3);
         
-        testee.getValue(null, 0);
-    }
-
-    @Test
-    public void getValue_OnPassEmptyList_ThrowsIllegalArgumentException() {
-        LinearInterpolator testee = createLinearInterpolator();
-        
-        exception.expect(IllegalArgumentException.class);
-        
-        testee.getValue(Collections.emptyList(), 0);
+        List<Vector2> expectedPolygons = Arrays.asList(start, new Vector2(0.5f, 0.5f), end);
+        assertEquals(expectedPolygons, returnedPolygons);
     }
     
     @Test
-    public void getValue_OnPassUnsortedList_ThrowsIllegalArgumentException() {
+    public void getValue_OnPassThreePointsWithXInsideInterval_ReturnsInterpolated() {
         LinearInterpolator testee = createLinearInterpolator();
-        List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(1, 0), new Vector2(0, 0)));
+        List<IReadOnlyVector2> polygons = Arrays.asList(new Vector2(0, 0), new Vector2(1, 1), new Vector2(2, 0));
         
-        exception.expect(IllegalArgumentException.class);
+        float returnedValue = testee.getValue(polygons, 0.5f);
         
-        testee.getValue(polygons, 0.5f);
+        assertEquals(0.5f, returnedValue, 0.0001);
     }
     
     @Test
-    public void getValue_OnPassTwoPointsWithXInsidePolygonInterval_ReturnsInterpolated() {
+    public void getValue_OnPassTwoPointsWithXBeforeInterval_ReturnsInterpolated() {
         LinearInterpolator testee = createLinearInterpolator();
-        List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1)));
+        List<IReadOnlyVector2> polygons = Arrays.asList(new Vector2(0, 0), new Vector2(1, 1), new Vector2(2, 0));
         
-        float interpolated = testee.getValue(polygons, 0.5f);
+        float returnedValue = testee.getValue(polygons, -0.5f);
         
-        assertEquals(0.5f, interpolated, 0.0001f);
+        assertEquals(-0.5f, returnedValue, 0.0001);
     }
     
     @Test
-    public void getValue_OnPassTwoPointsWithXBeforePolygonInterval_ReturnsInterpolated() {
+    public void getValue_OnPassTwoPointsWithXAfterInterval_ReturnsInterpolated() {
         LinearInterpolator testee = createLinearInterpolator();
-        List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1)));
+        List<IReadOnlyVector2> polygons = Arrays.asList(new Vector2(0, 0), new Vector2(1, 1), new Vector2(2, 0));
         
-        float interpolated = testee.getValue(polygons, -0.5f);
+        float returnedValue = testee.getValue(polygons, 2.5f);
         
-        assertEquals(-0.5f, interpolated, 0.0001f);
-    }
-    
-    @Test
-    public void getValue_OnPassThreePointsWithXBetweenFirstTwoPolygons_ReturnsInterpolatedWithFirstTwoPolygons() {
-        LinearInterpolator testee = createLinearInterpolator();
-        List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1), new Vector2(2, 0)));
-        
-        float interpolated = testee.getValue(polygons, 0.5f);
-        
-        assertEquals(0.5f, interpolated, 0.0001f);
-    }
-    
-    @Test
-    public void getValue_OnPassThreePointsWithXBetweenLastTwoPolygons_ReturnsInterpolatedWithFirstTwoPolygons() {
-        LinearInterpolator testee = createLinearInterpolator();
-        List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1), new Vector2(2, 0)));
-        
-        float interpolated = testee.getValue(polygons, 1.5f);
-        
-        assertEquals(0.5f, interpolated, 0.0001f);
-    }
-    
-    @Test
-    public void getValue_OnPassThreePointsWithXAfterLastPolygonInterval_ReturnsInterpolatedWithLastTwoPolygons() {
-        LinearInterpolator testee = createLinearInterpolator();
-        List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1), new Vector2(2, 0)));
-        
-        float interpolated = testee.getValue(polygons, 2.5f);
-        
-        assertEquals(-0.5f, interpolated, 0.0001f);
+        assertEquals(-0.5f, returnedValue, 0.0001);
     }
 
 }

@@ -24,8 +24,8 @@ public class WalkStateTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
     
-    private WalkState createWalkState(OrderedLegMapping legMapping, PolyFunction legFunctionForward, PolyFunction legFunctionBackward, Model model) {
-        return new WalkState(legMapping, legFunctionForward, legFunctionBackward, model);
+    private WalkState createWalkState(OrderedLegMapping legMapping, PolyFunction legFunction, Model model) {
+        return new WalkState(legMapping, legFunction, model);
     }
     
     private OrderedLegMapping createDummyLegMapping() {
@@ -44,28 +44,21 @@ public class WalkStateTest {
     public void constructor_OnPassLegMappingNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
         
-        createWalkState(null, createDummyFunction(), createDummyFunction(), createDummyModel());
+        createWalkState(null, createDummyFunction(), createDummyModel());
     }
     
     @Test
-    public void constructor_OnPassLegFunctionForwardNull_ThrowsIllegalArgumentException() {
+    public void constructor_OnPassLegFunctionNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
         
-        createWalkState(createDummyLegMapping(), null, createDummyFunction(), createDummyModel());
-    }
-    
-    @Test
-    public void constructor_OnPassLegFunctionBackwardNull_ThrowsIllegalArgumentException() {
-        exception.expect(IllegalArgumentException.class);
-        
-        createWalkState(createDummyLegMapping(), createDummyFunction(), null, createDummyModel());
+        createWalkState(createDummyLegMapping(), null, createDummyModel());
     }
     
     @Test
     public void constructor_OnPassModelNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
         
-        createWalkState(createDummyLegMapping(), createDummyFunction(), createDummyFunction(), null);
+        createWalkState(createDummyLegMapping(), createDummyFunction(), null);
     }
     
 }

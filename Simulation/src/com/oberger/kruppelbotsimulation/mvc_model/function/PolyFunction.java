@@ -7,10 +7,12 @@ import java.util.List;
 
 public class PolyFunction implements IPolyFunction {
 
-    private IInterpolator interpolator;
+    private final static float EQUALS_THRESHOLD = 0.00001f;
+
+    private Interpolator interpolator;
     private List<IReadOnlyVector2> polygons;
 
-    public PolyFunction(IInterpolator interpolator, List<IReadOnlyVector2> polygons) {
+    public PolyFunction(Interpolator interpolator, List<IReadOnlyVector2> polygons) {
         if (interpolator == null || polygons == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
@@ -25,6 +27,7 @@ public class PolyFunction implements IPolyFunction {
     public float getValue(float x) {
         return interpolator.getValue(polygons, x);
     }
+
     @Override
     public List<IReadOnlyVector2> getPolygons() {
         return Collections.unmodifiableList(polygons);

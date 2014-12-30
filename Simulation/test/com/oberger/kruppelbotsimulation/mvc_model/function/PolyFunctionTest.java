@@ -25,7 +25,7 @@ public class PolyFunctionTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
     
-    private PolyFunction createPolyFunction(IInterpolator interpolator, List<IReadOnlyVector2> polygons) {
+    private PolyFunction createPolyFunction(Interpolator interpolator, List<IReadOnlyVector2> polygons) {
         return new PolyFunction(interpolator, polygons);
     }
     
@@ -40,7 +40,7 @@ public class PolyFunctionTest {
     
     @Test
     public void constructor_OnPassNullPolygons_ThrowsIllegalArgumentException() {
-        IInterpolator fakeInterpolator = Mockito.mock(IInterpolator.class);
+        Interpolator fakeInterpolator = Mockito.mock(Interpolator.class);
         
         exception.expect(IllegalArgumentException.class);
         
@@ -49,17 +49,17 @@ public class PolyFunctionTest {
     
     @Test
     public void constructor_OnPassPolygonsOfSizeOne_ThrowsIllegalArgumentException() {
-        IInterpolator fakeInterpolator = Mockito.mock(IInterpolator.class);
+        Interpolator fakeInterpolator = Mockito.mock(Interpolator.class);
         List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(0, 0)));
         
         exception.expect(IllegalArgumentException.class);
         
-        PolyFunction testee = createPolyFunction(fakeInterpolator, polygons);
+        createPolyFunction(fakeInterpolator, polygons);
     }
     
     @Test
     public void getValue_OnCall_ReturnsInterpolatedValue() {
-        IInterpolator fakeInterpolator = Mockito.mock(IInterpolator.class);
+        Interpolator fakeInterpolator = Mockito.mock(Interpolator.class);
         List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1)));
         PolyFunction testee = createPolyFunction(fakeInterpolator, polygons);
         Mockito.doReturn(42f).when(fakeInterpolator).getValue(testee.getPolygons(), 0);
@@ -71,7 +71,7 @@ public class PolyFunctionTest {
     
     @Test
     public void getPolygons_OnCall_ReturnsUnmodifiableList() {
-        IInterpolator fakeInterpolator = Mockito.mock(IInterpolator.class);
+        Interpolator fakeInterpolator = Mockito.mock(Interpolator.class);
         List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1)));
         PolyFunction testee = createPolyFunction(fakeInterpolator, polygons);
         
