@@ -7,8 +7,6 @@ import java.util.List;
 
 public class PolyFunction implements IPolyFunction {
 
-    private final static float EQUALS_THRESHOLD = 0.00001f;
-
     private Interpolator interpolator;
     private List<IReadOnlyVector2> polygons;
 

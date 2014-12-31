@@ -16,15 +16,17 @@ import com.oberger.kruppelbotsimulation.mvc_model.localsearch.IImmutableInnerSta
 public class WalkState implements IImmutableInnerState {
 
     private OrderedLegMapping legMapping;
-    private PolyFunction legFunction;
+    private PolyFunction legFunctionForward;
+    private PolyFunction legFunctionBackward;
     private Model model;
 
-    public WalkState(OrderedLegMapping legMapping, PolyFunction legFunction, Model model) {
-        if (legMapping == null || legFunction == null || model == null) {
+    public WalkState(OrderedLegMapping legMapping, PolyFunction legFunctionForward, PolyFunction legFunctionBackward, Model model) {
+        if (legMapping == null || legFunctionForward == null || legFunctionBackward == null || model == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
         this.legMapping = legMapping;
-        this.legFunction = legFunction;
+        this.legFunctionForward = legFunctionForward;
+        this.legFunctionBackward = legFunctionBackward;
         this.model = model;
     }
     
@@ -32,8 +34,12 @@ public class WalkState implements IImmutableInnerState {
         return legMapping;
     }
 
-    public PolyFunction getLegFunction() {
-        return legFunction;
+    public PolyFunction getLegFunctionForward() {
+        return legFunctionForward;
+    }
+
+    public PolyFunction getLegFunctionBackward() {
+        return legFunctionBackward;
     }
 
     public Model getModel() {

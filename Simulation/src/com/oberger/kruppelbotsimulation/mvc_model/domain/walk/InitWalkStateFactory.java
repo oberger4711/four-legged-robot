@@ -5,12 +5,14 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.Model;
 import com.oberger.kruppelbotsimulation.mvc_model.function.Interpolator;
 import com.oberger.kruppelbotsimulation.mvc_model.function.LinearInterpolator;
 import com.oberger.kruppelbotsimulation.mvc_model.function.PolyFunction;
 import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import com.oberger.kruppelbotsimulation.util.Vector2;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -26,32 +28,52 @@ public class InitWalkStateFactory {
     public final static int NUMBER_OF_POLYGONS_FORWARD = 32;
     public final static int NUMBER_OF_POLYGONS_BACKWARD = 8;
     public final static int NUMBER_OF_POLYGONS_TOTAL = NUMBER_OF_POLYGONS_FORWARD + NUMBER_OF_POLYGONS_BACKWARD;
-    
+    public final static List<LegOrder.LegPosition> LEG_ORDER = Arrays.asList(LegOrder.LegPosition.BR, LegOrder.LegPosition.FL, LegOrder.LegPosition.BL, LegOrder.LegPosition.FR);
+
     public WalkState createInitWalkState() {
-        PolyFunction legFunction = createInitLegFunctionForward();
+        OrderedLegMapping legMapping = createInitOrderedLegMapping();
+        Interpolator interpolator = createInterpolator();
+        PolyFunction legFunctionForward = createInitLegFunctionForward(interpolator);
+        PolyFunction legFunctionBackward = createInitLegFunctionForward(interpolator);
+        Model model = createInitModel();
+
+        WalkState created = new WalkState(legMapping, legFunctionForward, legFunctionBackward, model);
         
-//        WalkState walkState = new WalkState(, legFunction, null)
-        return null;
+        return created;
     }
 
-    private static Interpolator createInterpolator() {
+    private Interpolator createInterpolator() {
         return new LinearInterpolator();
     }
 
-    private static PolyFunction createInitLegFunctionForward() {
+    private PolyFunction createInitLegFunctionForward(Interpolator interpolator) {
         Vector2 forwardStart = new Vector2(0, ANGLE_Y_STAND_IN_DEGREES - (STEP_SIZE_Y_IN_DEGREES / 2));
-        Vector2 backwardStart = new Vector2(PERIOD_IN_S - REPOSITION_TIME_IN_S, ANGLE_Y_STAND_IN_DEGREES + (STEP_SIZE_Y_IN_DEGREES / 2));
-        Vector2 backwardEnd = new Vector2(PERIOD_IN_S, ANGLE_Y_STAND_IN_DEGREES - (STEP_SIZE_Y_IN_DEGREES / 2));
+        Vector2 forwardEnd = new Vector2(PERIOD_IN_S - REPOSITION_TIME_IN_S, ANGLE_Y_STAND_IN_DEGREES + (STEP_SIZE_Y_IN_DEGREES / 2));
 
-        Interpolator interpolator = createInterpolator();
-        List<Vector2> forwardPolygons = interpolator.getPolygons(forwardStart, backwardStart, NUMBER_OF_POLYGONS_FORWARD);
-        List<Vector2> backwardPolygons = interpolator.getPolygons(backwardStart, backwardEnd, NUMBER_OF_POLYGONS_BACKWARD);
-        List<IReadOnlyVector2> allPolygons = new ArrayList<>(forwardPolygons);
-        allPolygons.addAll(backwardPolygons);
-        
-        PolyFunction created = new PolyFunction(new LinearInterpolator(), allPolygons);
+        List<IReadOnlyVector2> forwardPolygons = new LinkedList<>(interpolator.getPolygons(forwardStart, forwardEnd, NUMBER_OF_POLYGONS_FORWARD));
+
+        PolyFunction created = new PolyFunction(interpolator, forwardPolygons);
 
         return created;
     }
 
+    private PolyFunction createInitLegFunctionBackward(Interpolator interpolator) {
+        Vector2 backwardStart = new Vector2(PERIOD_IN_S - REPOSITION_TIME_IN_S, ANGLE_Y_STAND_IN_DEGREES + (STEP_SIZE_Y_IN_DEGREES / 2));
+        Vector2 backwardEnd = new Vector2(PERIOD_IN_S, ANGLE_Y_STAND_IN_DEGREES - (STEP_SIZE_Y_IN_DEGREES / 2));
+
+        List<IReadOnlyVector2> backwardPolygons = new LinkedList<>(interpolator.getPolygons(backwardStart, backwardEnd, NUMBER_OF_POLYGONS_BACKWARD));
+        
+        PolyFunction created = new PolyFunction(interpolator, backwardPolygons);
+
+        return created;
+    }
+    
+    private OrderedLegMapping createInitOrderedLegMapping() {
+        return new OrderedLegMapping(new LegOrder(LEG_ORDER), PERIOD_IN_S);
+    }
+    
+    private Model createInitModel() {
+        return new Model();
+    }
+    
 }
