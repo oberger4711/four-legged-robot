@@ -6,7 +6,12 @@
 package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
 import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.Model;
-import com.oberger.kruppelbotsimulation.mvc_model.function.PolyFunction;
+import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
+import com.oberger.kruppelbotsimulation.util.Vector2;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import static org.junit.Assert.assertEquals;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -20,52 +25,69 @@ import org.mockito.runners.MockitoJUnitRunner;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class WalkStateTest {
-    
+
     @Rule
     public ExpectedException exception = ExpectedException.none();
-    
-    private WalkState createWalkState(OrderedLegMapping legMapping, PolyFunction legFunctionForward, PolyFunction legFunctionBackward, Model model) {
-        return new WalkState(legMapping, legFunctionForward, legFunctionBackward, model);
+
+    private WalkState createWalkState(OrderedLegMapping legMapping, List<IReadOnlyVector2> polygonsBackward, List<IReadOnlyVector2> polygonsForward, Model model) {
+        return new WalkState(legMapping, polygonsBackward, polygonsForward, model);
     }
-    
+
     private OrderedLegMapping createDummyLegMapping() {
         return Mockito.mock(OrderedLegMapping.class);
     }
-    
-    private PolyFunction createDummyFunction() {
-        return Mockito.mock(PolyFunction.class);
+
+    private List<IReadOnlyVector2> createDummyPolygonsForward() {
+        return Arrays.asList(new Vector2(0, 0), new Vector2(1, 1));
     }
-    
+
+    private List<IReadOnlyVector2> createDummyPolygonsBackward() {
+        return Arrays.asList(new Vector2(1, 1), new Vector2(2, 0));
+    }
+
     private Model createDummyModel() {
         return Mockito.mock(Model.class);
     }
-    
+
     @Test
     public void constructor_OnPassLegMappingNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
-        
-        createWalkState(null, createDummyFunction(), createDummyFunction(), createDummyModel());
+
+        createWalkState(null, createDummyPolygonsBackward(), createDummyPolygonsForward(), createDummyModel());
     }
-    
+
     @Test
-    public void constructor_OnPassLegFunctionForwardNull_ThrowsIllegalArgumentException() {
+    public void constructor_OnPassPolygonsForwardNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
-        
-        createWalkState(createDummyLegMapping(), null, createDummyFunction(), createDummyModel());
+
+        createWalkState(createDummyLegMapping(), createDummyPolygonsBackward(), null, createDummyModel());
     }
-    
+
     @Test
-    public void constructor_OnPassLegFunctionBackwardNull_ThrowsIllegalArgumentException() {
+    public void constructor_OnPassPolygonsBackwardNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
-        
-        createWalkState(createDummyLegMapping(), createDummyFunction(), null, createDummyModel());
+
+        createWalkState(createDummyLegMapping(), null, createDummyPolygonsForward(), createDummyModel());
     }
-    
+
     @Test
     public void constructor_OnPassModelNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
-        
-        createWalkState(createDummyLegMapping(), createDummyFunction(), createDummyFunction(), null);
+
+        createWalkState(createDummyLegMapping(), createDummyPolygonsBackward(), createDummyPolygonsForward(), null);
     }
-    
+
+    @Test
+    public void getLegPolygons_OnInjectedLegitPolygons_ContainsAllPolygons() {
+        List<IReadOnlyVector2> polygonsBackward = Arrays.asList(new Vector2(1, 1), new Vector2(2, 0));
+        List<IReadOnlyVector2> polygonsForward = Arrays.asList(new Vector2(0, 0), new Vector2(1, 1));
+        List<IReadOnlyVector2> polygonsUnited = new LinkedList<>();
+        polygonsUnited.addAll(polygonsBackward);
+        polygonsUnited.addAll(polygonsForward);
+
+        WalkState testee = createWalkState(createDummyLegMapping(), polygonsBackward, polygonsForward, createDummyModel());
+
+        assertEquals(polygonsUnited, testee.getLegFunction().getPolygons());
+    }
+
 }

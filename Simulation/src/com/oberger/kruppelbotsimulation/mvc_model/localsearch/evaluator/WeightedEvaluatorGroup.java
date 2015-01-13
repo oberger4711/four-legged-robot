@@ -10,7 +10,7 @@ public class WeightedEvaluatorGroup<T> implements IEvaluator<T> {
 
     private List<WeightedEvaluator<T>> evaluators;
 
-    WeightedEvaluatorGroup(List<WeightedEvaluator<T>> evaluatorList) {
+    public WeightedEvaluatorGroup(List<WeightedEvaluator<T>> evaluatorList) {
         if (evaluatorList == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }

@@ -9,11 +9,12 @@ import com.oberger.kruppelbotsimulation.mvc_model.localsearch.manipulator.IManip
 public class WalkOptimization {
     
     public static void main(String[] args) {
-        WalkState initInnerState = new InitWalkStateFactory().createInitWalkState();
-        IEvaluator<WalkState> evaluator = null;
-        IManipulator<WalkState> manipulator = null;
+        WalkState initInnerState = null; // TODO
+        IEvaluator<WalkState> evaluator = null; // TODO
+        IManipulator<WalkState> manipulator = null; // TODO
         State<WalkState> initState = new State<>(initInnerState, evaluator, manipulator);
         LocalSearchAlgorithm<WalkState> localSearchAlgo = new HillClimbing<>();
+        
         System.out.println("Done.");
     }
     

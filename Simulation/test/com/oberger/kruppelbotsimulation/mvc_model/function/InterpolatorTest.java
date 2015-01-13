@@ -61,6 +61,36 @@ public class InterpolatorTest {
     }
     
     @Test
+    public void getValue_OnPassListWithIdenticalPolygonsOnly_ThrowsIllegalArgumentException() {
+        FakeInterpolator testee = createFakeInterpolator(-1f);
+        List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(1, 1), new Vector2(1,1)));
+        
+        exception.expect(IllegalArgumentException.class);
+        
+        testee.getValue(polygons, 0f);
+    }
+    
+    @Test
+    public void getValue_OnPassTwoPointsWithXOnFirstInterval_ReturnsPolygonY() {
+        FakeInterpolator testee = createFakeInterpolator(-1f);
+        List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1)));
+        
+        float interpolated = testee.getValue(polygons, 0f);
+        
+        assertEquals(0, interpolated, 0.0001f);
+    }
+    
+    @Test
+    public void getValue_OnPassTwoPointsWithXOnSecondInterval_ReturnsPolygonY() {
+        FakeInterpolator testee = createFakeInterpolator(-1f);
+        List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1)));
+        
+        float interpolated = testee.getValue(polygons, 1f);
+        
+        assertEquals(1, interpolated, 0.0001f);
+    }
+    
+    @Test
     public void getValue_OnPassTwoPointsWithXInsidePolygonInterval_ReturnsInterpolated() {
         FakeInterpolator testee = createFakeInterpolator(0.5f);
         List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1)));
@@ -108,6 +138,16 @@ public class InterpolatorTest {
         float interpolated = testee.getValue(polygons, 2.5f);
         
         assertEquals(-0.5f, interpolated, 0.0001f);
+    }
+    
+    @Test
+    public void getValue_OnPassListWithDifferentAndIdenticalPolygonsAndXOnFirstPolygon_ReturnsPolygonValue() {
+        FakeInterpolator testee = createFakeInterpolator(-1f);
+        List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1), new Vector2(1,1)));
+        
+        float interpolatedY = testee.getValue(polygons, 1f);
+        
+        assertEquals(1f, interpolatedY, 0.0001f);
     }
     
     @Test
