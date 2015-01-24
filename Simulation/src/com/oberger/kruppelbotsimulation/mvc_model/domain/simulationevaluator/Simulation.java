@@ -2,13 +2,13 @@ package com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator;
 
 import com.oberger.kruppelbotsimulation.util.Rotation;
 
-public class Simulation<T extends LegPolyFunctions> implements ISimulationState {
+public class Simulation implements ISimulationState {
 
     private float totalElapsedTimeInS;
-    private T legFunctions = null;
+    private ILegPolyFunctions legFunctions = null;
     private Model model = null;
 
-    public Simulation(T legFunctions, Model model) {
+    public Simulation(ILegPolyFunctions legFunctions, Model model) {
         if (legFunctions == null || model == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
@@ -42,7 +42,7 @@ public class Simulation<T extends LegPolyFunctions> implements ISimulationState 
         return model;
     }
     
-    public T getLegFunctions() {
+    public ILegPolyFunctions getLegFunctions() {
         return legFunctions;
     }
     

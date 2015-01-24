@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
+package com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator;
 
-import com.oberger.kruppelbotsimulation.mvc_model.domain.walk.LegOrder.LegPosition;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.LegOrder;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.LegOrder.LegPosition;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

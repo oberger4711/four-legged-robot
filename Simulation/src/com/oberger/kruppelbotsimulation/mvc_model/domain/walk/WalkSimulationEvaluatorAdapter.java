@@ -5,7 +5,9 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.ILegPolyFunctions;
 import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.Model;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.Simulation;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.IEvaluator;
 
 /**
@@ -14,11 +16,26 @@ import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.IEvaluat
  */
 public class WalkSimulationEvaluatorAdapter implements IEvaluator<WalkState>{
     
-    private Model model = null;
-
+    private IEvaluator<Simulation> adaptee = null;
+    
+    public WalkSimulationEvaluatorAdapter(IEvaluator<Simulation> adaptee) {
+        if (adaptee == null) {
+            throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+        }
+        this.adaptee = adaptee;
+    }
+    
     @Override
     public float getScore(WalkState innerState) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Simulation simulation = createSimulation(innerState);
+        
+        float score = adaptee.getScore(simulation);
+        
+        return score;
+    }
+    
+    protected Simulation createSimulation(WalkState walkState) {
+        return new Simulation(walkState.getLegFunctions(), walkState.getModel());
     }
     
 }

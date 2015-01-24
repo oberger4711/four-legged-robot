@@ -34,7 +34,8 @@ public class EvaluatorFactory {
     }
     
     private IEvaluator<WalkState> createRepositionBalancePointEvaluator() {
-        return new WalkSimulationEvaluatorAdapter();
+        // TODO:
+        return null;//return new WalkSimulationEvaluatorAdapter();
     }
     
 }

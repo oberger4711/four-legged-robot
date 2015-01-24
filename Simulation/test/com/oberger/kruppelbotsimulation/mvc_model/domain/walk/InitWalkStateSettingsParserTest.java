@@ -5,7 +5,7 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
-import com.oberger.kruppelbotsimulation.mvc_model.domain.walk.LegOrder;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.LegOrder;
 import com.oberger.kruppelbotsimulation.mvc_model.domain.walk.InitWalkStateSettings;
 import com.oberger.kruppelbotsimulation.mvc_model.domain.walk.InitWalkStateSettingsParser;
 import java.util.Arrays;

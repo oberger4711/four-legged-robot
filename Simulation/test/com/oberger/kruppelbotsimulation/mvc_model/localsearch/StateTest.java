@@ -60,6 +60,13 @@ public class StateTest {
     }
 
     @Test
+    public void constructor_OnPassGenerationNegative_ThrowsIllegalArgumentException() {
+        exception.expect(IllegalArgumentException.class);
+        
+        createState(-1, createDummyInnerState(), createFakeEvaluator(0), createDummyManipulator());
+    }
+    
+    @Test
     public void constructor_OnPassInnerStateNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
 
@@ -79,7 +86,7 @@ public class StateTest {
 
         createState(0, createDummyInnerState(), createFakeEvaluator(0), null);
     }
-
+    
     @Test
     public void getNeighbours_OnSecondCall_UsesCacheAndReturnsSameValue() {
         IImmutableInnerState fakeInnerState = createDummyInnerState();

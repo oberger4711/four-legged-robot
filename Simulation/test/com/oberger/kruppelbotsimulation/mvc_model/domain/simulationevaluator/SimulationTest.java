@@ -5,9 +5,6 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator;
 
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.Simulation;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.LegPolyFunctions;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.Model;
 import com.oberger.kruppelbotsimulation.mvc_model.function.IPolyFunction;
 import com.oberger.kruppelbotsimulation.mvc_model.model.SimJoint;
 import com.oberger.kruppelbotsimulation.util.Rotation;
@@ -28,7 +25,7 @@ public class SimulationTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private Simulation createSimulation(LegPolyFunctions legFunctions, Model model) {
+    private Simulation createSimulation(ILegPolyFunctions legFunctions, Model model) {
         return new Simulation(legFunctions, model);
     }
 
@@ -59,8 +56,8 @@ public class SimulationTest {
         return Mockito.mock(SimJoint.class);
     }
 
-    private LegPolyFunctions createDummyLegFunctions() {
-        LegPolyFunctions dummy = Mockito.mock(LegPolyFunctions.class);
+    private ILegPolyFunctions createDummyLegFunctions() {
+        ILegPolyFunctions dummy = Mockito.mock(ILegPolyFunctions.class);
 
         Mockito.doReturn(createDummyPolyFunction()).when(dummy).getLegFunctionBL();
         Mockito.doReturn(createDummyPolyFunction()).when(dummy).getLegFunctionBR();
@@ -78,8 +75,8 @@ public class SimulationTest {
         return dummy;
     }
 
-    private LegPolyFunctions createFakeLegPolyFunctions(IPolyFunction functionBL, IPolyFunction functionBR, IPolyFunction functionFL, IPolyFunction functionFR) {
-        LegPolyFunctions fake = Mockito.mock(LegPolyFunctions.class);
+    private ILegPolyFunctions createFakeLegPolyFunctions(IPolyFunction functionBL, IPolyFunction functionBR, IPolyFunction functionFL, IPolyFunction functionFR) {
+        ILegPolyFunctions fake = Mockito.mock(ILegPolyFunctions.class);
 
         Mockito.doReturn(functionBL).when(fake).getLegFunctionBL();
         Mockito.doReturn(functionBR).when(fake).getLegFunctionBR();
@@ -113,7 +110,7 @@ public class SimulationTest {
         Mockito.doReturn(3f).when(fakeFunctionFL).getValue(0);
         IPolyFunction fakeFunctionFR = createDummyPolyFunction();
         Mockito.doReturn(4f).when(fakeFunctionFR).getValue(0);
-        LegPolyFunctions fakeLegFunctions = createFakeLegPolyFunctions(fakeFunctionBL, fakeFunctionBR, fakeFunctionFL, fakeFunctionFR);
+        ILegPolyFunctions fakeLegFunctions = createFakeLegPolyFunctions(fakeFunctionBL, fakeFunctionBR, fakeFunctionFL, fakeFunctionFR);
 
         SimJoint fakeServoBL = createDummySimJoint();
         SimJoint fakeServoBR = createDummySimJoint();

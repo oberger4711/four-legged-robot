@@ -6,12 +6,9 @@
 package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
 import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.Model;
-import com.oberger.kruppelbotsimulation.mvc_model.function.IPolyFunction;
-import com.oberger.kruppelbotsimulation.mvc_model.function.LinearInterpolator;
-import com.oberger.kruppelbotsimulation.mvc_model.function.PolyFunction;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.OrderedLegPolyFunctions;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.IImmutableInnerState;
 import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,21 +18,15 @@ import java.util.List;
  */
 public class WalkState implements IImmutableInnerState {
 
-    private OrderedLegMapping legMapping = null;
-    private IPolyFunction legFunction = null;
-    private List<IReadOnlyVector2> polygonsForward = null;
-    private List<IReadOnlyVector2> polygonsBackward = null;
+    private OrderedLegPolyFunctions legFunctions = null;
     private Model model = null;
 
-    public WalkState(OrderedLegMapping legMapping, List<IReadOnlyVector2> polygonsBackward, List<IReadOnlyVector2> polygonsForward, Model model) {
-        if (legMapping == null || polygonsForward == null || polygonsBackward == null || model == null) {
+    public WalkState(OrderedLegPolyFunctions legFunctions, Model model) {
+        if (legFunctions == null || model == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
-        this.legMapping = legMapping;
-        this.polygonsForward = polygonsForward;
-        this.polygonsBackward = polygonsBackward;
+        this.legFunctions = legFunctions;
         this.model = model;
-        this.legFunction = new PolyFunction(new LinearInterpolator(), unitePolygons(polygonsBackward, polygonsForward));
     }
     
     private List<IReadOnlyVector2> unitePolygons(List<IReadOnlyVector2> backward, List<IReadOnlyVector2> forward) {
@@ -46,23 +37,11 @@ public class WalkState implements IImmutableInnerState {
         
         return unionPolygons;
     }
-    
-    public OrderedLegMapping getLegMapping() {
-        return legMapping;
+
+    public OrderedLegPolyFunctions getLegFunctions() {
+        return legFunctions;
     }
 
-    public List<IReadOnlyVector2> getPolygonsForward() {
-        return polygonsForward;
-    }
-
-    public List<IReadOnlyVector2> getPolygonsBackward() {
-        return polygonsBackward;
-    }
-
-    public IPolyFunction getLegFunction() {
-        return legFunction;
-    }
-    
     public Model getModel() {
         return model;
     }

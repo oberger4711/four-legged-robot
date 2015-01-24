@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
+package com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator;
 
 import java.util.Arrays;
 import java.util.Collections;

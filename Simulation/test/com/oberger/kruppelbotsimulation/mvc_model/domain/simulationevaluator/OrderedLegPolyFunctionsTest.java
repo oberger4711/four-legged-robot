@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
+package com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator;
 
-import com.oberger.kruppelbotsimulation.mvc_model.domain.walk.LegOrder.LegPosition;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.LegOrder;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.LegOrder.LegPosition;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.OrderedLegPolyFunctions;
 import com.oberger.kruppelbotsimulation.mvc_model.function.IPolyFunction;
 import com.oberger.kruppelbotsimulation.mvc_model.function.WrappedPolyFunction;
 import static org.junit.Assert.assertEquals;
@@ -18,13 +20,13 @@ import org.mockito.Mockito;
  *
  * @author ole
  */
-public class OrderedLegMappingTest {
+public class OrderedLegPolyFunctionsTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private OrderedLegMapping createOrderedLegMapping(LegOrder order, float periodInS) {
-        return new OrderedLegMapping(order, periodInS);
+    private OrderedLegPolyFunctions createOrderedLegFunctions(IPolyFunction originalFunction, LegOrder order, float periodInS) {
+        return new OrderedLegPolyFunctions(originalFunction, order, periodInS);
     }
 
     private LegOrder createDummyLegOrder() {
@@ -34,20 +36,27 @@ public class OrderedLegMappingTest {
     private IPolyFunction createDummyFunction() {
         return Mockito.mock(IPolyFunction.class);
     }
+
+    @Test
+    public void constructor_OnPassOriginalFunctionNull_ThrowsIllegalArgumentException() {
+        exception.expect(IllegalArgumentException.class);
+        
+        createOrderedLegFunctions(null, createDummyLegOrder(), 12f);
+    }
     
     @Test
     public void constructor_OnPassLegOrderNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
-        
-        createOrderedLegMapping(null, 12f);
+
+        createOrderedLegFunctions(createDummyFunction(), null, 12f);
     }
 
     @Test
     public void getLegFunctions_OnCall_ReturnsLegFunctionBrWrappedWithCorrectParameters() {
         LegOrder order = new LegOrder(LegPosition.BR, LegPosition.BL, LegPosition.FR, LegPosition.FL);
-        OrderedLegMapping testee = createOrderedLegMapping(order, 1.0f);
+        OrderedLegPolyFunctions testee = createOrderedLegFunctions(createDummyFunction(), order, 1.0f);
 
-        WrappedPolyFunction wrappedDecorator = (WrappedPolyFunction) (testee.getLegFunctionBr(createDummyFunction()));
+        WrappedPolyFunction wrappedDecorator = (WrappedPolyFunction) testee.getLegFunctionBR();
         assertEquals(1.0f, wrappedDecorator.getPeriod(), 0.0001f);
         assertEquals(0f, wrappedDecorator.getOffsetX(), 0.0001f);
     }
@@ -55,9 +64,9 @@ public class OrderedLegMappingTest {
     @Test
     public void getLegFunctions_OnCall_ReturnsLegFunctionBlWrappedWithCorrectParameters() {
         LegOrder order = new LegOrder(LegPosition.BR, LegPosition.BL, LegPosition.FR, LegPosition.FL);
-        OrderedLegMapping testee = createOrderedLegMapping(order, 1.0f);
+        OrderedLegPolyFunctions testee = createOrderedLegFunctions(createDummyFunction(), order, 1.0f);
 
-        WrappedPolyFunction wrappedDecorator = (WrappedPolyFunction) (testee.getLegFunctionBl(createDummyFunction()));
+        WrappedPolyFunction wrappedDecorator = (WrappedPolyFunction) testee.getLegFunctionBL();
         assertEquals(1.0f, wrappedDecorator.getPeriod(), 0.0001f);
         assertEquals(0.25f, wrappedDecorator.getOffsetX(), 0.0001f);
     }
@@ -65,9 +74,9 @@ public class OrderedLegMappingTest {
     @Test
     public void getLegFunctions_OnCall_ReturnsLegFunctionFrWrappedWithCorrectParameters() {
         LegOrder order = new LegOrder(LegPosition.BR, LegPosition.BL, LegPosition.FR, LegPosition.FL);
-        OrderedLegMapping testee = createOrderedLegMapping(order, 1.0f);
+        OrderedLegPolyFunctions testee = createOrderedLegFunctions(createDummyFunction(), order, 1.0f);
 
-        WrappedPolyFunction wrappedDecorator = (WrappedPolyFunction) (testee.getLegFunctionFr(createDummyFunction()));
+        WrappedPolyFunction wrappedDecorator = (WrappedPolyFunction) testee.getLegFunctionFR();
         assertEquals(1.0f, wrappedDecorator.getPeriod(), 0.0001f);
         assertEquals(0.5f, wrappedDecorator.getOffsetX(), 0.0001f);
     }
@@ -75,9 +84,9 @@ public class OrderedLegMappingTest {
     @Test
     public void getLegFunctions_OnCall_ReturnsLegFunctionFlWrappedWithCorrectParameters() {
         LegOrder order = new LegOrder(LegPosition.BR, LegPosition.BL, LegPosition.FR, LegPosition.FL);
-        OrderedLegMapping testee = createOrderedLegMapping(order, 1.0f);
+        OrderedLegPolyFunctions testee = createOrderedLegFunctions(createDummyFunction(), order, 1.0f);
 
-        WrappedPolyFunction wrappedDecorator = (WrappedPolyFunction) (testee.getLegFunctionFl(createDummyFunction()));
+        WrappedPolyFunction wrappedDecorator = (WrappedPolyFunction) testee.getLegFunctionFL();
         assertEquals(1.0f, wrappedDecorator.getPeriod(), 0.0001f);
         assertEquals(0.75f, wrappedDecorator.getOffsetX(), 0.0001f);
     }

@@ -5,7 +5,9 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.LegOrder;
 import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.Model;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.OrderedLegPolyFunctions;
 import com.oberger.kruppelbotsimulation.mvc_model.function.IPolyFunction;
 import com.oberger.kruppelbotsimulation.mvc_model.function.Interpolator;
 import com.oberger.kruppelbotsimulation.mvc_model.function.LinearInterpolator;
@@ -22,26 +24,35 @@ import java.util.List;
 public class InitWalkStateFactory {
 
     private InitWalkStateSettings initSettings = null;
-    
+
     public InitWalkStateFactory(InitWalkStateSettings initSettings) {
-        this.initSettings =  initSettings;
+        this.initSettings = initSettings;
     }
-    
+
     public WalkState createInitWalkState() {
-        OrderedLegMapping legMapping = createInitOrderedLegMapping();
         Interpolator interpolator = createInterpolator();
+        OrderedLegPolyFunctions legFunctions = createInitOrderedLegFunctions(interpolator);
         List<IReadOnlyVector2> legFunctionPolygonsBackward = createInitLegFunctionPolygonsBackward(interpolator);
         List<IReadOnlyVector2> legFunctionPolygonsForward = createInitLegFunctionPolygonsForward(interpolator);
-        
+
         Model model = createInitModel();
 
-        WalkState created = new WalkState(legMapping, legFunctionPolygonsBackward, legFunctionPolygonsForward, model);
-        
+        WalkState created = new WalkState(legFunctions, model);
+
         return created;
     }
 
     private Interpolator createInterpolator() {
         return new LinearInterpolator();
+    }
+
+    private List<IReadOnlyVector2> createInitLegFunctionPolygons(Interpolator interpolator) {
+        List<IReadOnlyVector2> polygons = new LinkedList<>();
+
+        polygons.addAll(createInitLegFunctionPolygonsBackward(interpolator));
+        polygons.addAll(createInitLegFunctionPolygonsForward(createInterpolator()));
+
+        return polygons;
     }
 
     private List<IReadOnlyVector2> createInitLegFunctionPolygonsForward(Interpolator interpolator) {
@@ -58,20 +69,20 @@ public class InitWalkStateFactory {
         Vector2 backwardEnd = new Vector2(initSettings.periodInS, initSettings.angleStandYInDegrees - (initSettings.stepSizeYInDegrees / 2));
 
         List<IReadOnlyVector2> polygons = new LinkedList<>(interpolator.getPolygons(backwardStart, backwardEnd, initSettings.numberOfPolygonsBackward));
-        
+
         return polygons;
     }
-    
+
     private IPolyFunction createInitLegFunction(Interpolator interpolator, List<IReadOnlyVector2> polygons) {
         return new PolyFunction(interpolator, polygons);
     }
-    
-    private OrderedLegMapping createInitOrderedLegMapping() {
-        return new OrderedLegMapping(new LegOrder(initSettings.legOrder), initSettings.periodInS);
+
+    private OrderedLegPolyFunctions createInitOrderedLegFunctions(Interpolator interpolator) {
+        return new OrderedLegPolyFunctions(createInitLegFunction(interpolator, createInitLegFunctionPolygons(interpolator)), new LegOrder(initSettings.legOrder), initSettings.periodInS);
     }
-    
+
     private Model createInitModel() {
         return new Model();
     }
-    
+
 }

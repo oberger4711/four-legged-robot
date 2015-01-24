@@ -5,7 +5,6 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator;
 
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.LegPolyFunctions;
 import com.oberger.kruppelbotsimulation.mvc_model.function.IPolyFunction;
 import org.junit.Test;
 import org.junit.Rule;
@@ -21,7 +20,7 @@ public class LegPolyFunctionsTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
     
-    private LegPolyFunctions createCustomLegPolyFunctions(IPolyFunction br, IPolyFunction bl, IPolyFunction fr, IPolyFunction fl) {
+    private LegPolyFunctions createTestee(IPolyFunction br, IPolyFunction bl, IPolyFunction fr, IPolyFunction fl) {
         return new LegPolyFunctions(br, bl, fr, fl);
     }
     
@@ -33,28 +32,28 @@ public class LegPolyFunctionsTest {
     public void constructor_OnPassFunctionBRNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
         
-        createCustomLegPolyFunctions(null, createDummyPolyFunction(), createDummyPolyFunction(), createDummyPolyFunction());
+        createTestee(null, createDummyPolyFunction(), createDummyPolyFunction(), createDummyPolyFunction());
     }
     
     @Test
     public void constructor_OnPassFunctionBLNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
         
-        createCustomLegPolyFunctions(createDummyPolyFunction(), null, createDummyPolyFunction(), createDummyPolyFunction());
+        createTestee(createDummyPolyFunction(), null, createDummyPolyFunction(), createDummyPolyFunction());
     }
     
     @Test
     public void constructor_OnPassFunctionFRNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
         
-        createCustomLegPolyFunctions(createDummyPolyFunction(), createDummyPolyFunction(), null, createDummyPolyFunction());
+        createTestee(createDummyPolyFunction(), createDummyPolyFunction(), null, createDummyPolyFunction());
     }
     
     @Test
     public void constructor_OnPassFunctionFLNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
         
-        createCustomLegPolyFunctions(createDummyPolyFunction(), createDummyPolyFunction(), createDummyPolyFunction(), null);
+        createTestee(createDummyPolyFunction(), createDummyPolyFunction(), createDummyPolyFunction(), null);
     }
     
 }

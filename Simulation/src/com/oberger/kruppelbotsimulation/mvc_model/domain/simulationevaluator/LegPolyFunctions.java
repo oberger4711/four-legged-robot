@@ -2,7 +2,7 @@ package com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator;
 
 import com.oberger.kruppelbotsimulation.mvc_model.function.*;
 
-public class LegPolyFunctions {
+public class LegPolyFunctions implements ILegPolyFunctions {
 
     private IPolyFunction functionBR = null;
     private IPolyFunction functionBL = null;
@@ -19,18 +19,22 @@ public class LegPolyFunctions {
         this.functionFL = functionFL;
     }
 
+    @Override
     public IPolyFunction getLegFunctionBR() {
         return functionBR;
     }
 
+    @Override
     public IPolyFunction getLegFunctionBL() {
         return functionBL;
     }
 
+    @Override
     public IPolyFunction getLegFunctionFR() {
         return functionFR;
     }
 
+    @Override
     public IPolyFunction getLegFunctionFL() {
         return functionFL;
     }

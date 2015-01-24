@@ -24,6 +24,9 @@ public class State<T extends IImmutableInnerState> {
         if (evaluator == null || manipulator == null || innerState == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
+        if (generation < 0) {
+            throw new IllegalArgumentException("Generation must not be negative.");
+        }
         this.generation = generation;
         this.innerState = innerState;
         this.evaluator = evaluator;
