@@ -9,10 +9,10 @@ public class OrderedLegPolyFunctions implements ILegPolyFunctions {
     private LegOrder legOrder = null;
     private float periodInS;
     
-    private IPolyFunction decoratedFunctionBR = null;
-    private IPolyFunction decoratedFunctionBL = null;
-    private IPolyFunction decoratedFunctionFR = null;
-    private IPolyFunction decoratedFunctionFL = null;
+    private WrappedPolyFunction decoratedFunctionBR = null;
+    private WrappedPolyFunction decoratedFunctionBL = null;
+    private WrappedPolyFunction decoratedFunctionFR = null;
+    private WrappedPolyFunction decoratedFunctionFL = null;
 
     public OrderedLegPolyFunctions(IPolyFunction originalFunction, LegOrder legOrder, float periodInS) {
         if (legOrder == null) {
@@ -27,7 +27,7 @@ public class OrderedLegPolyFunctions implements ILegPolyFunctions {
         decoratedFunctionFL = decorateLegFunction(LegOrder.LegPosition.FL);
     }
 
-    private IPolyFunction decorateLegFunction(LegOrder.LegPosition position) {
+    private WrappedPolyFunction decorateLegFunction(LegOrder.LegPosition position) {
         return new WrappedPolyFunction(originalFunction, periodInS, periodInS * legOrder.getOrder().indexOf(position) / LegOrder.LegPosition.values().length);
     }
 
@@ -40,22 +40,22 @@ public class OrderedLegPolyFunctions implements ILegPolyFunctions {
     }
     
     @Override
-    public IPolyFunction getLegFunctionBL() {
+    public WrappedPolyFunction getLegFunctionBL() {
         return decoratedFunctionBL;
     }
 
     @Override
-    public IPolyFunction getLegFunctionBR() {
+    public WrappedPolyFunction getLegFunctionBR() {
         return decoratedFunctionBR;
     }
 
     @Override
-    public IPolyFunction getLegFunctionFL() {
+    public WrappedPolyFunction getLegFunctionFL() {
         return decoratedFunctionFL;
     }
 
     @Override
-    public IPolyFunction getLegFunctionFR() {
+    public WrappedPolyFunction getLegFunctionFR() {
         return decoratedFunctionFR;
     }
 

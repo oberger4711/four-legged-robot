@@ -5,6 +5,10 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.ISimulationState;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.Simulation;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.SimulationEvaluator;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.SimulationEvaluatorParameters;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.IEvaluator;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.WeightedEvaluator;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.WeightedEvaluatorGroup;
@@ -17,10 +21,12 @@ import java.util.List;
  */
 public class EvaluatorFactory {
     
-    private InitWalkStateSettings settings = null;
+    private final static int SAMPLES_PER_PERIOD = 40;
     
-    public EvaluatorFactory(InitWalkStateSettings settings) {
-        this.settings = settings;
+    private InitWalkStateSettings initSettings = null;
+    
+    public EvaluatorFactory(InitWalkStateSettings initSettings) {
+        this.initSettings = initSettings;
     }
     
     public IEvaluator<WalkState> createEvaluator() {
@@ -35,7 +41,20 @@ public class EvaluatorFactory {
     
     private IEvaluator<WalkState> createRepositionBalancePointEvaluator() {
         // TODO:
-        return null;//return new WalkSimulationEvaluatorAdapter();
+        return new WalkSimulationEvaluatorAdapter(createSimulationEvaluator());
+    }
+    
+    private IEvaluator<Simulation> createSimulationEvaluator() {
+        
+        return new SimulationEvaluator(createSimulationEvaluatorParameters(), createSimulationStateEvaluator());
+    }
+    
+    private SimulationEvaluatorParameters createSimulationEvaluatorParameters() {
+        return new SimulationEvaluatorParameters(initSettings.periodInS, SAMPLES_PER_PERIOD);
+    }
+    
+    private IEvaluator<ISimulationState> createSimulationStateEvaluator() {
+        return null; // TODO
     }
     
 }
