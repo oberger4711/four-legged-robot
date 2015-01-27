@@ -118,6 +118,11 @@ public class Vector2 implements IReadOnlyVector2 {
     }
 
     @Override
+    public float getLength() {
+        return (float)Math.sqrt(x * x + y * y);
+    }
+    
+    @Override
     public boolean equals(Object obj) {
         boolean result;
         if (obj instanceof Vector2) {
