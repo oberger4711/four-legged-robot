@@ -26,9 +26,9 @@ public abstract class Interpolator {
             }
 
             if (polygon1.getX() == x) {
-                interpolatedValue = polygon1.getX();
+                interpolatedValue = polygon1.getY();
             } else if (polygon2.getX() == x) {
-                interpolatedValue = polygon2.getX();
+                interpolatedValue = polygon2.getY();
             } else if (polygon1.getX() < x && x < polygon2.getX()) {
                 interpolatedValue = interpolateY(polygon1, polygon2, x);
             }

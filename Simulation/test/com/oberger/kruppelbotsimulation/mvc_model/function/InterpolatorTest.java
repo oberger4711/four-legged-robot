@@ -73,21 +73,21 @@ public class InterpolatorTest {
     @Test
     public void getValue_OnPassTwoPointsWithXOnFirstInterval_ReturnsPolygonY() {
         FakeInterpolator testee = createFakeInterpolator(-1f);
-        List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1)));
+        List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(0, 1), new Vector2(1, 2)));
         
         float interpolated = testee.getValue(polygons, 0f);
         
-        assertEquals(0, interpolated, 0.0001f);
+        assertEquals(1, interpolated, 0.0001f);
     }
     
     @Test
     public void getValue_OnPassTwoPointsWithXOnSecondInterval_ReturnsPolygonY() {
         FakeInterpolator testee = createFakeInterpolator(-1f);
-        List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1)));
+        List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(0, 1), new Vector2(1, 2)));
         
         float interpolated = testee.getValue(polygons, 1f);
         
-        assertEquals(1, interpolated, 0.0001f);
+        assertEquals(2, interpolated, 0.0001f);
     }
     
     @Test

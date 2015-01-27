@@ -67,5 +67,5 @@ public class LinearInterpolatorTest {
         
         assertEquals(-0.5f, returnedValue, 0.0001);
     }
-
+    
 }
