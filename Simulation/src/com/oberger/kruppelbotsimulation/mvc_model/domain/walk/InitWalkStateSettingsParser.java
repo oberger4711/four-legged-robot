@@ -5,7 +5,7 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.LegOrder;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegOrder;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;

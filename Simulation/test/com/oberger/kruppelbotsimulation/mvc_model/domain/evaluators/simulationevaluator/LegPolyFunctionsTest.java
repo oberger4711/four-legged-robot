@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator;
+package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator;
 
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegPolyFunctions;
 import com.oberger.kruppelbotsimulation.mvc_model.function.IPolyFunction;
 import org.junit.Test;
 import org.junit.Rule;

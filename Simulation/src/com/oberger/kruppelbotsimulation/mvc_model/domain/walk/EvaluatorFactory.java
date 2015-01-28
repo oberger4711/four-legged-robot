@@ -5,10 +5,10 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.ISimulationState;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.Simulation;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.SimulationEvaluator;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.SimulationEvaluatorParameters;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.ISimulationState;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.Simulation;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.SimulationEvaluator;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.SimulationEvaluatorParameters;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.IEvaluator;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.WeightedEvaluator;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.WeightedEvaluatorGroup;

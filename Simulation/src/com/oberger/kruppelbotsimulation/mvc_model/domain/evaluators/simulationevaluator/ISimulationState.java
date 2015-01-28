@@ -1,4 +1,4 @@
-package com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator;
+package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator;
 
 public interface ISimulationState {
 

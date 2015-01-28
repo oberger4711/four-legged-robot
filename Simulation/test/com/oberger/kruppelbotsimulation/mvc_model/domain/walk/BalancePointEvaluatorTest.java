@@ -5,9 +5,9 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.ISimulationState;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.LegOrder;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.Model;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.ISimulationState;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegOrder;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.Model;
 import com.oberger.kruppelbotsimulation.mvc_model.model.BalancePoint;
 import com.oberger.kruppelbotsimulation.mvc_model.model.SimJoint;
 import com.oberger.kruppelbotsimulation.util.Vector2;

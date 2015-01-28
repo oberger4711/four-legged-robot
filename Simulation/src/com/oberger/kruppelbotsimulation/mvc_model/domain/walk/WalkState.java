@@ -5,8 +5,8 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.Model;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.OrderedLegPolyFunctions;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.Model;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.OrderedLegPolyFunctions;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.IImmutableInnerState;
 import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import java.util.LinkedList;

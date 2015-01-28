@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator;
+package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator;
 
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.LegOrder;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.LegOrder.LegPosition;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.simulationevaluator.OrderedLegPolyFunctions;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegOrder;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegOrder.LegPosition;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.OrderedLegPolyFunctions;
 import com.oberger.kruppelbotsimulation.mvc_model.function.IPolyFunction;
 import com.oberger.kruppelbotsimulation.mvc_model.function.WrappedPolyFunction;
 import static org.junit.Assert.assertEquals;
