@@ -8,7 +8,6 @@ package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegOrder;
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.Model;
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.OrderedLegPolyFunctions;
-import com.oberger.kruppelbotsimulation.mvc_model.function.IPolyFunction;
 import com.oberger.kruppelbotsimulation.mvc_model.function.Interpolator;
 import com.oberger.kruppelbotsimulation.mvc_model.function.LinearInterpolator;
 import com.oberger.kruppelbotsimulation.mvc_model.function.PolyFunction;
@@ -73,11 +72,12 @@ public class InitWalkStateFactory {
         return polygons;
     }
 
-    private IPolyFunction createInitLegFunction(Interpolator interpolator, List<IReadOnlyVector2> polygons) {
+    private PolyFunction createInitLegFunction(Interpolator interpolator, List<IReadOnlyVector2> polygons) {
         return new PolyFunction(interpolator, polygons);
     }
 
     private OrderedLegPolyFunctions createInitOrderedLegFunctions(Interpolator interpolator) {
+        
         return new OrderedLegPolyFunctions(createInitLegFunction(interpolator, createInitLegFunctionPolygons(interpolator)), new LegOrder(initSettings.legOrder), initSettings.periodInS);
     }
 

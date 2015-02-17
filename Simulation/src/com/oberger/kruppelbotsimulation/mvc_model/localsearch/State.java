@@ -11,7 +11,7 @@ import java.util.List;
  * @author ole
  * @param <T> The type of the object in this state.
  */
-public class State<T extends IImmutableInnerState> {
+public class State<T> {
 
     private int generation = 0;
     private T innerState = null;

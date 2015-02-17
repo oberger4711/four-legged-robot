@@ -6,6 +6,7 @@
 package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegOrder;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegPosition;
 import java.util.List;
 import java.util.Properties;
 
@@ -21,9 +22,9 @@ public class InitWalkStateSettings {
     public final float stepSizeYInDegrees;
     public final int numberOfPolygonsForward;
     public final int numberOfPolygonsBackward;
-    public final List<LegOrder.LegPosition> legOrder;
+    public final List<LegPosition> legOrder;
 
-    public InitWalkStateSettings(float periodInS, float repositionTimeInS, float angleStandYInDegrees, float stepSizeYInDegrees, int numberOfPolygonsForward, int numberOfPolygonsBackward, List<LegOrder.LegPosition> legOrder) {
+    public InitWalkStateSettings(float periodInS, float repositionTimeInS, float angleStandYInDegrees, float stepSizeYInDegrees, int numberOfPolygonsForward, int numberOfPolygonsBackward, List<LegPosition> legOrder) {
         if (legOrder == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }

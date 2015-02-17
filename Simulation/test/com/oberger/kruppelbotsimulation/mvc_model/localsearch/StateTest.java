@@ -32,15 +32,15 @@ public class StateTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private State createState(int generation, IImmutableInnerState innerState, IEvaluator evaluator, IManipulator manipulator) {
+    private State createState(int generation, Object innerState, IEvaluator evaluator, IManipulator manipulator) {
         return new State(generation, innerState, evaluator, manipulator);
     }
 
-    private IImmutableInnerState createDummyInnerState() {
-        return Mockito.mock(IImmutableInnerState.class);
+    private Object createDummyInnerState() {
+        return Mockito.mock(Object.class);
     }
 
-    private IManipulator createFakeManipulator(IImmutableInnerState parameter, IImmutableInnerState... manipulatedParameterCopies) {
+    private IManipulator createFakeManipulator(Object parameter, Object... manipulatedParameterCopies) {
         IManipulator fakeManipulator = Mockito.mock(IManipulator.class);
         Mockito.doReturn(new ArrayList(Arrays.asList(manipulatedParameterCopies))).when(fakeManipulator).createNeighbours(parameter);
 
@@ -56,7 +56,7 @@ public class StateTest {
     }
 
     private IManipulator createDummyManipulator() {
-        return createFakeManipulator(null, (IImmutableInnerState) null);
+        return createFakeManipulator(null, (Object) null);
     }
 
     @Test
@@ -89,8 +89,8 @@ public class StateTest {
     
     @Test
     public void getNeighbours_OnSecondCall_UsesCacheAndReturnsSameValue() {
-        IImmutableInnerState fakeInnerState = createDummyInnerState();
-        IImmutableInnerState fakeNeighbourInnerState = createDummyInnerState();
+        Object fakeInnerState = createDummyInnerState();
+        Object fakeNeighbourInnerState = createDummyInnerState();
         IManipulator fakeManipulator = createFakeManipulator(fakeInnerState, fakeNeighbourInnerState);
         State testee = createState(0, fakeInnerState, createFakeEvaluator(0), fakeManipulator);
 
@@ -106,7 +106,7 @@ public class StateTest {
     @Test
     public void getScore_OnSecondCall_UsesCacheAndReturnsSameValue() {
         IEvaluator fakeWeightedEvaluator = createFakeEvaluator(12);
-        IImmutableInnerState fakeInnerState = createDummyInnerState();
+        Object fakeInnerState = createDummyInnerState();
         State testee = new State(fakeInnerState, fakeWeightedEvaluator, createDummyManipulator());
 
         float uncachedScore = testee.getScore();

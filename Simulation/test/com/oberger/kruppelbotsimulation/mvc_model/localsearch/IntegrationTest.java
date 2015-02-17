@@ -38,7 +38,7 @@ public class IntegrationTest {
         assertEquals(5, optimumState.getInnerState().getNumber());
     }
     
-    private static class NumericInnerState implements IImmutableInnerState {
+    private static class NumericInnerState {
         
         public final static int MAX_NUMBER = 10;
         

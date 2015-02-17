@@ -9,4 +9,6 @@ public interface IPolyFunction {
 
     public List<IReadOnlyVector2> getPolygons();
 
+    public Interpolator getInterpolator();
+
 }

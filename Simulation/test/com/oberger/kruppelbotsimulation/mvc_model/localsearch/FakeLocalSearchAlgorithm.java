@@ -12,7 +12,7 @@ import java.util.List;
  * @author ole
  * @param <T>
  */
-public class FakeLocalSearchAlgorithm<T extends IImmutableInnerState> extends LocalSearchAlgorithm<T> {
+public class FakeLocalSearchAlgorithm<T> extends LocalSearchAlgorithm<T> {
 
     public FakeLocalSearchAlgorithm() {
     }

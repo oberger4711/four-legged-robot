@@ -15,13 +15,6 @@ import java.util.List;
  */
 public class LegOrder {
 
-    public static enum LegPosition {
-        BR,
-        BL,
-        FR,
-        FL
-    }
-
     private List<LegPosition> order = null;
 
     public LegOrder(List<LegPosition> order) {

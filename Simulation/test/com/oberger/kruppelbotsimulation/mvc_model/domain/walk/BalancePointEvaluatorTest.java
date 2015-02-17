@@ -7,6 +7,7 @@ package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.ISimulationState;
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegOrder;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegPosition;
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.Model;
 import com.oberger.kruppelbotsimulation.mvc_model.model.BalancePoint;
 import com.oberger.kruppelbotsimulation.mvc_model.model.SimJoint;
@@ -28,7 +29,7 @@ public class BalancePointEvaluatorTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private BalancePointEvaluator createTestee(float criticalTimeStartInMs, float criticalTimeEndInMs, LegOrder.LegPosition criticalPosition) {
+    private BalancePointEvaluator createTestee(float criticalTimeStartInMs, float criticalTimeEndInMs, LegPosition criticalPosition) {
         return new BalancePointEvaluator(criticalTimeStartInMs, criticalTimeEndInMs, criticalPosition);
     }
 
@@ -75,14 +76,14 @@ public class BalancePointEvaluatorTest {
     public void constructor_OnPassCriticalTimeStartInMsLowerThanZero_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
 
-        createTestee(-1, 1, LegOrder.LegPosition.BR);
+        createTestee(-1, 1, LegPosition.BR);
     }
 
     @Test
     public void constructor_OnPassCriticalTimeEndInMsLowerCriticalStartTimeInMs_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
 
-        createTestee(1, 0.5f, LegOrder.LegPosition.BR);
+        createTestee(1, 0.5f, LegPosition.BR);
     }
 
     @Test
@@ -94,7 +95,7 @@ public class BalancePointEvaluatorTest {
 
     @Test
     public void getSore_OnPassNull_ThrowsIllegalArgumentException() {
-        BalancePointEvaluator testee = createTestee(1, 2, LegOrder.LegPosition.BR);
+        BalancePointEvaluator testee = createTestee(1, 2, LegPosition.BR);
 
         exception.expect(IllegalArgumentException.class);
 
@@ -106,7 +107,7 @@ public class BalancePointEvaluatorTest {
         Model fakeModel = createFakeModel(new BalancePoint(new Vector2(-1, 1), new Weight(1f)));
         ISimulationState fakeSimulationState = createFakeSimulationState(0f, fakeModel);
 
-        BalancePointEvaluator testee = createTestee(1, 2, LegOrder.LegPosition.BR);
+        BalancePointEvaluator testee = createTestee(1, 2, LegPosition.BR);
         float score = testee.getScore(fakeSimulationState);
         
         assertEquals(0, score, 0.0001f);
@@ -117,7 +118,7 @@ public class BalancePointEvaluatorTest {
         Model fakeModel = createFakeModel(new BalancePoint(new Vector2(-1, 1), new Weight(1f)));
         ISimulationState fakeSimulationState = createFakeSimulationState(3f, fakeModel);
 
-        BalancePointEvaluator testee = createTestee(1, 2, LegOrder.LegPosition.BR);
+        BalancePointEvaluator testee = createTestee(1, 2, LegPosition.BR);
         float score = testee.getScore(fakeSimulationState);
         
         assertEquals(0, score, 0.0001f);
@@ -128,7 +129,7 @@ public class BalancePointEvaluatorTest {
         Model fakeModel = createFakeModel(new BalancePoint(new Vector2(-1, 1), new Weight(1f)));
         ISimulationState fakeSimulationState = createFakeSimulationState(1.5f, fakeModel);
 
-        BalancePointEvaluator testee = createTestee(1, 2, LegOrder.LegPosition.BR);
+        BalancePointEvaluator testee = createTestee(1, 2, LegPosition.BR);
         float score = testee.getScore(fakeSimulationState);
 
         assertTrue(score > 0);
@@ -139,7 +140,7 @@ public class BalancePointEvaluatorTest {
         Model fakeModel = createFakeModel(new BalancePoint(new Vector2(-1, 1), new Weight(1f)));
         ISimulationState fakeSimulationState = createFakeSimulationState(1.5f, fakeModel);
 
-        BalancePointEvaluator testee = createTestee(1, 2, LegOrder.LegPosition.FL);
+        BalancePointEvaluator testee = createTestee(1, 2, LegPosition.FL);
         float score = testee.getScore(fakeSimulationState);
 
         assertEquals(0, score, 0.0001f);

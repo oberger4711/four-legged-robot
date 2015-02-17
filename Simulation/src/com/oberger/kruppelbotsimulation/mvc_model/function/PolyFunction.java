@@ -31,4 +31,9 @@ public class PolyFunction implements IPolyFunction {
         return Collections.unmodifiableList(polygons);
     }
 
+    @Override
+    public Interpolator getInterpolator() {
+        return interpolator;
+    }
+    
 }

@@ -56,7 +56,6 @@ public abstract class Interpolator {
         if (numberOfPolygons < 2) {
             throw new IllegalArgumentException("numberOfPolygons must be 2 or higher but was " + numberOfPolygons + ".");
         }
-        List<IReadOnlyVector2> startEndAsList = Arrays.asList(start, end);
         float deltaX = end.getX() - start.getX();
         List<Vector2> interpolatedPolygons = new LinkedList<>();
         interpolatedPolygons.add(new Vector2(start));

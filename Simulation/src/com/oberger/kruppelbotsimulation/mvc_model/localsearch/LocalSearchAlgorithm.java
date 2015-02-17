@@ -3,7 +3,7 @@ package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.exitcriterium.ExitCriterium;
 import java.util.List;
 
-public abstract class LocalSearchAlgorithm<T extends IImmutableInnerState> {
+public abstract class LocalSearchAlgorithm<T> {
 
     public State<T> run(State<T> startState, ExitCriterium exitCriterium) {
         if (startState == null || exitCriterium == null) {

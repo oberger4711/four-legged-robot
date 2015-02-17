@@ -57,4 +57,9 @@ public class WrappedPolyFunction implements IPolyFunction {
         return offsetX;
     }
 
+    @Override
+    public Interpolator getInterpolator() {
+        return decorated.getInterpolator();
+    }
+    
 }

@@ -5,10 +5,9 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator;
 
-import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegOrder;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegOrder.LegPosition;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.OrderedLegPolyFunctions;
-import com.oberger.kruppelbotsimulation.mvc_model.function.IPolyFunction;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegPosition;
+import com.oberger.kruppelbotsimulation.mvc_model.function.Interpolator;
+import com.oberger.kruppelbotsimulation.mvc_model.function.PolyFunction;
 import com.oberger.kruppelbotsimulation.mvc_model.function.WrappedPolyFunction;
 import static org.junit.Assert.assertEquals;
 import org.junit.Rule;
@@ -25,7 +24,8 @@ public class OrderedLegPolyFunctionsTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private OrderedLegPolyFunctions createOrderedLegFunctions(IPolyFunction originalFunction, LegOrder order, float periodInS) {
+    // TODO Use PolyFunction instead.
+    private OrderedLegPolyFunctions createOrderedLegFunctions(PolyFunction originalFunction, LegOrder order, float periodInS) {
         return new OrderedLegPolyFunctions(originalFunction, order, periodInS);
     }
 
@@ -33,8 +33,8 @@ public class OrderedLegPolyFunctionsTest {
         return new LegOrder(LegPosition.BR, LegPosition.BL, LegPosition.FR, LegPosition.FL);
     }
 
-    private IPolyFunction createDummyFunction() {
-        return Mockito.mock(IPolyFunction.class);
+    private PolyFunction createDummyFunction() {
+        return Mockito.mock(PolyFunction.class);
     }
 
     @Test

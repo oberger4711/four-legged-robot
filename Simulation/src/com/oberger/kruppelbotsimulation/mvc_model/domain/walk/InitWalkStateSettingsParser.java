@@ -6,6 +6,7 @@
 package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegOrder;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegPosition;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -65,8 +66,8 @@ public class InitWalkStateSettingsParser {
         return Integer.parseInt(properties.getProperty(KEY_NUMBER_OF_POLYGONS_BACKWARD));
     }
     
-    private List<LegOrder.LegPosition> parseLegOrder(Properties properties) throws IllegalArgumentException {
-        List<LegOrder.LegPosition> parsed = new LinkedList<>();
+    private List<LegPosition> parseLegOrder(Properties properties) throws IllegalArgumentException {
+        List<LegPosition> parsed = new LinkedList<>();
         
         String legOrderString = properties.getProperty(KEY_LEG_ORDER);
         String[] legPositionsStrings = legOrderString.split("-");
@@ -77,13 +78,13 @@ public class InitWalkStateSettingsParser {
         return parsed;
     }
     
-    private LegOrder.LegPosition parseLegPosition(String value) {
-        for (LegOrder.LegPosition pos : LegOrder.LegPosition.values()) {
+    private LegPosition parseLegPosition(String value) {
+        for (LegPosition pos : LegPosition.values()) {
             if (pos.toString().toUpperCase().equals(value.toUpperCase())) {
                 return pos;
             }
         }
-        throw new IllegalArgumentException("Invalid leg position. Must be one of " + Arrays.toString(LegOrder.LegPosition.values()) + " but was " + value + ".");
+        throw new IllegalArgumentException("Invalid leg position. Must be one of " + Arrays.toString(LegPosition.values()) + " but was " + value + ".");
     }
     
 }

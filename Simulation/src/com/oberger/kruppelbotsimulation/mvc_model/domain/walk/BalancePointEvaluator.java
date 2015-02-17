@@ -2,6 +2,7 @@ package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.ISimulationState;
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegOrder;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegPosition;
 import com.oberger.kruppelbotsimulation.mvc_model.function.IPolyFunction;
 import com.oberger.kruppelbotsimulation.mvc_model.function.Interpolator;
 import com.oberger.kruppelbotsimulation.mvc_model.function.LinearInterpolator;
@@ -15,10 +16,10 @@ public class BalancePointEvaluator implements IEvaluator<ISimulationState> {
 
     private float criticalTimeStartInMs;
     private float criticalTimeEndInMs;
-    private LegOrder.LegPosition criticalLegPosition = null;
+    private LegPosition criticalLegPosition = null;
     private Interpolator scoreInterpolator = null;
 
-    public BalancePointEvaluator(float criticalTimeStartInMs, float criticalTimeEndInMs, LegOrder.LegPosition criticalLegPosition) {
+    public BalancePointEvaluator(float criticalTimeStartInMs, float criticalTimeEndInMs, LegPosition criticalLegPosition) {
         if (criticalTimeStartInMs < 0) {
             throw new IllegalArgumentException("Start timestamp must be equals or higher than zero.");
         }

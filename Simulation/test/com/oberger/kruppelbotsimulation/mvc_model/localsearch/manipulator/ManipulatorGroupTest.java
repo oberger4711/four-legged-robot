@@ -5,18 +5,12 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.localsearch.manipulator;
 
-import com.oberger.kruppelbotsimulation.mvc_model.localsearch.IImmutableInnerState;
-import com.oberger.kruppelbotsimulation.mvc_model.localsearch.State;
-import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.WeightedEvaluator;
-import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.WeightedEvaluatorGroup;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -35,11 +29,11 @@ public class ManipulatorGroupTest {
         return new ManipulatorGroup(manipulators);
     }
     
-    private IImmutableInnerState createDummyInnerState() {
-        return Mockito.mock(IImmutableInnerState.class);
+    private Object createDummyInnerState() {
+        return Mockito.mock(Object.class);
     }
     
-    private IManipulator createFakeManipulator(IImmutableInnerState... neighbourStates) {
+    private IManipulator createFakeManipulator(Object... neighbourStates) {
         IManipulator fake = Mockito.mock(IManipulator.class);
         
         Mockito.doReturn(Arrays.asList(neighbourStates)).when(fake).createNeighbours(Mockito.any());
@@ -73,7 +67,7 @@ public class ManipulatorGroupTest {
     
     @Test
     public void getNeighbours_OnPassNull_ThrowsIllegalArgumentException() {
-        IManipulator fakeManipulator = createFakeManipulator((IImmutableInnerState)null);
+        IManipulator fakeManipulator = createFakeManipulator((Object)null);
         ManipulatorGroup testee = createManipulatorGroup(Arrays.asList(fakeManipulator));
         
         exception.expect(IllegalArgumentException.class);
@@ -83,15 +77,15 @@ public class ManipulatorGroupTest {
     
     @Test
     public void getNeighbours_WithManipulators_ReturnsUnitedListed() {
-        IImmutableInnerState fakeNeighbourInnerState1 = createDummyInnerState();
-        IImmutableInnerState fakeNeighbourInnerState2 = createDummyInnerState();
-        IImmutableInnerState fakeNeighbourInnerState3 = createDummyInnerState();
+        Object fakeNeighbourInnerState1 = createDummyInnerState();
+        Object fakeNeighbourInnerState2 = createDummyInnerState();
+        Object fakeNeighbourInnerState3 = createDummyInnerState();
         IManipulator fakeManipulator1 = createFakeManipulator(fakeNeighbourInnerState1);
         IManipulator fakeManipulator2 = createFakeManipulator(fakeNeighbourInnerState2, fakeNeighbourInnerState3);
         List<IManipulator> manipulators = Arrays.asList(fakeManipulator1, fakeManipulator2);
         ManipulatorGroup testee = createManipulatorGroup(manipulators);
 
-        List<IImmutableInnerState> resultNeighbours = testee.createNeighbours(createDummyInnerState());
+        List<Object> resultNeighbours = testee.createNeighbours(createDummyInnerState());
 
         assertTrue(resultNeighbours.stream().anyMatch(s -> s == fakeNeighbourInnerState1));
         assertTrue(resultNeighbours.stream().anyMatch(s -> s == fakeNeighbourInnerState2));

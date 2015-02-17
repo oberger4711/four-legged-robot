@@ -6,6 +6,7 @@
 package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegOrder;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegPosition;
 import com.oberger.kruppelbotsimulation.mvc_model.domain.walk.InitWalkStateSettings;
 import com.oberger.kruppelbotsimulation.mvc_model.domain.walk.InitWalkStateSettingsParser;
 import java.util.Arrays;
@@ -116,7 +117,7 @@ public class InitWalkStateSettingsParserTest {
 
         InitWalkStateSettings parsed = testee.parseProperties(fakeProperties);
 
-        assertEquals(Arrays.asList(LegOrder.LegPosition.BR, LegOrder.LegPosition.FL, LegOrder.LegPosition.BL, LegOrder.LegPosition.FR), parsed.legOrder);
+        assertEquals(Arrays.asList(LegPosition.BR, LegPosition.FL, LegPosition.BL, LegPosition.FR), parsed.legOrder);
     }
 
 }

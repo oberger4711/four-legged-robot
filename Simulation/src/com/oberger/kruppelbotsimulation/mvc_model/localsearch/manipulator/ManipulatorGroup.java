@@ -1,10 +1,9 @@
 package com.oberger.kruppelbotsimulation.mvc_model.localsearch.manipulator;
 
-import com.oberger.kruppelbotsimulation.mvc_model.localsearch.IImmutableInnerState;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.State;
 import java.util.*;
 
-public class ManipulatorGroup<T extends IImmutableInnerState> implements IManipulator<T> {
+public class ManipulatorGroup<T> implements IManipulator<T> {
 
     private List<IManipulator> manipulators;
     private List<State<T>> neighboursCache = null;
