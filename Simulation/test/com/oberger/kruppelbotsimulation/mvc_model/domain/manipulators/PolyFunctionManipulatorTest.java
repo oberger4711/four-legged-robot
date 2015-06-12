@@ -5,14 +5,12 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.manipulators;
 
-import com.oberger.kruppelbotsimulation.mvc_model.function.IPolyFunction;
 import com.oberger.kruppelbotsimulation.mvc_model.function.Interpolator;
 import com.oberger.kruppelbotsimulation.mvc_model.function.PolyFunction;
 import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import com.oberger.kruppelbotsimulation.util.Vector2;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.junit.Rule;
@@ -33,22 +31,6 @@ public class PolyFunctionManipulatorTest {
 
     private PolyFunctionManipulator createTestee(int startPolygonIndex, int endPolygonIndex, float maxAbsManipulationStep, float maxAbsGradient) {
         return new PolyFunctionManipulator(startPolygonIndex, endPolygonIndex, maxAbsManipulationStep, maxAbsGradient);
-    }
-
-    private Random createFakeRandomPolygon(int offsetStep) {
-        Random fakeRandomStep = Mockito.mock(Random.class);
-
-        Mockito.doReturn(offsetStep).when(fakeRandomStep).nextInt();
-
-        return fakeRandomStep;
-    }
-
-    private Random createFakeRandomStep(float factor) {
-        Random fakeRandomStep = Mockito.mock(Random.class);
-
-        Mockito.doReturn(factor).when(fakeRandomStep).nextFloat();
-
-        return fakeRandomStep;
     }
 
     private PolyFunction createFakePolyFunction(Vector2... polygons) {
@@ -108,11 +90,9 @@ public class PolyFunctionManipulatorTest {
     }
 
     @Test
-    public void manipulate_OnPassPolyFunctionWithMaxPositiveStepLimitedByMaxStep_StepsByMaxPositiveStep() {
+    public void manipulate_OnCall_Steps() {
         PolyFunctionManipulator testee = createTestee(0, 2, 1, 1000);
         PolyFunction fakeFunction = createFakePolyFunction(new Vector2(0, 0), new Vector2(1, 0), new Vector2(2, 0));
-        testee.setRandomNextPolygon(createFakeRandomPolygon(0));
-        testee.setRandomNextStep(createFakeRandomStep(1f));
 
         List<PolyFunction> manipulatedFunctions = testee.createNeighbours(fakeFunction);
 
@@ -120,75 +100,13 @@ public class PolyFunctionManipulatorTest {
     }
 
     @Test
-    public void manipulate_OnPassPolyFunctionWithMaxPositiveStepLimitedByMaxGradientFromBefore_StepsByMaxPositiveStep() {
-        PolyFunctionManipulator testee = createTestee(0, 2, 1000, 1);
-        PolyFunction fakeFunction = createFakePolyFunction(new Vector2(0, 0), new Vector2(1, 0), new Vector2(2, 1));
-        testee.setRandomNextPolygon(createFakeRandomPolygon(0));
-        testee.setRandomNextStep(createFakeRandomStep(1f));
-
-        List<PolyFunction> manipulatedFunctions = testee.createNeighbours(fakeFunction);
-
-        assertEquals(Arrays.asList((IReadOnlyVector2) new Vector2(0, 0), new Vector2(1, 1), new Vector2(2, 1)), manipulatedFunctions.get(0).getPolygons());
-    }
-
-    @Test
-    public void manipulate_OnPassPolyFunctionWithMaxPositiveStepLimitedByMaxGradientFromAfter_StepsByMaxPositiveStep() {
-        PolyFunctionManipulator testee = createTestee(0, 2, 1000, 1);
-        PolyFunction fakeFunction = createFakePolyFunction(new Vector2(0, 1), new Vector2(1, 0), new Vector2(2, 0));
-        testee.setRandomNextPolygon(createFakeRandomPolygon(0));
-        testee.setRandomNextStep(createFakeRandomStep(1f));
-
-        List<PolyFunction> manipulatedFunctions = testee.createNeighbours(fakeFunction);
-
-        assertEquals(Arrays.asList((IReadOnlyVector2) new Vector2(0, 1), new Vector2(1, 1f), new Vector2(2, 0)), manipulatedFunctions.get(0).getPolygons());
-    }
-
-    @Test
-    public void manipulate_OnPassPolyFunctionWithMaxNegativeStepLimitedByMaxStep_StepsByMaxPositiveStep() {
-        PolyFunctionManipulator testee = createTestee(0, 2, 1, 1000);
-        PolyFunction fakeFunction = createFakePolyFunction(new Vector2(0, 0), new Vector2(1, 1), new Vector2(2, 0));
-        testee.setRandomNextPolygon(createFakeRandomPolygon(0));
-        testee.setRandomNextStep(createFakeRandomStep(0f));
-
-        List<PolyFunction> manipulatedFunctions = testee.createNeighbours(fakeFunction);
-
-        assertEquals(Arrays.asList((IReadOnlyVector2) new Vector2(0, 0), new Vector2(1, 0), new Vector2(2, 0)), manipulatedFunctions.get(0).getPolygons());
-    }
-
-    @Test
-    public void manipulate_OnPassPolyFunctionWithMaxNegativeStepLimitedByMaxGradientFromBefore_StepsByMaxNegativeStep() {
-        PolyFunctionManipulator testee = createTestee(0, 2, 1000, 1);
-        PolyFunction fakeFunction = createFakePolyFunction(new Vector2(0, 1), new Vector2(1, 1), new Vector2(2, 0));
-        testee.setRandomNextPolygon(createFakeRandomPolygon(0));
-        testee.setRandomNextStep(createFakeRandomStep(0f));
-
-        List<PolyFunction> manipulatedFunctions = testee.createNeighbours(fakeFunction);
-
-        assertEquals(Arrays.asList((IReadOnlyVector2) new Vector2(0, 1), new Vector2(1, 0), new Vector2(2, 0)), manipulatedFunctions.get(0).getPolygons());
-    }
-
-    @Test
-    public void manipulate_OnPassPolyFunctionWithMaxNegativeStepLimitedByMaxGradientFromAfter_StepsByMaxNegativeStep() {
+    public void manipulate_OnPassPolyFunctionWithStepExceedingMaxGradientFromBefore_ReturnsNoNeighbours() {
         PolyFunctionManipulator testee = createTestee(0, 2, 1000, 1);
         PolyFunction fakeFunction = createFakePolyFunction(new Vector2(0, 0), new Vector2(1, 1), new Vector2(2, 1));
-        testee.setRandomNextPolygon(createFakeRandomPolygon(0));
-        testee.setRandomNextStep(createFakeRandomStep(0f));
 
         List<PolyFunction> manipulatedFunctions = testee.createNeighbours(fakeFunction);
 
-        assertEquals(Arrays.asList((IReadOnlyVector2) new Vector2(0, 0), new Vector2(1, 0), new Vector2(2, 1)), manipulatedFunctions.get(0).getPolygons());
-    }
-    
-    @Test
-    public void manipulate_OnPassPolyFunctionWithMultipleManipulatablePolygons_ManipulatesRandom() {
-        PolyFunctionManipulator testee = createTestee(0, 3, 1, 1000);
-        PolyFunction fakeFunction = createFakePolyFunction(new Vector2(0, 0), new Vector2(1, 1), new Vector2(2, 1), new Vector2(3, 2));
-        testee.setRandomNextPolygon(createFakeRandomPolygon(1));
-        testee.setRandomNextStep(createFakeRandomStep(1));
-        
-        List<PolyFunction> manipulatedFunctions = testee.createNeighbours(fakeFunction);
-        
-        assertEquals(Arrays.asList((IReadOnlyVector2) new Vector2(0, 0), new Vector2(1, 2), new Vector2(2, 1), new Vector2(3, 2)), manipulatedFunctions.get(0).getPolygons());
+        assertEquals(0, manipulatedFunctions.size());
     }
 
 }
