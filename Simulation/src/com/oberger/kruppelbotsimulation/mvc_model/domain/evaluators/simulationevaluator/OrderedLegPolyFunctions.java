@@ -38,6 +38,10 @@ public class OrderedLegPolyFunctions implements ILegPolyFunctions {
     public PolyFunction getOriginalFunction() {
         return originalFunction;
     }
+
+    public float getPeriodInS() {
+        return periodInS;
+    }
     
     @Override
     public WrappedPolyFunction getLegFunctionBL() {
