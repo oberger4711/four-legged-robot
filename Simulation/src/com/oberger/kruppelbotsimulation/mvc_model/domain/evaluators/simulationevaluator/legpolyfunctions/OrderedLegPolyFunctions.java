@@ -1,5 +1,6 @@
-package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator;
+package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions;
 
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegOrder;
 import com.oberger.kruppelbotsimulation.mvc_model.function.PolyFunction;
 import com.oberger.kruppelbotsimulation.mvc_model.function.WrappedPolyFunction;
 
@@ -21,14 +22,6 @@ public class OrderedLegPolyFunctions implements ILegPolyFunctions {
         this.originalFunction = originalFunction;
         this.legOrder = legOrder;
         this.periodInS = periodInS;
-        decoratedFunctionBR = decorateLegFunction(LegPosition.BR);
-        decoratedFunctionBL = decorateLegFunction(LegPosition.BL);
-        decoratedFunctionFR = decorateLegFunction(LegPosition.FR);
-        decoratedFunctionFL = decorateLegFunction(LegPosition.FL);
-    }
-
-    private WrappedPolyFunction decorateLegFunction(LegPosition position) {
-        return new WrappedPolyFunction(originalFunction, periodInS, periodInS * legOrder.getOrder().indexOf(position) / LegPosition.values().length);
     }
 
     public LegOrder getLegOrder() {

@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator;
+package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions;
 
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegOrder;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions.OrderedLegPolyFunctions;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegPosition;
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegPosition;
 import com.oberger.kruppelbotsimulation.mvc_model.function.Interpolator;
 import com.oberger.kruppelbotsimulation.mvc_model.function.PolyFunction;

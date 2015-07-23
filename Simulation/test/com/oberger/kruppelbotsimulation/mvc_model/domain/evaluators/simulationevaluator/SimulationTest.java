@@ -7,7 +7,7 @@ package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulatione
 
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.Model;
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.Simulation;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.ILegPolyFunctions;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions.ILegPolyFunctions;
 import com.oberger.kruppelbotsimulation.mvc_model.function.IPolyFunction;
 import com.oberger.kruppelbotsimulation.mvc_model.model.SimJoint;
 import com.oberger.kruppelbotsimulation.util.Rotation;
