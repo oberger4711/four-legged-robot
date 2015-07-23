@@ -58,6 +58,15 @@ public class PolyFunctionTest {
     }
     
     @Test
+    public void constructor_OnPassOrderInnerFalse_ThrowsException() {
+        Interpolator fakeInterpolator = Mockito.mock(Interpolator.class);
+        List<IReadOnlyVector2> polygons = Arrays.asList(new Vector2(0, 0), new Vector2(1, 1), new Vector2(0, 2), new Vector2(3, 3));
+        exception.expect(IllegalArgumentException.class);        
+
+        createPolyFunction(fakeInterpolator, polygons);
+    }
+    
+    @Test
     public void getValue_OnCall_ReturnsInterpolatedValue() {
         Interpolator fakeInterpolator = Mockito.mock(Interpolator.class);
         List<IReadOnlyVector2> polygons = new ArrayList<>(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1)));

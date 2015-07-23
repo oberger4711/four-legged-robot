@@ -63,20 +63,6 @@ public class PartialPolyFunctionTests {
 
         createTestee(new Vector2(0, 0), Arrays.asList(new Vector2(1, 2)), new Vector2(2, 2), null);
     }
-    
-    @Test
-    public void constructor_OnOrderInnerFalse_ThrowsException() {
-        exception.expect(IllegalArgumentException.class);
-
-        createTestee(new Vector2(0, 0), Arrays.asList(new Vector2(0, 1)), new Vector2(2, 2), createDummyInterpolator());
-    }
-    
-    @Test
-    public void constructor_OnFirstAndLastFalse_ThrowsException() {
-        exception.expect(IllegalArgumentException.class);
-
-        createTestee(new Vector2(0, 0), new ArrayList<>(), new Vector2(0, 2), createDummyInterpolator());
-    }
 
     @Test
     public void getPolygons_OnCall_ReturnsListWithFirstInnerAndLast() {
