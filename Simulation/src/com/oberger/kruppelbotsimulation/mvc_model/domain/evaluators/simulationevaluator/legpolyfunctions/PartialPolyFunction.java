@@ -5,7 +5,6 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions;
 
-import com.oberger.kruppelbotsimulation.mvc_model.function.IPolyFunction;
 import com.oberger.kruppelbotsimulation.mvc_model.function.Interpolator;
 import com.oberger.kruppelbotsimulation.mvc_model.function.PolyFunction;
 import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
@@ -17,41 +16,28 @@ import java.util.List;
  *
  * @author oberger
  */
-public class PartialPolyFunction extends PolyFunction {
+public class PartialPolyFunction {
 
-    private IReadOnlyVector2 first = null;
-    private List<IReadOnlyVector2> inner = null;
-    private IReadOnlyVector2 last = null;
+	private IReadOnlyVector2 first = null;
+	private List<IReadOnlyVector2> inner = null;
+	private IReadOnlyVector2 last = null;
 
-    public PartialPolyFunction(IReadOnlyVector2 first, List<IReadOnlyVector2> inner, IReadOnlyVector2 last, Interpolator interpolator) {
-        super(interpolator, concatToList(first, inner, last));
-        this.first = first;
-        this.inner = inner;
-        this.last = last;
-    }
-    
-    private static List<IReadOnlyVector2> concatToList(IReadOnlyVector2 first, List<IReadOnlyVector2> inner, IReadOnlyVector2 last) {
-        LinkedList<IReadOnlyVector2> polygons = new LinkedList<>();
-        if (inner == null) {
-            throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
-        }
-        polygons.add(first);
-        polygons.addAll(inner);
-        polygons.add(last);
-        
-        return polygons;
-    }
+	public PartialPolyFunction(IReadOnlyVector2 first, List<IReadOnlyVector2> inner, IReadOnlyVector2 last) {
+		this.first = first;
+		this.inner = inner;
+		this.last = last;
+	}
 
-    public IReadOnlyVector2 getFirst() {
-        return first;
-    }
+	public IReadOnlyVector2 getFirst() {
+		return first;
+	}
 
-    public List<IReadOnlyVector2> getInner() {
-        return inner;
-    }
-    
-    public IReadOnlyVector2 getLast() {
-        return last;
-    }
+	public List<IReadOnlyVector2> getInner() {
+		return new ArrayList<>(inner);
+	}
+
+	public IReadOnlyVector2 getLast() {
+		return last;
+	}
 
 }

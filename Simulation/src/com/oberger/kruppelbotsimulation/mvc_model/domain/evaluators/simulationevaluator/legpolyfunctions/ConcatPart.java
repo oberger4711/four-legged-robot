@@ -12,19 +12,38 @@ package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulatione
 public class ConcatPart {
 
 	private PartialPolyFunction function = null;
-	private boolean fixed = false;
+	private EManipulatable manipulatable;
+	private EBalanceMode balanceMode;
 
-	public ConcatPart(PartialPolyFunction function, boolean fixed) {
+	public ConcatPart(PartialPolyFunction function, EManipulatable manipulatable, EBalanceMode balanceMode) {
+		if (function == null) {
+			throw new IllegalArgumentException("Passing null is not allowed.");
+		}
 		this.function = function;
-		this.fixed = fixed;
+		this.manipulatable = manipulatable;
+		this.balanceMode = balanceMode;
 	}
 
 	public PartialPolyFunction getFunction() {
 		return function;
 	}
 
-	public boolean isFixed() {
-		return fixed;
+	public EManipulatable getManipulatable() {
+		return manipulatable;
+	}
+
+	public EBalanceMode getBalanceMode() {
+		return balanceMode;
+	}
+
+	public enum EManipulatable {
+		DYNAMIC,
+		FIXED;
+	}
+
+	public enum EBalanceMode {
+		CRITICAL,
+		IRRELEVANT;
 	}
 
 }
