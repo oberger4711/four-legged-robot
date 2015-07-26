@@ -29,7 +29,7 @@ public class ConcatPolyFunctionTests {
 	public ExpectedException exception = ExpectedException.none();
 
 	public ConcatPolyFunction createTestee(Interpolator interpolator, List<ConcatPart> parts) {
-		return new ConcatPolyFunction(interpolator, parts);
+		return new ConcatPolyFunction(interpolator, parts, 0, 10);
 	}
 
 	public Interpolator createDummyInterpolator() {

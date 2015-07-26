@@ -22,9 +22,9 @@ public class InitWalkStateSettings {
     public final float stepSizeYInDegrees;
     public final int numberOfPolygonsForward;
     public final int numberOfPolygonsBackward;
-    public final List<LegPosition> legOrder;
+    public final LegOrder legOrder;
 
-    public InitWalkStateSettings(float periodInS, float repositionTimeInS, float angleStandYInDegrees, float stepSizeYInDegrees, int numberOfPolygonsForward, int numberOfPolygonsBackward, List<LegPosition> legOrder) {
+    public InitWalkStateSettings(float periodInS, float repositionTimeInS, float angleStandYInDegrees, float stepSizeYInDegrees, int numberOfPolygonsForward, int numberOfPolygonsBackward, LegOrder legOrder) {
         if (legOrder == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }

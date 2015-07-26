@@ -5,7 +5,7 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions;
 
-import com.oberger.kruppelbotsimulation.mvc_model.function.IPolyFunction;
+import com.oberger.kruppelbotsimulation.mvc_model.function.Interpolator;
 
 /**
  *
@@ -13,12 +13,9 @@ import com.oberger.kruppelbotsimulation.mvc_model.function.IPolyFunction;
  */
 public interface ILegPolyFunctions {
 
-    public IPolyFunction getLegFunctionBL();
-
-    public IPolyFunction getLegFunctionBR();
-
-    public IPolyFunction getLegFunctionFL();
-
-    public IPolyFunction getLegFunctionFR();
+    public ConcatPolyFunction getLegFunctionBL();
+    public ConcatPolyFunction getLegFunctionBR();
+    public ConcatPolyFunction getLegFunctionFL();
+    public ConcatPolyFunction getLegFunctionFR();
     
 }

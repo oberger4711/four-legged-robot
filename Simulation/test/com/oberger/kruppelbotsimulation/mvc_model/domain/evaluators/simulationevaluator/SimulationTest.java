@@ -5,12 +5,12 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator;
 
-import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.Model;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.Simulation;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions.ConcatPolyFunction;
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions.ILegPolyFunctions;
 import com.oberger.kruppelbotsimulation.mvc_model.function.IPolyFunction;
 import com.oberger.kruppelbotsimulation.mvc_model.model.SimJoint;
 import com.oberger.kruppelbotsimulation.util.Rotation;
+import junit.framework.Assert;
 import org.junit.Test;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
@@ -62,23 +62,23 @@ public class SimulationTest {
     private ILegPolyFunctions createDummyLegFunctions() {
         ILegPolyFunctions dummy = Mockito.mock(ILegPolyFunctions.class);
 
-        Mockito.doReturn(createDummyPolyFunction()).when(dummy).getLegFunctionBL();
-        Mockito.doReturn(createDummyPolyFunction()).when(dummy).getLegFunctionBR();
-        Mockito.doReturn(createDummyPolyFunction()).when(dummy).getLegFunctionFL();
-        Mockito.doReturn(createDummyPolyFunction()).when(dummy).getLegFunctionFR();
+        Mockito.doReturn(createDummyConcatPolyFunction()).when(dummy).getLegFunctionBL();
+        Mockito.doReturn(createDummyConcatPolyFunction()).when(dummy).getLegFunctionBR();
+        Mockito.doReturn(createDummyConcatPolyFunction()).when(dummy).getLegFunctionFL();
+        Mockito.doReturn(createDummyConcatPolyFunction()).when(dummy).getLegFunctionFR();
 
         return dummy;
     }
 
-    private IPolyFunction createDummyPolyFunction() {
-        IPolyFunction dummy = Mockito.mock(IPolyFunction.class);
+    private ConcatPolyFunction createDummyConcatPolyFunction() {
+        ConcatPolyFunction dummy = Mockito.mock(ConcatPolyFunction.class);
 
         Mockito.doReturn(0f).when(dummy).getValue(Mockito.any(Float.class));
 
         return dummy;
     }
 
-    private ILegPolyFunctions createFakeLegPolyFunctions(IPolyFunction functionBL, IPolyFunction functionBR, IPolyFunction functionFL, IPolyFunction functionFR) {
+    private ILegPolyFunctions createFakeLegPolyFunctions(ConcatPolyFunction functionBL, ConcatPolyFunction functionBR, ConcatPolyFunction functionFL, ConcatPolyFunction functionFR) {
         ILegPolyFunctions fake = Mockito.mock(ILegPolyFunctions.class);
 
         Mockito.doReturn(functionBL).when(fake).getLegFunctionBL();
@@ -105,16 +105,16 @@ public class SimulationTest {
 
     @Test
     public void simulate_OnCall_RotatesLegsToFunctionValues() {
-        IPolyFunction fakeFunctionBL = createDummyPolyFunction();
+        ConcatPolyFunction fakeFunctionBL = createDummyConcatPolyFunction();
         Mockito.doReturn(1f).when(fakeFunctionBL).getValue(0);
-        IPolyFunction fakeFunctionBR = createDummyPolyFunction();
+        ConcatPolyFunction fakeFunctionBR = createDummyConcatPolyFunction();
         Mockito.doReturn(2f).when(fakeFunctionBR).getValue(0);
-        IPolyFunction fakeFunctionFL = createDummyPolyFunction();
+        ConcatPolyFunction fakeFunctionFL = createDummyConcatPolyFunction();
         Mockito.doReturn(3f).when(fakeFunctionFL).getValue(0);
-        IPolyFunction fakeFunctionFR = createDummyPolyFunction();
+        ConcatPolyFunction fakeFunctionFR = createDummyConcatPolyFunction();
         Mockito.doReturn(4f).when(fakeFunctionFR).getValue(0);
         ILegPolyFunctions fakeLegFunctions = createFakeLegPolyFunctions(fakeFunctionBL, fakeFunctionBR, fakeFunctionFL, fakeFunctionFR);
-
+	
         SimJoint fakeServoBL = createDummySimJoint();
         SimJoint fakeServoBR = createDummySimJoint();
         SimJoint fakeServoFL = createDummySimJoint();

@@ -6,7 +6,7 @@
 package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.Model;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions.OrderedLegPolyFunctions;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions.LegPolyFunctions;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -24,12 +24,12 @@ public class WalkStateTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private WalkState createWalkState(OrderedLegPolyFunctions legFunctions, Model model) {
+    private WalkState createWalkState(LegPolyFunctions legFunctions, Model model) {
         return new WalkState(legFunctions, model);
     }
     
-    private OrderedLegPolyFunctions createLegFunctions() {
-        return Mockito.mock(OrderedLegPolyFunctions.class);
+    private LegPolyFunctions createLegFunctions() {
+        return Mockito.mock(LegPolyFunctions.class);
     }
 
     private Model createDummyModel() {

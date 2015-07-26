@@ -24,12 +24,12 @@ public class WalkSimulationEvaluatorAdapterTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
     
-    private WalkSimulationEvaluatorAdapter createTestee(IEvaluator<Simulation> adaptee) {
-        return new WalkSimulationEvaluatorAdapter(adaptee);
+    private WalkStateEvaluatorAdapter createTestee(IEvaluator<Simulation> adaptee) {
+        return new WalkStateEvaluatorAdapter(adaptee);
     }
     
-    private WalkSimulationEvaluatorAdapter createTestee(IEvaluator<Simulation> adaptee, final Simulation fakeSimulation) {
-        return new WalkSimulationEvaluatorAdapter(adaptee) {
+    private WalkStateEvaluatorAdapter createTestee(IEvaluator<Simulation> adaptee, final Simulation fakeSimulation) {
+        return new WalkStateEvaluatorAdapter(adaptee) {
 
             @Override
             protected Simulation createSimulation(WalkState walkState) {
@@ -71,7 +71,7 @@ public class WalkSimulationEvaluatorAdapterTest {
         Simulation fakeSimulation = createFakeSimulation();
         IEvaluator<Simulation> fakeEvaluator = createFakeAdaptee();
         Mockito.doReturn(12f).when(fakeEvaluator).getScore(fakeSimulation);
-        WalkSimulationEvaluatorAdapter testee = createTestee(fakeEvaluator, fakeSimulation);
+        WalkStateEvaluatorAdapter testee = createTestee(fakeEvaluator, fakeSimulation);
         WalkState walkState = createFakeWalkState();
         
         assertEquals(12f, testee.getScore(walkState), 0.0001f);

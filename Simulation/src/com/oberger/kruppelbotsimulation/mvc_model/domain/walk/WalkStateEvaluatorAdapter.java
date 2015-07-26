@@ -14,11 +14,11 @@ import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.IEvaluat
  *
  * @author ole
  */
-public class WalkSimulationEvaluatorAdapter implements IEvaluator<WalkState>{
+public class WalkStateEvaluatorAdapter implements IEvaluator<WalkState>{
     
     private IEvaluator<Simulation> adaptee = null;
     
-    public WalkSimulationEvaluatorAdapter(IEvaluator<Simulation> adaptee) {
+    public WalkStateEvaluatorAdapter(IEvaluator<Simulation> adaptee) {
         if (adaptee == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }

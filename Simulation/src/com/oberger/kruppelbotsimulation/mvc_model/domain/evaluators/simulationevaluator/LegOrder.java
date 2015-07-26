@@ -15,36 +15,52 @@ import java.util.List;
  */
 public class LegOrder {
 
-    private List<LegPosition> order = null;
+	private List<LegPosition> order = null;
 
-    public LegOrder(List<LegPosition> order) {
-        if (order == null) {
-            throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
-        }
-        if (!containsEachPositionOnce(order)) {
-            throw new IllegalArgumentException("List must contain all 4 different LegPosition but was " + order.toString());
-        }
-        this.order = order;
-    }
+	public LegOrder(List<LegPosition> order) {
+		if (order == null) {
+			throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+		}
+		if (!containsEachPositionOnce(order)) {
+			throw new IllegalArgumentException("List must contain all 4 different LegPosition but was " + order.toString());
+		}
+		this.order = order;
+	}
 
-    public LegOrder(LegPosition first, LegPosition second, LegPosition third, LegPosition fourth) {
-        this(Arrays.asList(first, second, third, fourth));
-    }
+	public LegOrder(LegPosition first, LegPosition second, LegPosition third, LegPosition fourth) {
+		this(Arrays.asList(first, second, third, fourth));
+	}
 
-    public List<LegPosition> getOrder() {
-        return Collections.unmodifiableList(order);
-    }
+	public List<LegPosition> getOrder() {
+		return Collections.unmodifiableList(order);
+	}
 
-    private boolean containsEachPositionOnce(List<LegPosition> order) {
-        boolean eachPositionOnce = true;
+	public int getIndexOfBR() {
+		return order.indexOf(LegPosition.BR);
+	}
 
-        eachPositionOnce &= order.size() == LegPosition.values().length;
+	public int getIndexOfBL() {
+		return order.indexOf(LegPosition.BL);
+	}
 
-        for (LegPosition position : LegPosition.values()) {
-            eachPositionOnce &= order.contains(position);
-        }
+	public int getIndexOfFR() {
+		return order.indexOf(LegPosition.FR);
+	}
 
-        return eachPositionOnce;
-    }
+	public int getIndexOfFL() {
+		return order.indexOf(LegPosition.FL);
+	}
+
+	private boolean containsEachPositionOnce(List<LegPosition> order) {
+		boolean eachPositionOnce = true;
+
+		eachPositionOnce &= order.size() == LegPosition.values().length;
+
+		for (LegPosition position : LegPosition.values()) {
+			eachPositionOnce &= order.contains(position);
+		}
+
+		return eachPositionOnce;
+	}
 
 }

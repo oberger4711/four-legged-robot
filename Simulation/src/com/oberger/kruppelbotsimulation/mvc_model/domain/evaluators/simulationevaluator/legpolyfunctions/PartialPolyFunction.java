@@ -5,11 +5,8 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions;
 
-import com.oberger.kruppelbotsimulation.mvc_model.function.Interpolator;
-import com.oberger.kruppelbotsimulation.mvc_model.function.PolyFunction;
 import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -18,26 +15,30 @@ import java.util.List;
  */
 public class PartialPolyFunction {
 
-	private IReadOnlyVector2 first = null;
-	private List<IReadOnlyVector2> inner = null;
-	private IReadOnlyVector2 last = null;
+    private IReadOnlyVector2 first = null;
+    private List<IReadOnlyVector2> inner = null;
+    private IReadOnlyVector2 last = null;
 
-	public PartialPolyFunction(IReadOnlyVector2 first, List<IReadOnlyVector2> inner, IReadOnlyVector2 last) {
-		this.first = first;
-		this.inner = inner;
-		this.last = last;
-	}
+    public PartialPolyFunction(IReadOnlyVector2 first, List<IReadOnlyVector2> inner, IReadOnlyVector2 last) {
+	this.first = first;
+	this.inner = inner;
+	this.last = last;
+    }
 
-	public IReadOnlyVector2 getFirst() {
-		return first;
-	}
+    public PartialPolyFunction(List<IReadOnlyVector2> vectors) {
+	this(vectors.get(0), vectors.subList(1, vectors.size() - 1), vectors.get(vectors.size() - 1));
+    }
 
-	public List<IReadOnlyVector2> getInner() {
-		return new ArrayList<>(inner);
-	}
+    public IReadOnlyVector2 getFirst() {
+	return first;
+    }
 
-	public IReadOnlyVector2 getLast() {
-		return last;
-	}
+    public List<IReadOnlyVector2> getInner() {
+	return new ArrayList<>(inner);
+    }
+
+    public IReadOnlyVector2 getLast() {
+	return last;
+    }
 
 }

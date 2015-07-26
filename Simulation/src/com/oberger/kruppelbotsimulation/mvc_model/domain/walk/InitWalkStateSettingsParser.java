@@ -66,7 +66,7 @@ public class InitWalkStateSettingsParser {
         return Integer.parseInt(properties.getProperty(KEY_NUMBER_OF_POLYGONS_BACKWARD));
     }
     
-    private List<LegPosition> parseLegOrder(Properties properties) throws IllegalArgumentException {
+    private LegOrder parseLegOrder(Properties properties) throws IllegalArgumentException {
         List<LegPosition> parsed = new LinkedList<>();
         
         String legOrderString = properties.getProperty(KEY_LEG_ORDER);
@@ -75,7 +75,7 @@ public class InitWalkStateSettingsParser {
             parsed.add(parseLegPosition(legPositionString));
         }
         
-        return parsed;
+        return new LegOrder(parsed);
     }
     
     private LegPosition parseLegPosition(String value) {

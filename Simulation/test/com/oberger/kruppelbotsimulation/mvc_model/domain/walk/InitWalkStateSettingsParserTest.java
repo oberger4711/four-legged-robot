@@ -117,7 +117,7 @@ public class InitWalkStateSettingsParserTest {
 
         InitWalkStateSettings parsed = testee.parseProperties(fakeProperties);
 
-        assertEquals(Arrays.asList(LegPosition.BR, LegPosition.FL, LegPosition.BL, LegPosition.FR), parsed.legOrder);
+        assertEquals(Arrays.asList(LegPosition.BR, LegPosition.FL, LegPosition.BL, LegPosition.FR), parsed.legOrder.getOrder());
     }
 
 }

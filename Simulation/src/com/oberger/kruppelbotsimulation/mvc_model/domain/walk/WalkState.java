@@ -6,10 +6,8 @@
 package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.Model;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions.OrderedLegPolyFunctions;
-import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
-import java.util.LinkedList;
-import java.util.List;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions.ILegPolyFunctions;
+import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions.LegPolyFunctions;
 
 /**
  *
@@ -17,10 +15,10 @@ import java.util.List;
  */
 public class WalkState {
 
-    private OrderedLegPolyFunctions legFunctions = null;
+    private ILegPolyFunctions legFunctions = null;
     private Model model = null;
 
-    public WalkState(OrderedLegPolyFunctions legFunctions, Model model) {
+    public WalkState(ILegPolyFunctions legFunctions, Model model) {
         if (legFunctions == null || model == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
@@ -28,7 +26,7 @@ public class WalkState {
         this.model = model;
     }
 
-    public OrderedLegPolyFunctions getLegFunctions() {
+    public ILegPolyFunctions getLegFunctions() {
         return legFunctions;
     }
 
