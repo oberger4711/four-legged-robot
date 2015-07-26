@@ -1,7 +1,10 @@
 package com.oberger.kruppelbotsimulation.mvc_model.localsearch.manipulator;
 
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.State;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ManipulatorGroup<T> implements IManipulator<T> {
 

@@ -5,12 +5,11 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator;
 
-import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.SimulationEvaluatorParameters;
 import java.util.Collections;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
-import org.junit.Test;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**

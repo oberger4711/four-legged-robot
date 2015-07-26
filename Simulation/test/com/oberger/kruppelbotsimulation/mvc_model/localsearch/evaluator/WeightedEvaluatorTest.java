@@ -5,8 +5,6 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator;
 
-import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.WeightedEvaluator;
-import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.IEvaluator;
 import static org.junit.Assert.assertEquals;
 import org.junit.Rule;
 import org.junit.Test;

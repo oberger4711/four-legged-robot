@@ -1,6 +1,6 @@
 package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator;
 
-import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.*;
+import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.IEvaluator;
 import java.util.List;
 
 public class SimulationEvaluator implements IEvaluator<Simulation> {

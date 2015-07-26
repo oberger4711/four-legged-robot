@@ -5,15 +5,12 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
-import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegOrder;
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.LegPosition;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.walk.InitWalkStateSettings;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.walk.InitWalkStateSettingsParser;
 import java.util.Arrays;
 import java.util.Properties;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**

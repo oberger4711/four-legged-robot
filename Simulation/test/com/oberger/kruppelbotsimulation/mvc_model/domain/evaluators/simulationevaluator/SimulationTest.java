@@ -7,12 +7,10 @@ package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulatione
 
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions.ConcatPolyFunction;
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions.ILegPolyFunctions;
-import com.oberger.kruppelbotsimulation.mvc_model.function.IPolyFunction;
 import com.oberger.kruppelbotsimulation.mvc_model.model.SimJoint;
 import com.oberger.kruppelbotsimulation.util.Rotation;
-import junit.framework.Assert;
-import org.junit.Test;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;

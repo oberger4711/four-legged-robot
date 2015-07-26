@@ -6,12 +6,8 @@
 package com.oberger.kruppelbotsimulation.mvc_model.domain.walk;
 
 import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions.ILegPolyFunctions;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions.LegPolyFunctionFactory;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions.LegPolyFunctions;
-import com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions.PartialPolyFunction;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.manipulator.IManipulator;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**

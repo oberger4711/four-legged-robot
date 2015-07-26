@@ -6,8 +6,8 @@
 package com.oberger.kruppelbotsimulation.mvc_model.localsearch.exitcriterium;
 
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.State;
-import org.junit.Test;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;

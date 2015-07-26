@@ -1,7 +1,7 @@
 package com.oberger.kruppelbotsimulation.mvc_model.function;
 
-import com.oberger.kruppelbotsimulation.util.*;
-import java.util.Arrays;
+import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
+import com.oberger.kruppelbotsimulation.util.Vector2;
 import java.util.LinkedList;
 import java.util.List;
 

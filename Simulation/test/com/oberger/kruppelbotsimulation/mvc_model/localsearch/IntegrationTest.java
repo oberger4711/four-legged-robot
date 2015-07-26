@@ -5,10 +5,10 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.localsearch;
 
-import com.oberger.kruppelbotsimulation.mvc_model.localsearch.manipulator.IManipulator;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.evaluator.IEvaluator;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.exitcriterium.ExitCriterium;
 import com.oberger.kruppelbotsimulation.mvc_model.localsearch.exitcriterium.LocalMaximumExitCriterium;
+import com.oberger.kruppelbotsimulation.mvc_model.localsearch.manipulator.IManipulator;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;

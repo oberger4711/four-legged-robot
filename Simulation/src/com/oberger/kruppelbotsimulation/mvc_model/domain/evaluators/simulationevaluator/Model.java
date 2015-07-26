@@ -1,6 +1,7 @@
 package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator;
 
-import com.oberger.kruppelbotsimulation.mvc_model.model.*;
+import com.oberger.kruppelbotsimulation.mvc_model.model.SimJoint;
+import com.oberger.kruppelbotsimulation.mvc_model.model.SimMass;
 import com.oberger.kruppelbotsimulation.util.Rotation;
 import com.oberger.kruppelbotsimulation.util.Vector2;
 import com.oberger.kruppelbotsimulation.util.Weight;

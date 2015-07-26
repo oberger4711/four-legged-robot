@@ -1,6 +1,6 @@
 package com.oberger.kruppelbotsimulation.mvc_model.function;
 
-import com.oberger.kruppelbotsimulation.util.*;
+import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 
 public class LinearInterpolator extends Interpolator {
 

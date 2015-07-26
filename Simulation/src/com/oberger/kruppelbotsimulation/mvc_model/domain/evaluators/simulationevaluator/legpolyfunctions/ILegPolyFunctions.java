@@ -5,8 +5,6 @@
  */
 package com.oberger.kruppelbotsimulation.mvc_model.domain.evaluators.simulationevaluator.legpolyfunctions;
 
-import com.oberger.kruppelbotsimulation.mvc_model.function.Interpolator;
-
 /**
  *
  * @author ole
