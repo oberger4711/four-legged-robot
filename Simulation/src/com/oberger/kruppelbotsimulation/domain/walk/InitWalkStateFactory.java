@@ -14,7 +14,6 @@ import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.le
 import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.PartialPolyFunction;
 import com.oberger.kruppelbotsimulation.function.Interpolator;
 import com.oberger.kruppelbotsimulation.function.LinearInterpolator;
-import com.oberger.kruppelbotsimulation.function.PolyFunction;
 import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import com.oberger.kruppelbotsimulation.util.Vector2;
 import java.util.Arrays;
@@ -64,10 +63,6 @@ public class InitWalkStateFactory {
 		List<IReadOnlyVector2> polygons = new LinkedList<>(interpolator.getPolygons(backwardStart, backwardEnd, initSettings.numberOfPolygonsBackward));
 
 		return new ConcatPart(new PartialPolyFunction(polygons), EManipulatable.DYNAMIC, EBalanceMode.IRRELEVANT);
-	}
-
-	private PolyFunction createInitLegFunction(Interpolator interpolator, List<IReadOnlyVector2> polygons) {
-		return new PolyFunction(interpolator, polygons);
 	}
 
 	private ILegPolyFunctions createInitLegFunctions(Interpolator interpolator) {
