@@ -24,51 +24,51 @@ public class SimMassTest {
     public ExpectedException exception = ExpectedException.none();
 
     private static SimMass createSimMass(Vector2 offsetPosition, Weight offsetWeight) {
-        return new SimMass(offsetPosition, offsetWeight);
+	return new SimMass(offsetPosition, offsetWeight);
     }
-    
+
     private static IParentSimObject createFakeParentSimObject(Vector2 globalPosition, Rotation globalRotation) {
-        IParentSimObject fakeParentSimObject = Mockito.mock(IParentSimObject.class);
-        Mockito.doReturn(globalPosition).when(fakeParentSimObject).getGlobalPosition();
-        Mockito.doReturn(globalRotation).when(fakeParentSimObject).getGlobalRotation();
-        
-        return fakeParentSimObject;
+	IParentSimObject fakeParentSimObject = Mockito.mock(IParentSimObject.class);
+	Mockito.doReturn(globalPosition).when(fakeParentSimObject).getGlobalPosition();
+	Mockito.doReturn(globalRotation).when(fakeParentSimObject).getGlobalRotation();
+
+	return fakeParentSimObject;
     }
 
     @Test
     public void constructor_OnCall_SetsOffsetRotationZero() {
-        SimMass simMass = createSimMass(new Vector2(0, 0), new Weight());
+	SimMass simMass = createSimMass(new Vector2(0, 0), new Weight());
 
-        assertEquals(new Rotation(0, true), simMass.getOffsetRotation());
+	assertEquals(new Rotation(0, true), simMass.getOffsetRotation());
     }
-    
+
     @Test
     public void getBalancePoint_OnCall_UsesGlobalPosition() {
-        SimMass simMass = createSimMass(new Vector2(2, 4), new Weight(5));
+	SimMass simMass = createSimMass(new Vector2(2, 4), new Weight(5));
 
-        BalancePoint result = simMass.getGlobalBalancePoint();
+	BalancePoint result = simMass.getGlobalBalancePoint();
 
-        assertEquals(new Vector2(2, 4), result.getPosition());
+	assertEquals(new Vector2(2, 4), result.getPosition());
     }
 
     @Test
     public void getBalancePoint_OnCall_UsesGlobalWeight() {
-        SimMass simMass = createSimMass(new Vector2(2, 4), new Weight(5));
+	SimMass simMass = createSimMass(new Vector2(2, 4), new Weight(5));
 
-        BalancePoint result = simMass.getGlobalBalancePoint();
+	BalancePoint result = simMass.getGlobalBalancePoint();
 
-        assertEquals(new Weight(5), result.getWeight());
+	assertEquals(new Weight(5), result.getWeight());
     }
 
     @Test
     public void getBalancePoint_AfterUpdate_UsesUpdatedGlobalPosition() {
-        IParentSimObject parent = createFakeParentSimObject(new Vector2(1, 2), new Rotation(0, true));
-        SimMass simMass = createSimMass(new Vector2(2, 4), new Weight(5));
-        simMass.setParent(parent);
-        
-        BalancePoint result = simMass.getGlobalBalancePoint();
-        
-        assertEquals(new Vector2(3, 6), result.getPosition());
+	IParentSimObject parent = createFakeParentSimObject(new Vector2(1, 2), new Rotation(0, true));
+	SimMass simMass = createSimMass(new Vector2(2, 4), new Weight(5));
+	simMass.setParent(parent);
+
+	BalancePoint result = simMass.getGlobalBalancePoint();
+
+	assertEquals(new Vector2(3, 6), result.getPosition());
     }
 
 }

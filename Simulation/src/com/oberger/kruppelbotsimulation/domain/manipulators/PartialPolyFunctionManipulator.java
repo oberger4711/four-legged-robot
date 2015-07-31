@@ -36,16 +36,14 @@ public class PartialPolyFunctionManipulator implements IManipulator<PartialPolyF
 	    IReadOnlyVector2 previousPolygon = null;
 	    if (i == 0) {
 		previousPolygon = originalInnerState.getFirst();
-	    }
-	    else {
+	    } else {
 		previousPolygon = manipulatedInner.get(i - 1);
 	    }
 	    IReadOnlyVector2 polygonToManipulate = manipulatedInner.get(i);
 	    IReadOnlyVector2 nextPolygon = null;
 	    if (i == originalInnerState.getInner().size() - 1) {
 		nextPolygon = originalInnerState.getLast();
-	    }
-	    else {
+	    } else {
 		nextPolygon = manipulatedInner.get(i + 1);
 	    }
 

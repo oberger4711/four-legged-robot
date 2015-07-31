@@ -13,50 +13,50 @@ public class FakeSimObject extends SimObject {
 
     private boolean updateCalled = false;
     private boolean updateChildsCalled = false;
-    
+
     public FakeSimObject(Vector2 offsetPosition, Weight offsetWeight, Rotation offsetRotation) {
-        super(offsetPosition, offsetWeight, offsetRotation);
-        updateCalled = false;
-        updateChildsCalled = false;
+	super(offsetPosition, offsetWeight, offsetRotation);
+	updateCalled = false;
+	updateChildsCalled = false;
     }
 
     @Override
     public void update() {
-        super.update();
-        updateCalled = true;
+	super.update();
+	updateCalled = true;
     }
-    
+
     @Override
     protected void updateChilds() {
-        updateChildsCalled = true;
+	updateChildsCalled = true;
     }
 
     @Override
     public BalancePoint getGlobalBalancePoint() {
-        return new BalancePoint(getGlobalPosition(), getGlobalWeight());
+	return new BalancePoint(getGlobalPosition(), getGlobalWeight());
     }
 
     @Override
     public Vector2 getOffsetPosition() {
-        return super.getOffsetPosition();
+	return super.getOffsetPosition();
     }
 
     @Override
     protected Weight getOffsetWeight() {
-        return super.getOffsetWeight();
+	return super.getOffsetWeight();
     }
 
     @Override
     protected Rotation getOffsetRotation() {
-        return super.getOffsetRotation();
+	return super.getOffsetRotation();
     }
 
     public boolean isUpdateCalled() {
-        return updateCalled;
+	return updateCalled;
     }
-    
+
     public boolean isUpdateChildsCalled() {
-        return updateChildsCalled;
+	return updateChildsCalled;
     }
-    
+
 }

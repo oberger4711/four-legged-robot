@@ -27,70 +27,70 @@ public class TimeOutExitCriteriumTest {
     public ExpectedException exception = ExpectedException.none();
 
     private ExitCriterium createTimeOutExitCriterium(Clock clock, long timeOutInMs) {
-        return new TimeOutExitCriterium(clock, timeOutInMs);
+	return new TimeOutExitCriterium(clock, timeOutInMs);
     }
 
     private State createDummyState() {
-        return Mockito.mock(State.class);
+	return Mockito.mock(State.class);
     }
 
     @Test
     public void constructor_OnPassTimeoutLowerThanZero_ThrowsIllegalArgumentException() {
-        exception.expect(IllegalArgumentException.class);
+	exception.expect(IllegalArgumentException.class);
 
-        createTimeOutExitCriterium(Clock.systemUTC(), -1);
+	createTimeOutExitCriterium(Clock.systemUTC(), -1);
     }
 
     @Test
     public void isFinishState_OnPassNull_ThrowsIllegalArgumentException() {
-        exception.expect(IllegalArgumentException.class);
+	exception.expect(IllegalArgumentException.class);
 
-        ExitCriterium timeOutCriterium = createTimeOutExitCriterium(Clock.systemUTC(), 0);
+	ExitCriterium timeOutCriterium = createTimeOutExitCriterium(Clock.systemUTC(), 0);
 
-        timeOutCriterium.isFinishState(null);
+	timeOutCriterium.isFinishState(null);
     }
 
     @Test
     public void isFinishState_BeforeTimeout_ReturnsFalse() {
-        Clock fakeClock = Mockito.mock(Clock.class);
-        Mockito.doReturn(0l).when(fakeClock).millis();
-        ExitCriterium timeOutExitCriterium = createTimeOutExitCriterium(fakeClock, 10);
+	Clock fakeClock = Mockito.mock(Clock.class);
+	Mockito.doReturn(0l).when(fakeClock).millis();
+	ExitCriterium timeOutExitCriterium = createTimeOutExitCriterium(fakeClock, 10);
 
-        assertFalse(timeOutExitCriterium.isFinishState(createDummyState()));
+	assertFalse(timeOutExitCriterium.isFinishState(createDummyState()));
     }
 
     @Test
     public void isFinishState_AfterTimeout_ReturnsTrue() {
-        Clock fakeClock = Mockito.mock(Clock.class);
-        Mockito.doReturn(0l).when(fakeClock).millis();
-        ExitCriterium timeOutCriterium = createTimeOutExitCriterium(fakeClock, 10);
-        Mockito.doReturn(11l).when(fakeClock).millis();
-        
-        assertTrue(timeOutCriterium.isFinishState(createDummyState()));
+	Clock fakeClock = Mockito.mock(Clock.class);
+	Mockito.doReturn(0l).when(fakeClock).millis();
+	ExitCriterium timeOutCriterium = createTimeOutExitCriterium(fakeClock, 10);
+	Mockito.doReturn(11l).when(fakeClock).millis();
+
+	assertTrue(timeOutCriterium.isFinishState(createDummyState()));
     }
-    
+
     @Test
     public void isFinishState_AfterTimoutAndReset_ReturnsFalseAgain() {
-        Clock fakeClock = Mockito.mock(Clock.class);
-        Mockito.doReturn(0l).when(fakeClock).millis();
-        ExitCriterium timeOutCriterium = createTimeOutExitCriterium(fakeClock, 10);
-        Mockito.doReturn(11l).when(fakeClock).millis();
-        timeOutCriterium.reset();
-        Mockito.doReturn(15l).when(fakeClock).millis();
-        
-        assertFalse(timeOutCriterium.isFinishState(createDummyState()));
+	Clock fakeClock = Mockito.mock(Clock.class);
+	Mockito.doReturn(0l).when(fakeClock).millis();
+	ExitCriterium timeOutCriterium = createTimeOutExitCriterium(fakeClock, 10);
+	Mockito.doReturn(11l).when(fakeClock).millis();
+	timeOutCriterium.reset();
+	Mockito.doReturn(15l).when(fakeClock).millis();
+
+	assertFalse(timeOutCriterium.isFinishState(createDummyState()));
     }
-    
+
     @Test
     public void isFinishState_AfterTimeoutAndResetAndTimeout_ReturnsTrueAgain() {
-        Clock fakeClock = Mockito.mock(Clock.class);
-        Mockito.doReturn(0l).when(fakeClock).millis();
-        ExitCriterium timeOutCriterium = createTimeOutExitCriterium(fakeClock, 10);
-        Mockito.doReturn(11l).when(fakeClock).millis();
-        timeOutCriterium.reset();
-        Mockito.doReturn(22l).when(fakeClock).millis();
-        
-        assertTrue(timeOutCriterium.isFinishState(createDummyState()));
+	Clock fakeClock = Mockito.mock(Clock.class);
+	Mockito.doReturn(0l).when(fakeClock).millis();
+	ExitCriterium timeOutCriterium = createTimeOutExitCriterium(fakeClock, 10);
+	Mockito.doReturn(11l).when(fakeClock).millis();
+	timeOutCriterium.reset();
+	Mockito.doReturn(22l).when(fakeClock).millis();
+
+	assertTrue(timeOutCriterium.isFinishState(createDummyState()));
     }
 
 }

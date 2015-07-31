@@ -19,9 +19,9 @@ import java.util.List;
  * @author oberger
  */
 public class ConcatPolyFunctionManipulator implements IManipulator<ConcatPolyFunction> {
-    
+
     private IManipulator<PartialPolyFunction> adaptee = null;
-    
+
     public ConcatPolyFunctionManipulator(IManipulator<PartialPolyFunction> adaptee) {
 	if (adaptee == null) {
 	    throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
@@ -49,8 +49,8 @@ public class ConcatPolyFunctionManipulator implements IManipulator<ConcatPolyFun
 		}
 	    }
 	}
-	
+
 	return neighbours;
     }
-    
+
 }

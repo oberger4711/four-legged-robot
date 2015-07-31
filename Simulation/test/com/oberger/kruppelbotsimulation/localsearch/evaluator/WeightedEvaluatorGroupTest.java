@@ -24,113 +24,112 @@ import org.mockito.runners.MockitoJUnitRunner;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class WeightedEvaluatorGroupTest {
-    
+
     @Rule
     public ExpectedException exception = ExpectedException.none();
-    
+
     private WeightedEvaluatorGroup createWeightedEvaluatorGroup(List<WeightedEvaluator> evaluators) {
-        return new WeightedEvaluatorGroup(evaluators);
+	return new WeightedEvaluatorGroup(evaluators);
     }
-    
+
     private WeightedEvaluator createFakeWeightedEvaluator(float score, float weight) {
-        WeightedEvaluator created = Mockito.mock(WeightedEvaluator.class);
-        
-        Mockito.doReturn(score).when(created).getScore(Mockito.any());
-        Mockito.doReturn(weight).when(created).getWeight();
-        
-        return created;
+	WeightedEvaluator created = Mockito.mock(WeightedEvaluator.class);
+
+	Mockito.doReturn(score).when(created).getScore(Mockito.any());
+	Mockito.doReturn(weight).when(created).getWeight();
+
+	return created;
     }
-    
+
     @Test
     public void constructor_OnPassNull_ThrowsIllegalArgumentException() {
-        exception.expect(IllegalArgumentException.class);
-        
-        WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(null);
+	exception.expect(IllegalArgumentException.class);
+
+	WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(null);
     }
-    
+
     @Test
     public void constructor_OnPassEmptyList_ThrowsIllegalArgumentException() {
-        exception.expect(IllegalArgumentException.class);
-        
-        WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(Collections.emptyList());
+	exception.expect(IllegalArgumentException.class);
+
+	WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(Collections.emptyList());
     }
-    
-    
+
     @Test
     public void constructor_OnCall_CopiesEvaluatorList() {
-        List<WeightedEvaluator> fakeWeightedEvaluators = new ArrayList<>(Arrays.asList(createFakeWeightedEvaluator(1, 1)));
-        WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(fakeWeightedEvaluators);
-        
-        List<WeightedEvaluator> returned = testee.getEvaluators();
-        
-        assertFalse(returned == fakeWeightedEvaluators);
+	List<WeightedEvaluator> fakeWeightedEvaluators = new ArrayList<>(Arrays.asList(createFakeWeightedEvaluator(1, 1)));
+	WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(fakeWeightedEvaluators);
+
+	List<WeightedEvaluator> returned = testee.getEvaluators();
+
+	assertFalse(returned == fakeWeightedEvaluators);
     }
-    
+
     @Test
     public void getEvaluators_OnCall_ReturnsUnmodifiableList() {
-        List<WeightedEvaluator> fakeWeightedEvaluators = new ArrayList<>(Arrays.asList(createFakeWeightedEvaluator(1, 1)));
-        WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(fakeWeightedEvaluators);
-        
-        List<WeightedEvaluator> returned = testee.getEvaluators();
-        
-        exception.expect(UnsupportedOperationException.class);
-        
-        returned.clear();
+	List<WeightedEvaluator> fakeWeightedEvaluators = new ArrayList<>(Arrays.asList(createFakeWeightedEvaluator(1, 1)));
+	WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(fakeWeightedEvaluators);
+
+	List<WeightedEvaluator> returned = testee.getEvaluators();
+
+	exception.expect(UnsupportedOperationException.class);
+
+	returned.clear();
     }
-    
+
     @Test
     public void getScore_WithOneWeightedEvaluator_ReturnsEvaluatorsScore() {
-        List<WeightedEvaluator> fakeWeightedEvaluators = new ArrayList<>(Arrays.asList(createFakeWeightedEvaluator(1, 1)));
-        WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(fakeWeightedEvaluators);
-        
-        float returnedScore = testee.getScore(null);
-        
-        assertEquals(1, returnedScore, 0.0001);
+	List<WeightedEvaluator> fakeWeightedEvaluators = new ArrayList<>(Arrays.asList(createFakeWeightedEvaluator(1, 1)));
+	WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(fakeWeightedEvaluators);
+
+	float returnedScore = testee.getScore(null);
+
+	assertEquals(1, returnedScore, 0.0001);
     }
-    
+
     @Test
     public void getScore_WithTwoWeightedEvaluator_ReturnsEvaluatorsScore() {
-        List<WeightedEvaluator> fakeWeightedEvaluators = new ArrayList<>(Arrays.asList(createFakeWeightedEvaluator(1, 1)));
-        WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(fakeWeightedEvaluators);
-        
-        float returnedScore = testee.getScore(null);
-        
-        assertEquals(1, returnedScore, 0.0001);
+	List<WeightedEvaluator> fakeWeightedEvaluators = new ArrayList<>(Arrays.asList(createFakeWeightedEvaluator(1, 1)));
+	WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(fakeWeightedEvaluators);
+
+	float returnedScore = testee.getScore(null);
+
+	assertEquals(1, returnedScore, 0.0001);
     }
-    
+
     @Test
     public void getScore_WithOneWeightedEvaluator_ReturnsWeightedEvaluatorScore() {
-        List<WeightedEvaluator> weightedEvaluators = Arrays.asList(createFakeWeightedEvaluator(0.7f, 1));
-        WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(weightedEvaluators);
+	List<WeightedEvaluator> weightedEvaluators = Arrays.asList(createFakeWeightedEvaluator(0.7f, 1));
+	WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(weightedEvaluators);
 
-        float returnedScore = testee.getScore(null);
+	float returnedScore = testee.getScore(null);
 
-        assertEquals(0.7f, returnedScore, 0.0001f);
+	assertEquals(0.7f, returnedScore, 0.0001f);
     }
 
     @Test
     public void getScore_WithTwoWeightedEvaluators_ReturnsWeightedScoreMean() {
-        List<WeightedEvaluator> weightedEvaluators = new ArrayList<>();
-        weightedEvaluators.add(createFakeWeightedEvaluator(1, 1));
-        weightedEvaluators.add(createFakeWeightedEvaluator(2, 2));
-        WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(weightedEvaluators);
+	List<WeightedEvaluator> weightedEvaluators = new ArrayList<>();
+	weightedEvaluators.add(createFakeWeightedEvaluator(1, 1));
+	weightedEvaluators.add(createFakeWeightedEvaluator(2, 2));
+	WeightedEvaluatorGroup testee = createWeightedEvaluatorGroup(weightedEvaluators);
 
-        float returnedWeightedScore = testee.getScore(null);
+	float returnedWeightedScore = testee.getScore(null);
 
-        assertEquals(1.66667, returnedWeightedScore, 0.0001f);
+	assertEquals(1.66667, returnedWeightedScore, 0.0001f);
     }
 
     @Test
     public void getScore_WithThreeWeightedEvaluators_ReturnWeightedScoreMean() {
-        List<WeightedEvaluator> weightedEvaluators = new ArrayList<>();
-        weightedEvaluators.add(createFakeWeightedEvaluator(1, 0.5f));
-        weightedEvaluators.add(createFakeWeightedEvaluator(2, 2f));
-        weightedEvaluators.add(createFakeWeightedEvaluator(3, 0.5f));
-        WeightedEvaluatorGroup testee = new WeightedEvaluatorGroup(weightedEvaluators);
+	List<WeightedEvaluator> weightedEvaluators = new ArrayList<>();
+	weightedEvaluators.add(createFakeWeightedEvaluator(1, 0.5f));
+	weightedEvaluators.add(createFakeWeightedEvaluator(2, 2f));
+	weightedEvaluators.add(createFakeWeightedEvaluator(3, 0.5f));
+	WeightedEvaluatorGroup testee = new WeightedEvaluatorGroup(weightedEvaluators);
 
-        float returnedWeightedScore = testee.getScore(null);
+	float returnedWeightedScore = testee.getScore(null);
 
-        assertEquals(2, returnedWeightedScore, 0.0001f);
+	assertEquals(2, returnedWeightedScore, 0.0001f);
     }
 
 }

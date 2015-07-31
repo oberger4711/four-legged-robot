@@ -8,7 +8,9 @@ package com.oberger.kruppelbotsimulation.localsearch;
 import java.util.List;
 
 /**
- * Fake {@link LocalSearchAlgorithm} that always returns the first neighbour of the current state's neighbours or null if no.
+ * Fake {@link LocalSearchAlgorithm} that always returns the first neighbour of
+ * the current state's neighbours or null if no.
+ *
  * @author ole
  * @param <T>
  */
@@ -19,12 +21,12 @@ public class FakeLocalSearchAlgorithm<T> extends LocalSearchAlgorithm<T> {
 
     @Override
     State<T> getNextState(List<State<T>> neighbourStates) {
-        State<T> nextState = null;
-        if (neighbourStates != null && !neighbourStates.isEmpty()) {
-            nextState = neighbourStates.get(0);
-        }
-        
-        return nextState;
+	State<T> nextState = null;
+	if (neighbourStates != null && !neighbourStates.isEmpty()) {
+	    nextState = neighbourStates.get(0);
+	}
+
+	return nextState;
     }
-    
+
 }

@@ -10,6 +10,7 @@ package com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator;
  * @author ole
  */
 public enum LegPosition {
+
     BR, BL, FR, FL
-    
+
 }

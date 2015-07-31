@@ -12,32 +12,32 @@ public class ManipulatorGroup<T> implements IManipulator<T> {
     private List<State<T>> neighboursCache = null;
 
     public ManipulatorGroup(List<IManipulator<T>> manipulators) {
-        if (manipulators == null) {
-            throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
-        }
-        if (manipulators.isEmpty()) {
-            throw new IllegalArgumentException("Passing an empty list is not allowed.");
-        }
-        this.manipulators = new ArrayList<>(manipulators);
+	if (manipulators == null) {
+	    throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+	}
+	if (manipulators.isEmpty()) {
+	    throw new IllegalArgumentException("Passing an empty list is not allowed.");
+	}
+	this.manipulators = new ArrayList<>(manipulators);
     }
 
     @Override
     public List<T> createNeighbours(T originalInnerState) {
-        if (originalInnerState == null) {
-            throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
-        }
-        List<T> neighbourStates = new LinkedList<>();
+	if (originalInnerState == null) {
+	    throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+	}
+	List<T> neighbourStates = new LinkedList<>();
 
-        for (IManipulator<T> manipulator : manipulators) {
-            List<T> manipulatedInnerStates = manipulator.createNeighbours(originalInnerState);
-            neighbourStates.addAll(manipulatedInnerStates);
-        }
+	for (IManipulator<T> manipulator : manipulators) {
+	    List<T> manipulatedInnerStates = manipulator.createNeighbours(originalInnerState);
+	    neighbourStates.addAll(manipulatedInnerStates);
+	}
 
-        return neighbourStates;
+	return neighbourStates;
     }
 
     public List<IManipulator> getManipulators() {
-        return Collections.unmodifiableList(manipulators);
+	return Collections.unmodifiableList(manipulators);
     }
 
 }

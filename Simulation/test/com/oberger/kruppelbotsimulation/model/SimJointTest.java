@@ -34,134 +34,134 @@ public class SimJointTest {
     public ExpectedException exception = ExpectedException.none();
 
     public static SimJoint createSimJoint(Vector2 offsetPosition, Rotation offsetRotation) {
-        return new SimJoint(offsetPosition, offsetRotation);
+	return new SimJoint(offsetPosition, offsetRotation);
     }
 
     public static SimJoint createSimJoint(Vector2 offsetPosition, Rotation offsetRotation, List<SimObject> simObjects) {
-        return new SimJoint(offsetPosition, offsetRotation, simObjects);
+	return new SimJoint(offsetPosition, offsetRotation, simObjects);
     }
 
     private static SimObject createFakeSimObject() {
-        SimObject fakeSimObject = mock(SimObject.class);
+	SimObject fakeSimObject = mock(SimObject.class);
 
-        return fakeSimObject;
+	return fakeSimObject;
     }
-    
+
     private static SimObject createFakeSimObject(BalancePoint balancePoint) {
-        SimObject fakeSimObject = createFakeSimObject();
-        doReturn(balancePoint).when(fakeSimObject).getGlobalBalancePoint();
-        
-        return fakeSimObject;
+	SimObject fakeSimObject = createFakeSimObject();
+	doReturn(balancePoint).when(fakeSimObject).getGlobalBalancePoint();
+
+	return fakeSimObject;
     }
 
     private static List<SimObject> createSimObjectList(SimObject... objects) {
-        return new ArrayList(Arrays.asList(objects));
+	return new ArrayList(Arrays.asList(objects));
     }
 
     @Test
     public void constructor_OnCall_SetsWeightZero() {
-        SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true));
-        
-        assertTrue(simJoint.getOffsetWeight().isZero());
+	SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true));
+
+	assertTrue(simJoint.getOffsetWeight().isZero());
     }
-    
+
     @Test
     public void getBalancePoint_WithoutSimMassChilds_ThrowsIllegalStateException() {
-        SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true));
-        
-        exception.expect(IllegalStateException.class);
-        
-        simJoint.getGlobalBalancePoint();
+	SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true));
+
+	exception.expect(IllegalStateException.class);
+
+	simJoint.getGlobalBalancePoint();
     }
 
     @Test
     public void getBalancePoint_WithSimMassChilds_MergesSimMassBalancePoints() {
-        SimObject fakeChild1 = createFakeSimObject(new BalancePoint(new Vector2(1, 1), new Weight(1)));
-        SimObject fakeChild2 = createFakeSimObject(new BalancePoint(new Vector2(2, 2), new Weight(2)));
-        SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true), createSimObjectList(fakeChild1, fakeChild2));
+	SimObject fakeChild1 = createFakeSimObject(new BalancePoint(new Vector2(1, 1), new Weight(1)));
+	SimObject fakeChild2 = createFakeSimObject(new BalancePoint(new Vector2(2, 2), new Weight(2)));
+	SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true), createSimObjectList(fakeChild1, fakeChild2));
 
-        BalancePoint simJointBalancePoint = simJoint.getGlobalBalancePoint();
+	BalancePoint simJointBalancePoint = simJoint.getGlobalBalancePoint();
 
-        assertEquals(new Vector2(1.66666667f, 1.66666667f), simJointBalancePoint.getPosition());
-        assertEquals(new Weight(3), simJointBalancePoint.getWeight());
+	assertEquals(new Vector2(1.66666667f, 1.66666667f), simJointBalancePoint.getPosition());
+	assertEquals(new Weight(3), simJointBalancePoint.getWeight());
     }
 
     @Test
     public void addChild_OnPassNull_ThrowsIllegalArgumentException() {
-        SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true));
+	SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true));
 
-        exception.expect(IllegalArgumentException.class);
+	exception.expect(IllegalArgumentException.class);
 
-        simJoint.addChild(null);
+	simJoint.addChild(null);
     }
 
     @Test
     public void addChild_OnCall_AddsChildToList() {
-        List<SimObject> childs = new ArrayList<>();
-        SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true), childs);
-        SimObject fakeChild = createFakeSimObject();
+	List<SimObject> childs = new ArrayList<>();
+	SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true), childs);
+	SimObject fakeChild = createFakeSimObject();
 
-        simJoint.addChild(fakeChild);
+	simJoint.addChild(fakeChild);
 
-        assertTrue(childs.contains(fakeChild));
+	assertTrue(childs.contains(fakeChild));
     }
-    
+
     @Test
     public void addChild_OnCall_SetsChildsParent() {
-        List<SimObject> childs = new ArrayList<>();
-        SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true), childs);
-        SimObject fakeChild = createFakeSimObject();
+	List<SimObject> childs = new ArrayList<>();
+	SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true), childs);
+	SimObject fakeChild = createFakeSimObject();
 
-        simJoint.addChild(fakeChild);
-        
-        verify(fakeChild, times(1)).setParent(simJoint);
+	simJoint.addChild(fakeChild);
+
+	verify(fakeChild, times(1)).setParent(simJoint);
     }
 
     @Test
     public void removeChild_OnPassNull_ThrowsIllegalArgumentException() {
-        SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true));
+	SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true));
 
-        exception.expect(IllegalArgumentException.class);
+	exception.expect(IllegalArgumentException.class);
 
-        simJoint.removeChild(null);
+	simJoint.removeChild(null);
     }
 
     @Test
     public void removeChild_OnCall_RemovesChildFromList() {
-        SimObject fakeChild = createFakeSimObject();
-        List<SimObject> childs = createSimObjectList(fakeChild);
-        SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true), childs);
+	SimObject fakeChild = createFakeSimObject();
+	List<SimObject> childs = createSimObjectList(fakeChild);
+	SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true), childs);
 
-        simJoint.removeChild(fakeChild);
+	simJoint.removeChild(fakeChild);
 
-        assertFalse(childs.contains(fakeChild));
+	assertFalse(childs.contains(fakeChild));
     }
-    
+
     @Test
     public void removeChild_OnCall_SetsChildsParentNull() {
-        SimObject fakeChild = createFakeSimObject();
-        List<SimObject> childs = createSimObjectList(fakeChild);
-        SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true), childs);
+	SimObject fakeChild = createFakeSimObject();
+	List<SimObject> childs = createSimObjectList(fakeChild);
+	SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true), childs);
 
-        simJoint.removeChild(fakeChild);
+	simJoint.removeChild(fakeChild);
 
-        Mockito.verify(fakeChild, times(1)).setParent(null);
+	Mockito.verify(fakeChild, times(1)).setParent(null);
     }
 
     @Test
     public void update_OnCall_CallsUpdateOnEveryChild() {
-        SimObject fakeChild1 = createFakeSimObject();
-        SimObject fakeChild2 = createFakeSimObject();
+	SimObject fakeChild1 = createFakeSimObject();
+	SimObject fakeChild2 = createFakeSimObject();
 
-        List<SimObject> childs = createSimObjectList(fakeChild1, fakeChild2);
-        SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true), childs);
+	List<SimObject> childs = createSimObjectList(fakeChild1, fakeChild2);
+	SimJoint simJoint = createSimJoint(new Vector2(), new Rotation(0, true), childs);
 
-        verify(fakeChild1, never()).update();
-        verify(fakeChild2, never()).update();
+	verify(fakeChild1, never()).update();
+	verify(fakeChild2, never()).update();
 
-        simJoint.update();
+	simJoint.update();
 
-        verify(fakeChild1, times(1)).update();
-        verify(fakeChild2, times(1)).update();
+	verify(fakeChild1, times(1)).update();
+	verify(fakeChild2, times(1)).update();
     }
 }

@@ -18,19 +18,19 @@ public class WalkState {
     private Model model = null;
 
     public WalkState(ILegPolyFunctions legFunctions, Model model) {
-        if (legFunctions == null || model == null) {
-            throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
-        }
-        this.legFunctions = legFunctions;
-        this.model = model;
+	if (legFunctions == null || model == null) {
+	    throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+	}
+	this.legFunctions = legFunctions;
+	this.model = model;
     }
 
     public ILegPolyFunctions getLegFunctions() {
-        return legFunctions;
+	return legFunctions;
     }
 
     public Model getModel() {
-        return model;
+	return model;
     }
 
 }

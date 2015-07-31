@@ -20,61 +20,61 @@ import org.mockito.Mockito;
  * @author ole
  */
 public class WalkSimulationEvaluatorAdapterTest {
-    
+
     @Rule
     public ExpectedException exception = ExpectedException.none();
-    
-    private WalkStateEvaluatorAdapter createTestee(IEvaluator<Simulation> adaptee) {
-        return new WalkStateEvaluatorAdapter(adaptee);
-    }
-    
-    private WalkStateEvaluatorAdapter createTestee(IEvaluator<Simulation> adaptee, final Simulation fakeSimulation) {
-        return new WalkStateEvaluatorAdapter(adaptee) {
 
-            @Override
-            protected Simulation createSimulation(WalkState walkState) {
-                return fakeSimulation;
-            }
-            
-        };
+    private WalkStateEvaluatorAdapter createTestee(IEvaluator<Simulation> adaptee) {
+	return new WalkStateEvaluatorAdapter(adaptee);
     }
-    
+
+    private WalkStateEvaluatorAdapter createTestee(IEvaluator<Simulation> adaptee, final Simulation fakeSimulation) {
+	return new WalkStateEvaluatorAdapter(adaptee) {
+
+	    @Override
+	    protected Simulation createSimulation(WalkState walkState) {
+		return fakeSimulation;
+	    }
+
+	};
+    }
+
     private Model createDummyModel() {
-        return Mockito.mock(Model.class);
+	return Mockito.mock(Model.class);
     }
-    
+
     private ILegPolyFunctions createDummyPolyLegFunctions() {
-        return Mockito.mock(ILegPolyFunctions.class);
+	return Mockito.mock(ILegPolyFunctions.class);
     }
-    
+
     private IEvaluator<Simulation> createFakeAdaptee() {
-        return Mockito.mock(IEvaluator.class);
+	return Mockito.mock(IEvaluator.class);
     }
-    
+
     private Simulation createFakeSimulation() {
-        return Mockito.mock(Simulation.class);
+	return Mockito.mock(Simulation.class);
     }
-    
+
     private WalkState createFakeWalkState() {
-        return Mockito.mock(WalkState.class);
+	return Mockito.mock(WalkState.class);
     }
-    
+
     @Test
     public void constructor_OnPassAdapteeNull_ThrowsIllegalArgumentException() {
-        exception.expect(IllegalArgumentException.class);
-        
-        createTestee(null);
+	exception.expect(IllegalArgumentException.class);
+
+	createTestee(null);
     }
-    
+
     @Test
     public void getScore_OnCall_ReturnsEvaluatorScoreOfCreatedSimulation() {
-        Simulation fakeSimulation = createFakeSimulation();
-        IEvaluator<Simulation> fakeEvaluator = createFakeAdaptee();
-        Mockito.doReturn(12f).when(fakeEvaluator).getScore(fakeSimulation);
-        WalkStateEvaluatorAdapter testee = createTestee(fakeEvaluator, fakeSimulation);
-        WalkState walkState = createFakeWalkState();
-        
-        assertEquals(12f, testee.getScore(walkState), 0.0001f);
+	Simulation fakeSimulation = createFakeSimulation();
+	IEvaluator<Simulation> fakeEvaluator = createFakeAdaptee();
+	Mockito.doReturn(12f).when(fakeEvaluator).getScore(fakeSimulation);
+	WalkStateEvaluatorAdapter testee = createTestee(fakeEvaluator, fakeSimulation);
+	WalkState walkState = createFakeWalkState();
+
+	assertEquals(12f, testee.getScore(walkState), 0.0001f);
     }
-    
+
 }

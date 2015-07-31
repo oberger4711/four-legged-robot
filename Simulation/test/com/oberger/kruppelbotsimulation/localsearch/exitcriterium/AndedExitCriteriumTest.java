@@ -24,82 +24,82 @@ public class AndedExitCriteriumTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
-    
+
     private AndedExitCriterium createAndedExitCriterium(ExitCriterium firstExitCriterium, ExitCriterium secondExitCriterium) {
-        return new AndedExitCriterium(firstExitCriterium, secondExitCriterium);
+	return new AndedExitCriterium(firstExitCriterium, secondExitCriterium);
     }
 
     private ExitCriterium createFakeExitCriterium(State parameterState, boolean isFinishStateReturnValue) {
-        ExitCriterium fakeExitCriterium = Mockito.mock(ExitCriterium.class);
-        Mockito.doReturn(isFinishStateReturnValue).when(fakeExitCriterium).isFinishState(parameterState);
+	ExitCriterium fakeExitCriterium = Mockito.mock(ExitCriterium.class);
+	Mockito.doReturn(isFinishStateReturnValue).when(fakeExitCriterium).isFinishState(parameterState);
 
-        return fakeExitCriterium;
+	return fakeExitCriterium;
     }
-    
+
     private State createDummyState() {
-        return Mockito.mock(State.class);
+	return Mockito.mock(State.class);
     }
 
     @Test
     public void constructor_OnPassFirstExitCriteriumNull_ThrowsIllegalArgumentException() {
-        exception.expect(IllegalArgumentException.class);
+	exception.expect(IllegalArgumentException.class);
 
-        createAndedExitCriterium(null, createFakeExitCriterium(null, true));
+	createAndedExitCriterium(null, createFakeExitCriterium(null, true));
     }
-    
-        @Test
-    public void constructor_OnPassSecondExitCriteriumNull_ThrowsIllegalParameterException() {
-        exception.expect(IllegalArgumentException.class);
 
-        createAndedExitCriterium(createFakeExitCriterium(null, true), null);
+    @Test
+    public void constructor_OnPassSecondExitCriteriumNull_ThrowsIllegalParameterException() {
+	exception.expect(IllegalArgumentException.class);
+
+	createAndedExitCriterium(createFakeExitCriterium(null, true), null);
     }
 
     @Test
     public void isFinishState_OnPassNull_ThrowsIllegalParameterException() {
-        State fakeState = createDummyState();
-        ExitCriterium fakeExitCriterium1 = createFakeExitCriterium(fakeState, false);
-        ExitCriterium fakeExitCriterium2 = createFakeExitCriterium(fakeState, true);
-        ExitCriterium decoratorCriterium = createAndedExitCriterium(fakeExitCriterium1, fakeExitCriterium2);
-        
-        exception.expect(IllegalArgumentException.class);
+	State fakeState = createDummyState();
+	ExitCriterium fakeExitCriterium1 = createFakeExitCriterium(fakeState, false);
+	ExitCriterium fakeExitCriterium2 = createFakeExitCriterium(fakeState, true);
+	ExitCriterium decoratorCriterium = createAndedExitCriterium(fakeExitCriterium1, fakeExitCriterium2);
 
-        decoratorCriterium.isFinishState(null);
+	exception.expect(IllegalArgumentException.class);
+
+	decoratorCriterium.isFinishState(null);
     }
-    
+
     @Test
     public void isFinishState_OnDecoratedReturnBothTrue_DecoratorReturnsTrue() {
-        State fakeState = createDummyState();
-        ExitCriterium fakeExitCriterium1 = createFakeExitCriterium(fakeState, true);
-        ExitCriterium fakeExitCriterium2 = createFakeExitCriterium(fakeState, true);
+	State fakeState = createDummyState();
+	ExitCriterium fakeExitCriterium1 = createFakeExitCriterium(fakeState, true);
+	ExitCriterium fakeExitCriterium2 = createFakeExitCriterium(fakeState, true);
 
-        ExitCriterium decoratorCriterium = createAndedExitCriterium(fakeExitCriterium1, fakeExitCriterium2);
+	ExitCriterium decoratorCriterium = createAndedExitCriterium(fakeExitCriterium1, fakeExitCriterium2);
 
-        assertTrue(decoratorCriterium.isFinishState(fakeState));
+	assertTrue(decoratorCriterium.isFinishState(fakeState));
     }
 
     @Test
     public void isFinishState_OnOneDecoratedReturnsFalse_DecoratorReturnsFalse() {
-        State fakeState = createDummyState();
-        ExitCriterium fakeExitCriterium1 = createFakeExitCriterium(fakeState, false);
-        ExitCriterium fakeExitCriterium2 = createFakeExitCriterium(fakeState, true);
+	State fakeState = createDummyState();
+	ExitCriterium fakeExitCriterium1 = createFakeExitCriterium(fakeState, false);
+	ExitCriterium fakeExitCriterium2 = createFakeExitCriterium(fakeState, true);
 
-        ExitCriterium decoratorCriterium = createAndedExitCriterium(fakeExitCriterium1, fakeExitCriterium2);
+	ExitCriterium decoratorCriterium = createAndedExitCriterium(fakeExitCriterium1, fakeExitCriterium2);
 
-        assertFalse(decoratorCriterium.isFinishState(fakeState));
+	assertFalse(decoratorCriterium.isFinishState(fakeState));
     }
 
     @Test
     public void isFinishState_OnCallResetOnDecorator_DecoratorCallsResetOnDecorated() {
-        State fakeState = createDummyState();
-        ExitCriterium fakeExitCriterium1 = createFakeExitCriterium(fakeState, false);
-        ExitCriterium fakeExitCriterium2 = createFakeExitCriterium(fakeState, true);
+	State fakeState = createDummyState();
+	ExitCriterium fakeExitCriterium1 = createFakeExitCriterium(fakeState, false);
+	ExitCriterium fakeExitCriterium2 = createFakeExitCriterium(fakeState, true);
 
-        ExitCriterium decoratorCriterium = createAndedExitCriterium(fakeExitCriterium1, fakeExitCriterium2);
+	ExitCriterium decoratorCriterium = createAndedExitCriterium(fakeExitCriterium1, fakeExitCriterium2);
 
-        decoratorCriterium.reset();
+	decoratorCriterium.reset();
 
-        Mockito.verify(fakeExitCriterium1, Mockito.times(1)).reset();
-        Mockito.verify(fakeExitCriterium2, Mockito.times(1)).reset();
+	Mockito.verify(fakeExitCriterium1, Mockito.times(1)).reset();
+	Mockito.verify(fakeExitCriterium2, Mockito.times(1)).reset();
     }
 
 }

@@ -25,29 +25,29 @@ public class WalkStateTest {
     public ExpectedException exception = ExpectedException.none();
 
     private WalkState createWalkState(LegPolyFunctions legFunctions, Model model) {
-        return new WalkState(legFunctions, model);
+	return new WalkState(legFunctions, model);
     }
-    
+
     private LegPolyFunctions createLegFunctions() {
-        return Mockito.mock(LegPolyFunctions.class);
+	return Mockito.mock(LegPolyFunctions.class);
     }
 
     private Model createDummyModel() {
-        return Mockito.mock(Model.class);
+	return Mockito.mock(Model.class);
     }
 
     @Test
     public void constructor_OnPassLegFunctionsNull_ThrowsIllegalArgumentException() {
-        exception.expect(IllegalArgumentException.class);
+	exception.expect(IllegalArgumentException.class);
 
-        createWalkState(null, createDummyModel());
+	createWalkState(null, createDummyModel());
     }
 
     @Test
     public void constructor_OnPassModelNull_ThrowsIllegalArgumentException() {
-        exception.expect(IllegalArgumentException.class);
+	exception.expect(IllegalArgumentException.class);
 
-        createWalkState(createLegFunctions(), null);
+	createWalkState(createLegFunctions(), null);
     }
 
 }

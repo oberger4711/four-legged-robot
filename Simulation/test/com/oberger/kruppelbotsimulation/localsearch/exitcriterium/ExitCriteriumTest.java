@@ -23,36 +23,36 @@ public class ExitCriteriumTest {
     public ExpectedException exception = ExpectedException.none();
 
     private ExitCriterium createDummyExitCriterium() {
-        return new ExitCriterium() {
+	return new ExitCriterium() {
 
-            @Override
-            public void reset() {
-                throw new UnsupportedOperationException("Not supported.");
-            }
+	    @Override
+	    public void reset() {
+		throw new UnsupportedOperationException("Not supported.");
+	    }
 
-            @Override
-            public boolean isFinishState(State state) {
-                throw new UnsupportedOperationException("Not supported.");
-            }
-        };
+	    @Override
+	    public boolean isFinishState(State state) {
+		throw new UnsupportedOperationException("Not supported.");
+	    }
+	};
     }
 
     @Test
     public void and_OnPassNull_ThrowsIllegalArgumentException() {
-        ExitCriterium fakeExitCriterium = createDummyExitCriterium();
+	ExitCriterium fakeExitCriterium = createDummyExitCriterium();
 
-        exception.expect(IllegalArgumentException.class);
-        
-        fakeExitCriterium.and(null);
+	exception.expect(IllegalArgumentException.class);
+
+	fakeExitCriterium.and(null);
     }
-    
+
     @Test
     public void or_andPassNull_ThrowsIllegalArgumentException() {
-        ExitCriterium fakeExitCriterium = createDummyExitCriterium();
-        
-        exception.expect(IllegalArgumentException.class);
-        
-        fakeExitCriterium.or(null);
+	ExitCriterium fakeExitCriterium = createDummyExitCriterium();
+
+	exception.expect(IllegalArgumentException.class);
+
+	fakeExitCriterium.or(null);
     }
 
 }

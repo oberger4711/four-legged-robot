@@ -12,20 +12,20 @@ import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
  * @author ole
  */
 public class FakeInterpolator extends Interpolator {
-    
+
     private float interpolateValue;
-    
+
     public FakeInterpolator(float interpolateValue) {
-        this.interpolateValue = interpolateValue;
+	this.interpolateValue = interpolateValue;
     }
-    
+
     @Override
     protected float interpolateY(IReadOnlyVector2 polygon1, IReadOnlyVector2 polygon2, float x) {
-        return interpolateValue;
+	return interpolateValue;
     }
 
     public void setInterpolateValue(float returnValue) {
-        this.interpolateValue = returnValue;
+	this.interpolateValue = returnValue;
     }
-    
+
 }

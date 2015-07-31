@@ -21,66 +21,66 @@ public class State<T> {
     private List<State<T>> neighboursCache = null;
 
     State(int generation, T innerState, IEvaluator<T> evaluator, IManipulator<T> manipulator) {
-        if (evaluator == null || manipulator == null || innerState == null) {
-            throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
-        }
-        if (generation < 0) {
-            throw new IllegalArgumentException("Generation must not be negative.");
-        }
-        this.generation = generation;
-        this.innerState = innerState;
-        this.evaluator = evaluator;
-        this.manipulator = manipulator;
+	if (evaluator == null || manipulator == null || innerState == null) {
+	    throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+	}
+	if (generation < 0) {
+	    throw new IllegalArgumentException("Generation must not be negative.");
+	}
+	this.generation = generation;
+	this.innerState = innerState;
+	this.evaluator = evaluator;
+	this.manipulator = manipulator;
     }
 
     public State(T innerState, IEvaluator<T> weightedEvaluators, IManipulator<T> manipulator) {
-        this(0, innerState, weightedEvaluators, manipulator);
+	this(0, innerState, weightedEvaluators, manipulator);
     }
 
     public float getScore() {
-        float score;
+	float score;
 
-        if (scoreCache == null) {
-            score = evaluator.getScore(innerState);
-            scoreCache = score;
-        } else {
-            score = scoreCache;
-        }
+	if (scoreCache == null) {
+	    score = evaluator.getScore(innerState);
+	    scoreCache = score;
+	} else {
+	    score = scoreCache;
+	}
 
-        return score;
+	return score;
     }
 
     public List<State<T>> getNeighbours() {
-        List<State<T>> neighbourStates = null;
+	List<State<T>> neighbourStates = null;
 
-        if (neighboursCache == null) {
-            neighbourStates = createManipulatedNeighbourStates();
-            neighboursCache = neighbourStates;
-        } else {
-            neighbourStates = neighboursCache;
-        }
+	if (neighboursCache == null) {
+	    neighbourStates = createManipulatedNeighbourStates();
+	    neighboursCache = neighbourStates;
+	} else {
+	    neighbourStates = neighboursCache;
+	}
 
-        return neighbourStates;
+	return neighbourStates;
     }
 
     private List<State<T>> createManipulatedNeighbourStates() {
-        List<State<T>> neighbourStates = new LinkedList<>();
+	List<State<T>> neighbourStates = new LinkedList<>();
 
-        List<T> manipulatedInnerStates = manipulator.createNeighbours(innerState);
-        for (T manipulatedInnerState : manipulatedInnerStates) {
-            State<T> newNeighbourState = new State<>(generation + 1, manipulatedInnerState, evaluator, manipulator);
-            neighbourStates.add(newNeighbourState);
-        }
+	List<T> manipulatedInnerStates = manipulator.createNeighbours(innerState);
+	for (T manipulatedInnerState : manipulatedInnerStates) {
+	    State<T> newNeighbourState = new State<>(generation + 1, manipulatedInnerState, evaluator, manipulator);
+	    neighbourStates.add(newNeighbourState);
+	}
 
-        return neighbourStates;
+	return neighbourStates;
     }
 
     public int getGeneration() {
-        return generation;
+	return generation;
     }
 
     public T getInnerState() {
-        return innerState;
+	return innerState;
     }
 
 }

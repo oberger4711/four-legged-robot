@@ -23,50 +23,50 @@ public class HillClimbingTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
-    
+
     private HillClimbing createHillClimbing() {
-        return new HillClimbing();
+	return new HillClimbing();
     }
-    
+
     private List<State> createStateList(State... states) {
-        return Arrays.asList(states);
+	return Arrays.asList(states);
     }
-    
+
     private State createFakeNeighbour(float score) {
-        State fakeNeighbour = Mockito.mock(State.class);
-        Mockito.doReturn(score).when(fakeNeighbour).getScore();
-        
-        return fakeNeighbour;
+	State fakeNeighbour = Mockito.mock(State.class);
+	Mockito.doReturn(score).when(fakeNeighbour).getScore();
+
+	return fakeNeighbour;
     }
 
     @Test
     public void getNextState_OnPassNull_ThrowsIllegalArgumentException() {
-        HillClimbing hillClimbing = createHillClimbing();
-        
-        exception.expect(IllegalArgumentException.class);
-        
-        hillClimbing.getNextState(null);
+	HillClimbing hillClimbing = createHillClimbing();
+
+	exception.expect(IllegalArgumentException.class);
+
+	hillClimbing.getNextState(null);
     }
-    
+
     @Test
     public void getNextState_OnPassEmptyList_ReturnsNull() {
-        HillClimbing hillClimbing = createHillClimbing();
-        
-        State resultNextState = hillClimbing.getNextState(Collections.<State>emptyList());
-        
-        assertNull(resultNextState);
+	HillClimbing hillClimbing = createHillClimbing();
+
+	State resultNextState = hillClimbing.getNextState(Collections.<State>emptyList());
+
+	assertNull(resultNextState);
     }
-    
+
     @Test
     public void getNextState_OnPassTwoStates_ReturnsStateWithHigherScore() {
-        HillClimbing hillClimbing = createHillClimbing();
-        State fakeNeighbourLowScore = createFakeNeighbour(0.3f);
-        State fakeNeighbourHighScore = createFakeNeighbour(0.8f);
-        List<State> fakeNeighbours = createStateList(fakeNeighbourLowScore, fakeNeighbourHighScore);
-        
-        State resultNextState = hillClimbing.getNextState(fakeNeighbours);
-        
-        assertEquals(fakeNeighbourHighScore, resultNextState);
+	HillClimbing hillClimbing = createHillClimbing();
+	State fakeNeighbourLowScore = createFakeNeighbour(0.3f);
+	State fakeNeighbourHighScore = createFakeNeighbour(0.8f);
+	List<State> fakeNeighbours = createStateList(fakeNeighbourLowScore, fakeNeighbourHighScore);
+
+	State resultNextState = hillClimbing.getNextState(fakeNeighbours);
+
+	assertEquals(fakeNeighbourHighScore, resultNextState);
     }
 
 }

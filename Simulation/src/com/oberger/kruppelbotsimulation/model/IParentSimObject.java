@@ -13,8 +13,9 @@ import com.oberger.kruppelbotsimulation.util.Vector2;
  * @author ole
  */
 public interface IParentSimObject {
-    
+
     public Vector2 getGlobalPosition();
+
     public Rotation getGlobalRotation();
-    
+
 }

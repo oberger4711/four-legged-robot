@@ -6,8 +6,11 @@ import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.le
 public interface ISimulationState {
 
     public float getTotalElapsedTimeInS();
+
     public Model getModel();
+
     public ILegPolyFunctions getLegFunctions();
+
     public EBalanceMode getBalanceMode(LegPosition position);
 
 }

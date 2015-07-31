@@ -6,8 +6,9 @@ public interface IManipulator<T> {
 
     /**
      * Creates slightly modified copies of the given state.
+     *
      * @param originalInnerState
-     * @return 
+     * @return
      */
     public List<T> createNeighbours(T originalInnerState);
 

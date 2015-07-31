@@ -22,44 +22,44 @@ import org.junit.rules.ExpectedException;
  */
 public class PartialPolyFunctionTests {
 
-	@Rule
-	public ExpectedException exception = ExpectedException.none();
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
-	private PartialPolyFunction createTestee(IReadOnlyVector2 first, List<IReadOnlyVector2> inner, IReadOnlyVector2 last) {
-		return new PartialPolyFunction(first, inner, last);
-	}
+    private PartialPolyFunction createTestee(IReadOnlyVector2 first, List<IReadOnlyVector2> inner, IReadOnlyVector2 last) {
+	return new PartialPolyFunction(first, inner, last);
+    }
 
-	private PartialPolyFunction createTestee(List<IReadOnlyVector2> list) {
-		return new PartialPolyFunction(list);
-	}
+    private PartialPolyFunction createTestee(List<IReadOnlyVector2> list) {
+	return new PartialPolyFunction(list);
+    }
 
-	@Test
-	public void constructor_OnPassFirstNull_ThrowsException() {
-		exception.expect(IllegalArgumentException.class);
+    @Test
+    public void constructor_OnPassFirstNull_ThrowsException() {
+	exception.expect(IllegalArgumentException.class);
 
-		createTestee(null, Arrays.asList(new Vector2(1, 2)), new Vector2(2, 2));
-	}
+	createTestee(null, Arrays.asList(new Vector2(1, 2)), new Vector2(2, 2));
+    }
 
-	@Test
-	public void constructor_OnPassInnerNull_ThrowsException() {
-		exception.expect(IllegalArgumentException.class);
+    @Test
+    public void constructor_OnPassInnerNull_ThrowsException() {
+	exception.expect(IllegalArgumentException.class);
 
-		createTestee(new Vector2(0, 0), null, new Vector2(2, 2));
-	}
+	createTestee(new Vector2(0, 0), null, new Vector2(2, 2));
+    }
 
-	@Test
-	public void constructor_OnPassLastNull_ThrowsException() {
-		exception.expect(IllegalArgumentException.class);
+    @Test
+    public void constructor_OnPassLastNull_ThrowsException() {
+	exception.expect(IllegalArgumentException.class);
 
-		createTestee(new Vector2(0, 0), Arrays.asList(new Vector2(1, 2)), null);
-	}
+	createTestee(new Vector2(0, 0), Arrays.asList(new Vector2(1, 2)), null);
+    }
 
-	@Test
-	public void constructor_OnPassList_SetsPartsCorrectly() {
-		PartialPolyFunction testee = createTestee(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1), new Vector2(2, 2)));
-		Assert.assertThat(testee.getFirst(), is(equalTo(new Vector2(0, 0))));
-		Assert.assertThat(testee.getInner(), is(equalTo(Arrays.asList(new Vector2(1, 1)))));
-		Assert.assertThat(testee.getLast(), is(equalTo(Arrays.asList(new Vector2(2, 2)))));
-	}
+    @Test
+    public void constructor_OnPassList_SetsPartsCorrectly() {
+	PartialPolyFunction testee = createTestee(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1), new Vector2(2, 2)));
+	Assert.assertThat(testee.getFirst(), is(equalTo(new Vector2(0, 0))));
+	Assert.assertThat(testee.getInner(), is(equalTo(Arrays.asList(new Vector2(1, 1)))));
+	Assert.assertThat(testee.getLast(), is(equalTo(Arrays.asList(new Vector2(2, 2)))));
+    }
 
 }

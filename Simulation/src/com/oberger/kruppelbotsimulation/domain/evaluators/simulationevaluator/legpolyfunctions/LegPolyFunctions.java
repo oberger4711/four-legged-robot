@@ -56,7 +56,7 @@ public class LegPolyFunctions implements ILegPolyFunctions {
 		result = functionFR;
 		break;
 	}
-	
+
 	return result;
     }
 

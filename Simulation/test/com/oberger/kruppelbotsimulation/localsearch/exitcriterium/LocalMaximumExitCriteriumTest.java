@@ -28,52 +28,52 @@ public class LocalMaximumExitCriteriumTest {
     public ExpectedException exception = ExpectedException.none();
 
     private ExitCriterium createLocalMaximumExitCriterium() {
-        return new LocalMaximumExitCriterium();
+	return new LocalMaximumExitCriterium();
     }
 
     private State createFakeState(float score) {
-        State state = Mockito.mock(State.class);
-        Mockito.doReturn(score).when(state).getScore();
+	State state = Mockito.mock(State.class);
+	Mockito.doReturn(score).when(state).getScore();
 
-        return state;
+	return state;
     }
 
     @Test
     public void isFinishState_OnPassNull_ThrowsIllegalArgumentException() {
-        ExitCriterium localMaximumExitCriterium = createLocalMaximumExitCriterium();
+	ExitCriterium localMaximumExitCriterium = createLocalMaximumExitCriterium();
 
-        exception.expect(IllegalArgumentException.class);
+	exception.expect(IllegalArgumentException.class);
 
-        localMaximumExitCriterium.isFinishState(null);
+	localMaximumExitCriterium.isFinishState(null);
     }
 
     @Test
     public void isFinishState_WithNeighbourHavingHigherScore_ReturnsFalse() {
-        ExitCriterium localMaximumExitCriterium = createLocalMaximumExitCriterium();
-        State lowScoreState = createFakeState(0.3f);
-        State highScoreState = createFakeState(0.5f);
-        Mockito.doReturn(new ArrayList<>(Arrays.asList(highScoreState))).when(lowScoreState).getNeighbours();
+	ExitCriterium localMaximumExitCriterium = createLocalMaximumExitCriterium();
+	State lowScoreState = createFakeState(0.3f);
+	State highScoreState = createFakeState(0.5f);
+	Mockito.doReturn(new ArrayList<>(Arrays.asList(highScoreState))).when(lowScoreState).getNeighbours();
 
-        assertFalse(localMaximumExitCriterium.isFinishState(lowScoreState));
+	assertFalse(localMaximumExitCriterium.isFinishState(lowScoreState));
     }
 
     @Test
     public void isFinishState_WithNeighbourHavingLowerScore_ReturnsTrue() {
-        ExitCriterium localMaximumExitCriterium = createLocalMaximumExitCriterium();
-        State lowScoreState = createFakeState(0.3f);
-        State highScoreState = createFakeState(0.5f);
-        Mockito.doReturn(new ArrayList<>(Arrays.asList(lowScoreState))).when(highScoreState).getNeighbours();
+	ExitCriterium localMaximumExitCriterium = createLocalMaximumExitCriterium();
+	State lowScoreState = createFakeState(0.3f);
+	State highScoreState = createFakeState(0.5f);
+	Mockito.doReturn(new ArrayList<>(Arrays.asList(lowScoreState))).when(highScoreState).getNeighbours();
 
-        assertTrue(localMaximumExitCriterium.isFinishState(lowScoreState));
+	assertTrue(localMaximumExitCriterium.isFinishState(lowScoreState));
     }
 
     @Test
     public void isFinishState_WithNeighbourHavingSameScore_ReturnsTrue() {
-        ExitCriterium localMaximumExitCriterium = createLocalMaximumExitCriterium();
-        State lowScoreState = createFakeState(0.3f);
-        Mockito.doReturn(new ArrayList<>(Arrays.asList(lowScoreState))).when(lowScoreState).getNeighbours();
+	ExitCriterium localMaximumExitCriterium = createLocalMaximumExitCriterium();
+	State lowScoreState = createFakeState(0.3f);
+	Mockito.doReturn(new ArrayList<>(Arrays.asList(lowScoreState))).when(lowScoreState).getNeighbours();
 
-        assertTrue(localMaximumExitCriterium.isFinishState(lowScoreState));
+	assertTrue(localMaximumExitCriterium.isFinishState(lowScoreState));
     }
 
 }

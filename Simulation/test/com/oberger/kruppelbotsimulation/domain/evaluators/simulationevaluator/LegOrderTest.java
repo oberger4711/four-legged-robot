@@ -17,44 +17,44 @@ import org.junit.rules.ExpectedException;
  * @author ole
  */
 public class LegOrderTest {
-    
+
     @Rule
     public ExpectedException exception = ExpectedException.none();
-    
+
     private LegOrder createLegOrder(List<LegPosition> order) {
-        return new LegOrder(order);
+	return new LegOrder(order);
     }
 
     @Test
     public void constructor_OnPassLegOrderNull_ThrowsIllegalArgumentException() {
-        exception.expect(IllegalArgumentException.class);
+	exception.expect(IllegalArgumentException.class);
 
-        createLegOrder(null);
+	createLegOrder(null);
     }
 
     @Test
     public void constructor_OnPassLegOrderEmpty_ThrowsIllegalArgumentException() {
-        exception.expect(IllegalArgumentException.class);
+	exception.expect(IllegalArgumentException.class);
 
-        createLegOrder(Collections.emptyList());
+	createLegOrder(Collections.emptyList());
     }
-    
+
     @Test
     public void constructor_OnPassLegOrderWithDuplicates_ThrowsIllegalArgumentException() {
-        List<LegPosition> legOrderWithDuplicates = Arrays.asList(LegPosition.BL, LegPosition.BL, LegPosition.BR, LegPosition.FR);
+	List<LegPosition> legOrderWithDuplicates = Arrays.asList(LegPosition.BL, LegPosition.BL, LegPosition.BR, LegPosition.FR);
 
-        exception.expect(IllegalArgumentException.class);
+	exception.expect(IllegalArgumentException.class);
 
-        createLegOrder(legOrderWithDuplicates);
+	createLegOrder(legOrderWithDuplicates);
     }
-    
+
     @Test
     public void constructor_OnPassLegOrderWithNull_ThrowsIllegalArgumentException() {
-        List<LegPosition> legOrderWithDuplicates = Arrays.asList(null, LegPosition.BL, LegPosition.BR, LegPosition.FR);
+	List<LegPosition> legOrderWithDuplicates = Arrays.asList(null, LegPosition.BL, LegPosition.BR, LegPosition.FR);
 
-        exception.expect(IllegalArgumentException.class);
+	exception.expect(IllegalArgumentException.class);
 
-        createLegOrder(legOrderWithDuplicates);
+	createLegOrder(legOrderWithDuplicates);
     }
 
 }

@@ -25,7 +25,7 @@ public class ConcatPolyFunction extends WrappedPolyFunction {
 	super(new PolyFunction(interpolator, concatToList(parts)), period, offset);
 	this.parts = new ArrayList<>(parts);
     }
-    
+
     public ConcatPolyFunction(Interpolator interpolator, List<ConcatPart> parts, float offset) {
 	super(new PolyFunction(interpolator, concatToList(parts)), offset);
 	this.parts = new ArrayList<>(parts);
@@ -49,7 +49,7 @@ public class ConcatPolyFunction extends WrappedPolyFunction {
 
 	return polygons;
     }
-    
+
     public ConcatPart getPart(float x) {
 	ConcatPart containingPart = null;
 	float mappedX = mapOntoPeriod(x);
@@ -58,7 +58,7 @@ public class ConcatPolyFunction extends WrappedPolyFunction {
 		containingPart = part;
 	    }
 	}
-	
+
 	return containingPart;
     }
 

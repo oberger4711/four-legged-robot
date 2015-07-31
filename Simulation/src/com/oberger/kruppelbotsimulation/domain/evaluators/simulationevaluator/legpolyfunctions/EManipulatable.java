@@ -10,6 +10,7 @@ package com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.l
  * @author oberger
  */
 public enum EManipulatable {
+
     DYNAMIC, FIXED
-    
+
 }

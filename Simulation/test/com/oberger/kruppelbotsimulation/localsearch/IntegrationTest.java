@@ -20,60 +20,60 @@ import org.junit.Test;
  * @author ole
  */
 public class IntegrationTest {
-    
+
     private final static int BEST_NUMBER = 5;
-    
+
     @Test
     public void hillClimbing_OnCall_FindsLocalOptimum() {
-        NumericInnerState startInnerState = new NumericInnerState(0);
-        IEvaluator<NumericInnerState> evaluator = new NumericEvaluator();
-        IManipulator<NumericInnerState> manipulator = new NumericManipulator();
-        State<NumericInnerState> startState = new State<>(startInnerState, evaluator, manipulator);
-        
-        ExitCriterium exitCriterium = new LocalMaximumExitCriterium();
-        LocalSearchAlgorithm<NumericInnerState> searchAlgo = new HillClimbing<>();
-        
-        State<NumericInnerState> optimumState = searchAlgo.run(startState, exitCriterium);
-        
-        assertEquals(5, optimumState.getInnerState().getNumber());
-    }
-    
-    private static class NumericInnerState {
-        
-        public final static int MAX_NUMBER = 10;
-        
-        private int number;
-        
-        public NumericInnerState(int number) {
-            this.number = number;
-        }
+	NumericInnerState startInnerState = new NumericInnerState(0);
+	IEvaluator<NumericInnerState> evaluator = new NumericEvaluator();
+	IManipulator<NumericInnerState> manipulator = new NumericManipulator();
+	State<NumericInnerState> startState = new State<>(startInnerState, evaluator, manipulator);
 
-        public int getNumber() {
-            return number;
-        }
-        
+	ExitCriterium exitCriterium = new LocalMaximumExitCriterium();
+	LocalSearchAlgorithm<NumericInnerState> searchAlgo = new HillClimbing<>();
+
+	State<NumericInnerState> optimumState = searchAlgo.run(startState, exitCriterium);
+
+	assertEquals(5, optimumState.getInnerState().getNumber());
+    }
+
+    private static class NumericInnerState {
+
+	public final static int MAX_NUMBER = 10;
+
+	private int number;
+
+	public NumericInnerState(int number) {
+	    this.number = number;
+	}
+
+	public int getNumber() {
+	    return number;
+	}
+
     }
 
     private static class NumericEvaluator implements IEvaluator<NumericInnerState> {
 
-        @Override
-        public float getScore(NumericInnerState innerState) {
-            return NumericInnerState.MAX_NUMBER - Math.abs(innerState.getNumber() - BEST_NUMBER);
-        }
+	@Override
+	public float getScore(NumericInnerState innerState) {
+	    return NumericInnerState.MAX_NUMBER - Math.abs(innerState.getNumber() - BEST_NUMBER);
+	}
     }
 
     private static class NumericManipulator implements IManipulator<NumericInnerState> {
 
-        public NumericManipulator() {
-        }
+	public NumericManipulator() {
+	}
 
-        @Override
-        public List<NumericInnerState> createNeighbours(NumericInnerState originalInnerState) {
-            int original = originalInnerState.getNumber();
-            int manipulated = (original + 1) % NumericInnerState.MAX_NUMBER;
-            
-            return new LinkedList(Arrays.asList(new NumericInnerState(manipulated)));
-        }
+	@Override
+	public List<NumericInnerState> createNeighbours(NumericInnerState originalInnerState) {
+	    int original = originalInnerState.getNumber();
+	    int manipulated = (original + 1) % NumericInnerState.MAX_NUMBER;
+
+	    return new LinkedList(Arrays.asList(new NumericInnerState(manipulated)));
+	}
     }
-    
+
 }

@@ -14,9 +14,13 @@ import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.Le
 public interface ILegPolyFunctions {
 
     public ConcatPolyFunction getLegFunctionBL();
+
     public ConcatPolyFunction getLegFunctionBR();
+
     public ConcatPolyFunction getLegFunctionFL();
+
     public ConcatPolyFunction getLegFunctionFR();
+
     public ConcatPolyFunction getLegFunction(LegPosition position);
-    
+
 }

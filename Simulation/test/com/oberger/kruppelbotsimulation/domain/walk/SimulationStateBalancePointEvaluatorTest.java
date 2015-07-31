@@ -31,97 +31,96 @@ public class SimulationStateBalancePointEvaluatorTest {
     public ExpectedException exception = ExpectedException.none();
 
     private SimulationStateBalancePointEvaluator createTestee(LegPosition criticalPosition) {
-        return new SimulationStateBalancePointEvaluator(criticalPosition);
+	return new SimulationStateBalancePointEvaluator(criticalPosition);
     }
 
     private Model createFakeModel(BalancePoint rootBalancePoint) {
-        Model fake = Mockito.mock(Model.class);
-        SimJoint fakeRoot = Mockito.mock(SimJoint.class);
+	Model fake = Mockito.mock(Model.class);
+	SimJoint fakeRoot = Mockito.mock(SimJoint.class);
 
-        SimJoint fakeBl = createFakeSimJoint(new Vector2(-1, -1));
-        Mockito.doReturn(fakeBl).when(fake).getServoBL();
+	SimJoint fakeBl = createFakeSimJoint(new Vector2(-1, -1));
+	Mockito.doReturn(fakeBl).when(fake).getServoBL();
 
-        SimJoint fakeBr = createFakeSimJoint(new Vector2(1, -1));
-        Mockito.doReturn(fakeBr).when(fake).getServoBR();
+	SimJoint fakeBr = createFakeSimJoint(new Vector2(1, -1));
+	Mockito.doReturn(fakeBr).when(fake).getServoBR();
 
-        SimJoint fakeFl = createFakeSimJoint(new Vector2(-1, 1));
-        Mockito.doReturn(fakeFl).when(fake).getServoFL();
+	SimJoint fakeFl = createFakeSimJoint(new Vector2(-1, 1));
+	Mockito.doReturn(fakeFl).when(fake).getServoFL();
 
-        SimJoint fakeFr = createFakeSimJoint(new Vector2(1, 1));
-        Mockito.doReturn(fakeFr).when(fake).getServoFR();
+	SimJoint fakeFr = createFakeSimJoint(new Vector2(1, 1));
+	Mockito.doReturn(fakeFr).when(fake).getServoFR();
 
-        Mockito.doReturn(rootBalancePoint).when(fakeRoot).getGlobalBalancePoint();
-        Mockito.doReturn(fakeRoot).when(fake).getRoot();
+	Mockito.doReturn(rootBalancePoint).when(fakeRoot).getGlobalBalancePoint();
+	Mockito.doReturn(fakeRoot).when(fake).getRoot();
 
-        return fake;
+	return fake;
     }
 
     private SimJoint createFakeSimJoint(Vector2 globalPosition) {
-        SimJoint fake = Mockito.mock(SimJoint.class);
+	SimJoint fake = Mockito.mock(SimJoint.class);
 
-        Mockito.doReturn(globalPosition).when(fake).getGlobalPosition();
+	Mockito.doReturn(globalPosition).when(fake).getGlobalPosition();
 
-        return fake;
+	return fake;
     }
 
     private ISimulationState createFakeSimulationState(float totalElapsedTimeInMs, Model model, EBalanceMode legBalanceMode) {
-        ISimulationState fake = Mockito.mock(ISimulationState.class);
+	ISimulationState fake = Mockito.mock(ISimulationState.class);
 
-        Mockito.doReturn(totalElapsedTimeInMs).when(fake).getTotalElapsedTimeInS();
-        Mockito.doReturn(model).when(fake).getModel();
+	Mockito.doReturn(totalElapsedTimeInMs).when(fake).getTotalElapsedTimeInS();
+	Mockito.doReturn(model).when(fake).getModel();
 	Mockito.doReturn(legBalanceMode).when(fake).getBalanceMode(Matchers.any());
-	
 
-        return fake;
+	return fake;
     }
 
     @Test
     public void constructor_OnPassCriticalPositionNull_ThrowsIllegalArgumentException() {
-        exception.expect(IllegalArgumentException.class);
+	exception.expect(IllegalArgumentException.class);
 
-        createTestee(null);
+	createTestee(null);
     }
 
     @Test
     public void getSore_OnPassNull_ThrowsIllegalArgumentException() {
-        SimulationStateBalancePointEvaluator testee = createTestee(LegPosition.BR);
+	SimulationStateBalancePointEvaluator testee = createTestee(LegPosition.BR);
 
-        exception.expect(IllegalArgumentException.class);
+	exception.expect(IllegalArgumentException.class);
 
-        testee.getScore(null);
+	testee.getScore(null);
     }
 
     @Test
     public void getScore_NotCriticalTimeSpan_ReturnsZeroScore() {
-        Model fakeModel = createFakeModel(new BalancePoint(new Vector2(-1, 1), new Weight(1f)));
-        ISimulationState fakeSimulationState = createFakeSimulationState(0f, fakeModel, EBalanceMode.IRRELEVANT);
+	Model fakeModel = createFakeModel(new BalancePoint(new Vector2(-1, 1), new Weight(1f)));
+	ISimulationState fakeSimulationState = createFakeSimulationState(0f, fakeModel, EBalanceMode.IRRELEVANT);
 
-        SimulationStateBalancePointEvaluator testee = createTestee(LegPosition.BR);
-        float score = testee.getScore(fakeSimulationState);
-        
-        assertEquals(0, score, 0.0001f);
+	SimulationStateBalancePointEvaluator testee = createTestee(LegPosition.BR);
+	float score = testee.getScore(fakeSimulationState);
+
+	assertEquals(0, score, 0.0001f);
     }
 
     @Test
     public void getScore_OnPassWellBalancedSimulationStateInCriticalTimespan_ReturnsPositiveScore() {
-        Model fakeModel = createFakeModel(new BalancePoint(new Vector2(-1, 1), new Weight(1f)));
-        ISimulationState fakeSimulationState = createFakeSimulationState(1.5f, fakeModel, EBalanceMode.CRITICAL);
+	Model fakeModel = createFakeModel(new BalancePoint(new Vector2(-1, 1), new Weight(1f)));
+	ISimulationState fakeSimulationState = createFakeSimulationState(1.5f, fakeModel, EBalanceMode.CRITICAL);
 
-        SimulationStateBalancePointEvaluator testee = createTestee(LegPosition.BR);
-        float score = testee.getScore(fakeSimulationState);
+	SimulationStateBalancePointEvaluator testee = createTestee(LegPosition.BR);
+	float score = testee.getScore(fakeSimulationState);
 
-        assertTrue(score > 0);
+	assertTrue(score > 0);
     }
 
     @Test
     public void getScore_OnPassWellBalancedSimulationStateInCriticalTimespan_ReturnsZeroScore() {
-        Model fakeModel = createFakeModel(new BalancePoint(new Vector2(-1, 1), new Weight(1f)));
-        ISimulationState fakeSimulationState = createFakeSimulationState(1.5f, fakeModel, EBalanceMode.CRITICAL);
+	Model fakeModel = createFakeModel(new BalancePoint(new Vector2(-1, 1), new Weight(1f)));
+	ISimulationState fakeSimulationState = createFakeSimulationState(1.5f, fakeModel, EBalanceMode.CRITICAL);
 
-        SimulationStateBalancePointEvaluator testee = createTestee(LegPosition.FL);
-        float score = testee.getScore(fakeSimulationState);
+	SimulationStateBalancePointEvaluator testee = createTestee(LegPosition.FL);
+	float score = testee.getScore(fakeSimulationState);
 
-        assertEquals(0, score, 0.0001f);
+	assertEquals(0, score, 0.0001f);
     }
 
 }

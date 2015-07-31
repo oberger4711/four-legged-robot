@@ -26,54 +26,54 @@ import java.util.List;
  */
 public class InitWalkStateFactory {
 
-	private InitWalkStateSettings initSettings = null;
+    private InitWalkStateSettings initSettings = null;
 
-	public InitWalkStateFactory(InitWalkStateSettings initSettings) {
-		this.initSettings = initSettings;
-	}
+    public InitWalkStateFactory(InitWalkStateSettings initSettings) {
+	this.initSettings = initSettings;
+    }
 
-	public WalkState createInitWalkState() {
-		Interpolator interpolator = createInterpolator();
-		ILegPolyFunctions legFunctions = createInitLegFunctions(interpolator);
+    public WalkState createInitWalkState() {
+	Interpolator interpolator = createInterpolator();
+	ILegPolyFunctions legFunctions = createInitLegFunctions(interpolator);
 
-		Model model = createInitModel();
+	Model model = createInitModel();
 
-		WalkState created = new WalkState(legFunctions, model);
+	WalkState created = new WalkState(legFunctions, model);
 
-		return created;
-	}
+	return created;
+    }
 
-	private Interpolator createInterpolator() {
-		return new LinearInterpolator();
-	}
+    private Interpolator createInterpolator() {
+	return new LinearInterpolator();
+    }
 
-	private ConcatPart createInitLegFunctionPartForward(Interpolator interpolator) {
-		Vector2 forwardStart = new Vector2(0, initSettings.angleStandYInDegrees - (initSettings.stepSizeYInDegrees / 2));
-		Vector2 forwardEnd = new Vector2(initSettings.periodInS - initSettings.repositionTimeInS, initSettings.angleStandYInDegrees + (initSettings.stepSizeYInDegrees / 2));
+    private ConcatPart createInitLegFunctionPartForward(Interpolator interpolator) {
+	Vector2 forwardStart = new Vector2(0, initSettings.angleStandYInDegrees - (initSettings.stepSizeYInDegrees / 2));
+	Vector2 forwardEnd = new Vector2(initSettings.periodInS - initSettings.repositionTimeInS, initSettings.angleStandYInDegrees + (initSettings.stepSizeYInDegrees / 2));
 
-		List<IReadOnlyVector2> polygons = new LinkedList<>(interpolator.getPolygons(forwardStart, forwardEnd, initSettings.numberOfPolygonsForward));
+	List<IReadOnlyVector2> polygons = new LinkedList<>(interpolator.getPolygons(forwardStart, forwardEnd, initSettings.numberOfPolygonsForward));
 
-		return new ConcatPart(new PartialPolyFunction(polygons), EManipulatable.DYNAMIC, EBalanceMode.CRITICAL);
-	}
+	return new ConcatPart(new PartialPolyFunction(polygons), EManipulatable.DYNAMIC, EBalanceMode.CRITICAL);
+    }
 
-	private ConcatPart createInitLegFunctionPartBackward(Interpolator interpolator) {
-		Vector2 backwardStart = new Vector2(initSettings.periodInS - initSettings.repositionTimeInS, initSettings.angleStandYInDegrees + (initSettings.stepSizeYInDegrees / 2));
-		Vector2 backwardEnd = new Vector2(initSettings.periodInS, initSettings.angleStandYInDegrees - (initSettings.stepSizeYInDegrees / 2));
+    private ConcatPart createInitLegFunctionPartBackward(Interpolator interpolator) {
+	Vector2 backwardStart = new Vector2(initSettings.periodInS - initSettings.repositionTimeInS, initSettings.angleStandYInDegrees + (initSettings.stepSizeYInDegrees / 2));
+	Vector2 backwardEnd = new Vector2(initSettings.periodInS, initSettings.angleStandYInDegrees - (initSettings.stepSizeYInDegrees / 2));
 
-		List<IReadOnlyVector2> polygons = new LinkedList<>(interpolator.getPolygons(backwardStart, backwardEnd, initSettings.numberOfPolygonsBackward));
+	List<IReadOnlyVector2> polygons = new LinkedList<>(interpolator.getPolygons(backwardStart, backwardEnd, initSettings.numberOfPolygonsBackward));
 
-		return new ConcatPart(new PartialPolyFunction(polygons), EManipulatable.DYNAMIC, EBalanceMode.IRRELEVANT);
-	}
+	return new ConcatPart(new PartialPolyFunction(polygons), EManipulatable.DYNAMIC, EBalanceMode.IRRELEVANT);
+    }
 
-	private ILegPolyFunctions createInitLegFunctions(Interpolator interpolator) {
-		ConcatPart partBackward = createInitLegFunctionPartBackward(interpolator);
-		ConcatPart partForward = createInitLegFunctionPartForward(interpolator);
-		
-		return new LegPolyFunctionFactory(interpolator, Arrays.asList(partBackward, partForward), initSettings.periodInS).create(initSettings.legOrder);
-	}
+    private ILegPolyFunctions createInitLegFunctions(Interpolator interpolator) {
+	ConcatPart partBackward = createInitLegFunctionPartBackward(interpolator);
+	ConcatPart partForward = createInitLegFunctionPartForward(interpolator);
 
-	private Model createInitModel() {
-		return new Model();
-	}
+	return new LegPolyFunctionFactory(interpolator, Arrays.asList(partBackward, partForward), initSettings.periodInS).create(initSettings.legOrder);
+    }
+
+    private Model createInitModel() {
+	return new Model();
+    }
 
 }

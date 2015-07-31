@@ -12,28 +12,28 @@ import com.oberger.kruppelbotsimulation.localsearch.evaluator.IEvaluator;
  *
  * @author ole
  */
-public class WalkStateEvaluatorAdapter implements IEvaluator<WalkState>{
-    
+public class WalkStateEvaluatorAdapter implements IEvaluator<WalkState> {
+
     private IEvaluator<Simulation> adaptee = null;
-    
+
     public WalkStateEvaluatorAdapter(IEvaluator<Simulation> adaptee) {
-        if (adaptee == null) {
-            throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
-        }
-        this.adaptee = adaptee;
+	if (adaptee == null) {
+	    throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+	}
+	this.adaptee = adaptee;
     }
-    
+
     @Override
     public float getScore(WalkState innerState) {
-        Simulation simulation = createSimulation(innerState);
-        
-        float score = adaptee.getScore(simulation);
-        
-        return score;
+	Simulation simulation = createSimulation(innerState);
+
+	float score = adaptee.getScore(simulation);
+
+	return score;
     }
-    
+
     protected Simulation createSimulation(WalkState walkState) {
-        return new Simulation(walkState.getLegFunctions(), walkState.getModel());
+	return new Simulation(walkState.getLegFunctions(), walkState.getModel());
     }
-    
+
 }

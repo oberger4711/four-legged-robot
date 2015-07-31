@@ -2,16 +2,16 @@ package com.oberger.kruppelbotsimulation.util;
 
 public interface IReadOnlyVector2 {
 
-	float getX();
+    float getX();
 
-	float getY();
-        
-        float getLength();
+    float getY();
 
-	@Override
-	boolean equals(Object obj);
+    float getLength();
 
-	@Override
-	int hashCode();
+    @Override
+    boolean equals(Object obj);
+
+    @Override
+    int hashCode();
 
 }

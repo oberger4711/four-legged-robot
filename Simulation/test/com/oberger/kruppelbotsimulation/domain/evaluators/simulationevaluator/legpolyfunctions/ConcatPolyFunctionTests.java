@@ -102,21 +102,21 @@ public class ConcatPolyFunctionTests {
 	List<IReadOnlyVector2> inner1 = Arrays.asList(new Vector2(1, 1), new Vector2(2, 2));
 	Vector2 last1 = new Vector2(3, 3);
 	ConcatPart part1 = new ConcatPart(new PartialPolyFunction(first1, inner1, last1), EManipulatable.FIXED, EBalanceMode.IRRELEVANT);
-	
+
 	ConcatPolyFunction testee = createTestee(createDummyInterpolator(), Arrays.asList(part1));
-	
+
 	Assert.assertThat(testee.getPart(1.5f), is(equalTo(part1)));
     }
-    
+
     @Test
     public void getPart_WithOnlyOnePartAndWrappedX_ReturnsPart() {
 	Vector2 first1 = new Vector2(0, 0);
 	List<IReadOnlyVector2> inner1 = Arrays.asList(new Vector2(1, 1), new Vector2(2, 2));
 	Vector2 last1 = new Vector2(3, 3);
 	ConcatPart part1 = new ConcatPart(new PartialPolyFunction(first1, inner1, last1), EManipulatable.FIXED, EBalanceMode.IRRELEVANT);
-	
+
 	ConcatPolyFunction testee = createTestee(createDummyInterpolator(), Arrays.asList(part1));
-	
+
 	Assert.assertThat(testee.getPart(23f), is(equalTo(part1)));
     }
 

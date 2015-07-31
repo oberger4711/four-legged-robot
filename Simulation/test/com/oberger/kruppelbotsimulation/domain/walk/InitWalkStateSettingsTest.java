@@ -20,9 +20,9 @@ public class InitWalkStateSettingsTest {
 
     @Test
     public void constructor_OnPassLegOrderNull_ThrowsIllegalArgumentException() {
-        exception.expect(IllegalArgumentException.class);
+	exception.expect(IllegalArgumentException.class);
 
-        new InitWalkStateSettings(0f, 0f, 0f, 0f, 0, 0, null);
+	new InitWalkStateSettings(0f, 0f, 0f, 0f, 0, 0, null);
     }
 
 }
