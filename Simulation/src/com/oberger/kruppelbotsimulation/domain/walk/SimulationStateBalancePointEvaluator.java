@@ -2,6 +2,7 @@ package com.oberger.kruppelbotsimulation.domain.walk;
 
 import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.ISimulationState;
 import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.LegPosition;
+import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.EBalanceMode;
 import com.oberger.kruppelbotsimulation.function.Interpolator;
 import com.oberger.kruppelbotsimulation.function.LinearInterpolator;
 import com.oberger.kruppelbotsimulation.localsearch.evaluator.IEvaluator;
@@ -9,25 +10,15 @@ import com.oberger.kruppelbotsimulation.model.BalancePoint;
 import com.oberger.kruppelbotsimulation.util.Vector2;
 import java.util.Arrays;
 
-public class BalancePointEvaluator implements IEvaluator<ISimulationState> {
+public class SimulationStateBalancePointEvaluator implements IEvaluator<ISimulationState> {
 
-    private float criticalTimeStartInMs;
-    private float criticalTimeEndInMs;
     private LegPosition criticalLegPosition = null;
     private Interpolator scoreInterpolator = null;
 
-    public BalancePointEvaluator(float criticalTimeStartInMs, float criticalTimeEndInMs, LegPosition criticalLegPosition) {
-        if (criticalTimeStartInMs < 0) {
-            throw new IllegalArgumentException("Start timestamp must be equals or higher than zero.");
-        }
-        if (criticalTimeEndInMs < criticalTimeStartInMs) {
-            throw new IllegalArgumentException("End timestamp must be lower than start timestamp.");
-        }
+    public SimulationStateBalancePointEvaluator(LegPosition criticalLegPosition) {
         if (criticalLegPosition == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
         }
-        this.criticalTimeStartInMs = criticalTimeStartInMs;
-        this.criticalTimeEndInMs = criticalTimeEndInMs;
         this.criticalLegPosition = criticalLegPosition;
         scoreInterpolator = new LinearInterpolator();
     }
@@ -39,7 +30,7 @@ public class BalancePointEvaluator implements IEvaluator<ISimulationState> {
         }
         float score;
 
-        if (isInCriticalTimespan(simulationState.getTotalElapsedTimeInS())) {
+        if (EBalanceMode.CRITICAL.equals(simulationState.getBalanceMode(criticalLegPosition))) {
             BalancePoint rootBalancePoint = simulationState.getModel().getRoot().getGlobalBalancePoint();
             Vector2 bestBalancePointPosition = null;
             switch (criticalLegPosition) {
@@ -68,10 +59,6 @@ public class BalancePointEvaluator implements IEvaluator<ISimulationState> {
         }
 
         return score;
-    }
-    
-    private boolean isInCriticalTimespan(float totalTimeElapsedInMs) {
-        return criticalTimeStartInMs < totalTimeElapsedInMs && totalTimeElapsedInMs < criticalTimeEndInMs;
     }
 
     private boolean isInSameQuadrant(Vector2 v1, Vector2 v2) {

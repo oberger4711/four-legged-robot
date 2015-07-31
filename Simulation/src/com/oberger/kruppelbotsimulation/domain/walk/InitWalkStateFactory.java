@@ -7,6 +7,8 @@ package com.oberger.kruppelbotsimulation.domain.walk;
 
 import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.Model;
 import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.ConcatPart;
+import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.EBalanceMode;
+import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.EManipulatable;
 import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.ILegPolyFunctions;
 import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.LegPolyFunctionFactory;
 import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.PartialPolyFunction;
@@ -52,7 +54,7 @@ public class InitWalkStateFactory {
 
 		List<IReadOnlyVector2> polygons = new LinkedList<>(interpolator.getPolygons(forwardStart, forwardEnd, initSettings.numberOfPolygonsForward));
 
-		return new ConcatPart(new PartialPolyFunction(polygons), ConcatPart.EManipulatable.DYNAMIC, ConcatPart.EBalanceMode.CRITICAL);
+		return new ConcatPart(new PartialPolyFunction(polygons), EManipulatable.DYNAMIC, EBalanceMode.CRITICAL);
 	}
 
 	private ConcatPart createInitLegFunctionPartBackward(Interpolator interpolator) {
@@ -61,7 +63,7 @@ public class InitWalkStateFactory {
 
 		List<IReadOnlyVector2> polygons = new LinkedList<>(interpolator.getPolygons(backwardStart, backwardEnd, initSettings.numberOfPolygonsBackward));
 
-		return new ConcatPart(new PartialPolyFunction(polygons), ConcatPart.EManipulatable.DYNAMIC, ConcatPart.EBalanceMode.IRRELEVANT);
+		return new ConcatPart(new PartialPolyFunction(polygons), EManipulatable.DYNAMIC, EBalanceMode.IRRELEVANT);
 	}
 
 	private PolyFunction createInitLegFunction(Interpolator interpolator, List<IReadOnlyVector2> polygons) {

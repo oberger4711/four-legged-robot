@@ -7,6 +7,7 @@ package com.oberger.kruppelbotsimulation.domain.manipulators;
 
 import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.ConcatPart;
 import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.ConcatPolyFunction;
+import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.EManipulatable;
 import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.PartialPolyFunction;
 import com.oberger.kruppelbotsimulation.localsearch.manipulator.IManipulator;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class ConcatPolyFunctionManipulator implements IManipulator<ConcatPolyFun
 
 	for (int i = 0; i < concatFunction.getParts().size(); i++) {
 	    ConcatPart partToManipulate = concatFunction.getParts().get(i);
-	    if (partToManipulate.getManipulatable() == ConcatPart.EManipulatable.DYNAMIC) {
+	    if (partToManipulate.getManipulatable() == EManipulatable.DYNAMIC) {
 		List<PartialPolyFunction> neighbourPartialFunctions = adaptee.createNeighbours(partToManipulate.getFunction());
 		for (PartialPolyFunction manipulatedPartialFunction : neighbourPartialFunctions) {
 		    List<ConcatPart> parts = new ArrayList<>(concatFunction.getParts());

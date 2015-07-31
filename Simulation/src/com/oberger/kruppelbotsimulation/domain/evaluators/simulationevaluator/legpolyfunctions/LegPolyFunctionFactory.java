@@ -15,23 +15,23 @@ import java.util.List;
  */
 public class LegPolyFunctionFactory {
 
-	private Interpolator interpolator;
-	private List<ConcatPart> parts = null;
-	private float period;
+    private Interpolator interpolator;
+    private List<ConcatPart> parts = null;
+    private float period;
 
-	public LegPolyFunctionFactory(Interpolator interpolator, List<ConcatPart> parts, float period) {
-		this.interpolator = interpolator;
-		this.parts = parts;
-		this.period = period;
-	}
+    public LegPolyFunctionFactory(Interpolator interpolator, List<ConcatPart> parts, float period) {
+	this.interpolator = interpolator;
+	this.parts = parts;
+	this.period = parts.get(parts.size() - 1).getFunction().getLast().getX();
+    }
 
-	public ILegPolyFunctions create(LegOrder legOrder) {
-		float quarterPeriod = period / 4f;
-		return new LegPolyFunctions(createLegFunction(legOrder.getIndexOfBR() * quarterPeriod), createLegFunction(legOrder.getIndexOfBL() * quarterPeriod), createLegFunction(legOrder.getIndexOfFR() * quarterPeriod), createLegFunction(legOrder.getIndexOfFL() * quarterPeriod));
-	}
-	
-	private ConcatPolyFunction createLegFunction(float offset) {
-		return new ConcatPolyFunction(interpolator, parts, period, offset);
-	}
-	
+    public ILegPolyFunctions create(LegOrder legOrder) {
+	float quarterPeriod = period / 4f;
+	return new LegPolyFunctions(createLegFunction(legOrder.getIndexOfBR() * quarterPeriod), createLegFunction(legOrder.getIndexOfBL() * quarterPeriod), createLegFunction(legOrder.getIndexOfFR() * quarterPeriod), createLegFunction(legOrder.getIndexOfFL() * quarterPeriod));
+    }
+
+    private ConcatPolyFunction createLegFunction(float offset) {
+	return new ConcatPolyFunction(interpolator, parts, period, offset);
+    }
+
 }

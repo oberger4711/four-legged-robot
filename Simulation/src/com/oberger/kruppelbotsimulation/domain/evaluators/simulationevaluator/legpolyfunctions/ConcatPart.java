@@ -23,6 +23,10 @@ public class ConcatPart {
 		this.manipulatable = manipulatable;
 		this.balanceMode = balanceMode;
 	}
+	
+	public boolean isInPart(float x) {
+	    return function.getFirst().getX() <= x && x <= function.getLast().getX();
+	}
 
 	public PartialPolyFunction getFunction() {
 		return function;
@@ -36,14 +40,6 @@ public class ConcatPart {
 		return balanceMode;
 	}
 
-	public enum EManipulatable {
-		DYNAMIC,
-		FIXED;
-	}
 
-	public enum EBalanceMode {
-		CRITICAL,
-		IRRELEVANT;
-	}
 
 }

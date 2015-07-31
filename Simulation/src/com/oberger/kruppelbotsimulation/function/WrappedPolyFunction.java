@@ -14,6 +14,10 @@ public class WrappedPolyFunction implements IPolyFunction {
     private float period;
     private float offsetX;
     
+    public WrappedPolyFunction(IPolyFunction decorated, float offsetX) {
+	this(decorated, decorated.getPolygons().get(decorated.getPolygons().size() - 1).getX(), offsetX);
+    }
+    
     public WrappedPolyFunction(IPolyFunction decorated, float period, float offsetX) {
         if (decorated == null) {
             throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
@@ -33,7 +37,7 @@ public class WrappedPolyFunction implements IPolyFunction {
         return decorated.getValue(mappedX);
     }
     
-    private float mapOntoPeriod(float x) {
+    protected float mapOntoPeriod(float x) {
         float mappedX = x;
         
         while (mappedX < 0) {

@@ -25,6 +25,11 @@ public class ConcatPolyFunction extends WrappedPolyFunction {
 	super(new PolyFunction(interpolator, concatToList(parts)), period, offset);
 	this.parts = new ArrayList<>(parts);
     }
+    
+    public ConcatPolyFunction(Interpolator interpolator, List<ConcatPart> parts, float offset) {
+	super(new PolyFunction(interpolator, concatToList(parts)), offset);
+	this.parts = new ArrayList<>(parts);
+    }
 
     private static List<IReadOnlyVector2> concatToList(List<ConcatPart> parts) {
 	LinkedList<IReadOnlyVector2> polygons = new LinkedList<>();
@@ -43,6 +48,18 @@ public class ConcatPolyFunction extends WrappedPolyFunction {
 	}
 
 	return polygons;
+    }
+    
+    public ConcatPart getPart(float x) {
+	ConcatPart containingPart = null;
+	float mappedX = mapOntoPeriod(x);
+	for (ConcatPart part : parts) {
+	    if (part.isInPart(mappedX)) {
+		containingPart = part;
+	    }
+	}
+	
+	return containingPart;
     }
 
     public List<ConcatPart> getParts() {

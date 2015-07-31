@@ -1,5 +1,6 @@
 package com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator;
 
+import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.EBalanceMode;
 import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.ILegPolyFunctions;
 import com.oberger.kruppelbotsimulation.util.Rotation;
 
@@ -43,8 +44,14 @@ public class Simulation implements ISimulationState {
         return model;
     }
     
+    @Override
     public ILegPolyFunctions getLegFunctions() {
         return legFunctions;
+    }
+
+    @Override
+    public EBalanceMode getBalanceMode(LegPosition position) {
+	return legFunctions.getLegFunction(position).getPart(totalElapsedTimeInS).getBalanceMode();
     }
     
 }

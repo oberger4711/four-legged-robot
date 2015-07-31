@@ -8,6 +8,7 @@ package com.oberger.kruppelbotsimulation.domain.walk;
 import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.ISimulationState;
 import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.LegPosition;
 import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.Model;
+import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.EBalanceMode;
 import com.oberger.kruppelbotsimulation.model.BalancePoint;
 import com.oberger.kruppelbotsimulation.model.SimJoint;
 import com.oberger.kruppelbotsimulation.util.Vector2;
@@ -17,19 +18,20 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 /**
  *
  * @author ole
  */
-public class BalancePointEvaluatorTest {
+public class SimulationStateBalancePointEvaluatorTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private BalancePointEvaluator createTestee(float criticalTimeStartInMs, float criticalTimeEndInMs, LegPosition criticalPosition) {
-        return new BalancePointEvaluator(criticalTimeStartInMs, criticalTimeEndInMs, criticalPosition);
+    private SimulationStateBalancePointEvaluator createTestee(LegPosition criticalPosition) {
+        return new SimulationStateBalancePointEvaluator(criticalPosition);
     }
 
     private Model createFakeModel(BalancePoint rootBalancePoint) {
@@ -62,39 +64,27 @@ public class BalancePointEvaluatorTest {
         return fake;
     }
 
-    private ISimulationState createFakeSimulationState(float totalElapsedTimeInMs, Model model) {
+    private ISimulationState createFakeSimulationState(float totalElapsedTimeInMs, Model model, EBalanceMode legBalanceMode) {
         ISimulationState fake = Mockito.mock(ISimulationState.class);
 
         Mockito.doReturn(totalElapsedTimeInMs).when(fake).getTotalElapsedTimeInS();
         Mockito.doReturn(model).when(fake).getModel();
+	Mockito.doReturn(legBalanceMode).when(fake).getBalanceMode(Matchers.any());
+	
 
         return fake;
-    }
-
-    @Test
-    public void constructor_OnPassCriticalTimeStartInMsLowerThanZero_ThrowsIllegalArgumentException() {
-        exception.expect(IllegalArgumentException.class);
-
-        createTestee(-1, 1, LegPosition.BR);
-    }
-
-    @Test
-    public void constructor_OnPassCriticalTimeEndInMsLowerCriticalStartTimeInMs_ThrowsIllegalArgumentException() {
-        exception.expect(IllegalArgumentException.class);
-
-        createTestee(1, 0.5f, LegPosition.BR);
     }
 
     @Test
     public void constructor_OnPassCriticalPositionNull_ThrowsIllegalArgumentException() {
         exception.expect(IllegalArgumentException.class);
 
-        createTestee(0, 1, null);
+        createTestee(null);
     }
 
     @Test
     public void getSore_OnPassNull_ThrowsIllegalArgumentException() {
-        BalancePointEvaluator testee = createTestee(1, 2, LegPosition.BR);
+        SimulationStateBalancePointEvaluator testee = createTestee(LegPosition.BR);
 
         exception.expect(IllegalArgumentException.class);
 
@@ -102,22 +92,11 @@ public class BalancePointEvaluatorTest {
     }
 
     @Test
-    public void getScore_BeforeCriticalTimeSpan_ReturnsZeroScore() {
+    public void getScore_NotCriticalTimeSpan_ReturnsZeroScore() {
         Model fakeModel = createFakeModel(new BalancePoint(new Vector2(-1, 1), new Weight(1f)));
-        ISimulationState fakeSimulationState = createFakeSimulationState(0f, fakeModel);
+        ISimulationState fakeSimulationState = createFakeSimulationState(0f, fakeModel, EBalanceMode.IRRELEVANT);
 
-        BalancePointEvaluator testee = createTestee(1, 2, LegPosition.BR);
-        float score = testee.getScore(fakeSimulationState);
-        
-        assertEquals(0, score, 0.0001f);
-    }
-    
-    @Test
-    public void getScore_AfterCriticalTimeSpan_ReturnsZeroScore() {
-        Model fakeModel = createFakeModel(new BalancePoint(new Vector2(-1, 1), new Weight(1f)));
-        ISimulationState fakeSimulationState = createFakeSimulationState(3f, fakeModel);
-
-        BalancePointEvaluator testee = createTestee(1, 2, LegPosition.BR);
+        SimulationStateBalancePointEvaluator testee = createTestee(LegPosition.BR);
         float score = testee.getScore(fakeSimulationState);
         
         assertEquals(0, score, 0.0001f);
@@ -126,9 +105,9 @@ public class BalancePointEvaluatorTest {
     @Test
     public void getScore_OnPassWellBalancedSimulationStateInCriticalTimespan_ReturnsPositiveScore() {
         Model fakeModel = createFakeModel(new BalancePoint(new Vector2(-1, 1), new Weight(1f)));
-        ISimulationState fakeSimulationState = createFakeSimulationState(1.5f, fakeModel);
+        ISimulationState fakeSimulationState = createFakeSimulationState(1.5f, fakeModel, EBalanceMode.CRITICAL);
 
-        BalancePointEvaluator testee = createTestee(1, 2, LegPosition.BR);
+        SimulationStateBalancePointEvaluator testee = createTestee(LegPosition.BR);
         float score = testee.getScore(fakeSimulationState);
 
         assertTrue(score > 0);
@@ -137,9 +116,9 @@ public class BalancePointEvaluatorTest {
     @Test
     public void getScore_OnPassWellBalancedSimulationStateInCriticalTimespan_ReturnsZeroScore() {
         Model fakeModel = createFakeModel(new BalancePoint(new Vector2(-1, 1), new Weight(1f)));
-        ISimulationState fakeSimulationState = createFakeSimulationState(1.5f, fakeModel);
+        ISimulationState fakeSimulationState = createFakeSimulationState(1.5f, fakeModel, EBalanceMode.CRITICAL);
 
-        BalancePointEvaluator testee = createTestee(1, 2, LegPosition.FL);
+        SimulationStateBalancePointEvaluator testee = createTestee(LegPosition.FL);
         float score = testee.getScore(fakeSimulationState);
 
         assertEquals(0, score, 0.0001f);

@@ -5,6 +5,8 @@
  */
 package com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions;
 
+import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.LegPosition;
+
 /**
  *
  * @author ole
@@ -15,5 +17,6 @@ public interface ILegPolyFunctions {
     public ConcatPolyFunction getLegFunctionBR();
     public ConcatPolyFunction getLegFunctionFL();
     public ConcatPolyFunction getLegFunctionFR();
+    public ConcatPolyFunction getLegFunction(LegPosition position);
     
 }
