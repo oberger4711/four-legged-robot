@@ -9,3 +9,5 @@ Documents/KruppelBotSimulation.vpp~*
 Documents/KruppelBotSimulation.vpp.*
 Simulation/dist/
 Simulation/.jacocoverage/
+Simulation/*.csv
+Simulation/*#
