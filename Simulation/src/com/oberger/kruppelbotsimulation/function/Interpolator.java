@@ -61,7 +61,7 @@ public abstract class Interpolator {
 	interpolatedPolygons.add(new Vector2(start));
 	for (int i = 1; i < numberOfPolygons - 1; i++) {
 	    float interpolatedDeltaX = deltaX * ((float) i / (numberOfPolygons - 1));
-	    Vector2 interpolatedPolygon = new Vector2(start.getX() + interpolatedDeltaX, interpolateY(start, end, interpolatedDeltaX));
+	    Vector2 interpolatedPolygon = new Vector2(start.getX() + interpolatedDeltaX, interpolateY(start, end, start.getX() + interpolatedDeltaX));
 	    interpolatedPolygons.add(interpolatedPolygon);
 	}
 	interpolatedPolygons.add(new Vector2(end));

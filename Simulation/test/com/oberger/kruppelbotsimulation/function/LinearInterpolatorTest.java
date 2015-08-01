@@ -29,12 +29,24 @@ public class LinearInterpolatorTest {
     @Test
     public void getPolygons_OnPassNumberOfPolygonsThree_ReturnsStartAndInterpolatedAndEnd() {
 	LinearInterpolator testee = createLinearInterpolator();
-	Vector2 start = new Vector2(0, 0);
-	Vector2 end = new Vector2(1, 1);
+	Vector2 start = new Vector2(1, 1);
+	Vector2 end = new Vector2(3, 3);
 
 	List<Vector2> returnedPolygons = testee.getPolygons(start, end, 3);
 
-	List<Vector2> expectedPolygons = Arrays.asList(start, new Vector2(0.5f, 0.5f), end);
+	List<Vector2> expectedPolygons = Arrays.asList(start, new Vector2(2f, 2f), end);
+	assertEquals(expectedPolygons, returnedPolygons);
+    }
+    
+    @Test
+    public void getPolygons_OnPassNumberOfPolygonsFour_ReturnsStartAndInterpolatedAndEnd() {
+	LinearInterpolator testee = createLinearInterpolator();
+	Vector2 start = new Vector2(4, 4);
+	Vector2 end = new Vector2(1, 1);
+
+	List<Vector2> returnedPolygons = testee.getPolygons(start, end, 4);
+
+	List<Vector2> expectedPolygons = Arrays.asList(start, new Vector2(3f, 3f), new Vector2(2f, 2f), end);
 	assertEquals(expectedPolygons, returnedPolygons);
     }
 
