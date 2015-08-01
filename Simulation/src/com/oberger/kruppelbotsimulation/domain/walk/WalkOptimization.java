@@ -6,7 +6,7 @@ import com.oberger.kruppelbotsimulation.localsearch.State;
 import com.oberger.kruppelbotsimulation.localsearch.evaluator.IEvaluator;
 import com.oberger.kruppelbotsimulation.localsearch.exitcriterium.LocalMaximumExitCriterium;
 import com.oberger.kruppelbotsimulation.localsearch.manipulator.IManipulator;
-import com.oberger.kruppelbotsimulation.util.Vector2ToCsvWriter;
+import com.oberger.kruppelbotsimulation.util.LegPolyFunctionsCsvWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -39,12 +39,12 @@ public class WalkOptimization implements Runnable {
 	State<WalkState> initState = new State<>(initInnerState, evaluator, manipulator);
 	LocalSearchAlgorithm<WalkState> localSearchAlgo = new HillClimbing<>();
 	System.out.println("Initial Score : " + initState.getScore());
-	
+
 	State<WalkState> finalState = localSearchAlgo.run(initState, new LocalMaximumExitCriterium());
-	
+	new LegPolyFunctionsCsvWriter().write(finalState.getInnerState().getLegFunctions(), "out.csv");
+
 	System.out.println("Done.");
 	System.out.println("Final Score : " + finalState.getScore());
-	new Vector2ToCsvWriter().write(finalState.getInnerState().getLegFunctions().getLegFunctionBL().getPolygons(), "out.csv");
 
     }
 
