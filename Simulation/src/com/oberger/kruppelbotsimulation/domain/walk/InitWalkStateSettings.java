@@ -13,7 +13,6 @@ import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.Le
  */
 public class InitWalkStateSettings {
 
-    // TODO constructor injection and creating from config file http://www.mkyong.com/java/java-properties-file-examples/
     public final float periodInS;
     public final float repositionTimeInS;
     public final float angleStandYInDegrees;
@@ -21,8 +20,10 @@ public class InitWalkStateSettings {
     public final int numberOfPolygonsForward;
     public final int numberOfPolygonsBackward;
     public final LegOrder legOrder;
+    public final int polygonManipulationStep;
+    public final float polygonManipulationMaxGradient;
 
-    public InitWalkStateSettings(float periodInS, float repositionTimeInS, float angleStandYInDegrees, float stepSizeYInDegrees, int numberOfPolygonsForward, int numberOfPolygonsBackward, LegOrder legOrder) {
+    public InitWalkStateSettings(float periodInS, float repositionTimeInS, float angleStandYInDegrees, float stepSizeYInDegrees, int numberOfPolygonsForward, int numberOfPolygonsBackward, LegOrder legOrder, int polygonManipulationStep, float polygonManipulationMaxGradient) {
 	if (legOrder == null) {
 	    throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
 	}
@@ -33,6 +34,8 @@ public class InitWalkStateSettings {
 	this.numberOfPolygonsForward = numberOfPolygonsForward;
 	this.numberOfPolygonsBackward = numberOfPolygonsBackward;
 	this.legOrder = legOrder;
+	this.polygonManipulationStep = polygonManipulationStep;
+	this.polygonManipulationMaxGradient = polygonManipulationMaxGradient;
     }
 
     public int getNumberOfPolygonsTotal() {

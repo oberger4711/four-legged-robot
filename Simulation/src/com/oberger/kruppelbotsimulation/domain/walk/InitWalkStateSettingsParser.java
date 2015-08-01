@@ -25,6 +25,8 @@ public class InitWalkStateSettingsParser {
     public final static String KEY_NUMBER_OF_POLYGONS_FORWARD = "number_of_polygons_forward";
     public final static String KEY_NUMBER_OF_POLYGONS_BACKWARD = "number_of_polygons_backward";
     public final static String KEY_LEG_ORDER = "leg_order";
+    public final static String KEY_POLYGON_MANIPULATION_STEP = "poly_manipulation_step";
+    public final static String KEY_POLYGON_MAX_GRADIENT = "poly_manipulation_max_gradient";
 
     public InitWalkStateSettingsParser() {
 
@@ -35,7 +37,7 @@ public class InitWalkStateSettingsParser {
 	    throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
 	}
 	try {
-	    return new InitWalkStateSettings(parsePeriodInS(properties), parseRepositionTimeInS(properties), parseAngleStandYInDegrees(properties), parseStepSizeYInDegrees(properties), parseNumberOfPolygonsForward(properties), parseNumberOfPolygonsBackward(properties), parseLegOrder(properties));
+	    return new InitWalkStateSettings(parsePeriodInS(properties), parseRepositionTimeInS(properties), parseAngleStandYInDegrees(properties), parseStepSizeYInDegrees(properties), parseNumberOfPolygonsForward(properties), parseNumberOfPolygonsBackward(properties), parseLegOrder(properties), parsePolygonManipulationStep(properties), parsePolygonManipulationMaxGradient(properties));
 	} catch (IllegalArgumentException e) {
 	    throw e;
 	}
@@ -84,6 +86,14 @@ public class InitWalkStateSettingsParser {
 	    }
 	}
 	throw new IllegalArgumentException("Invalid leg position. Must be one of " + Arrays.toString(LegPosition.values()) + " but was " + value + ".");
+    }
+    
+    private int parsePolygonManipulationStep(Properties properties) throws NumberFormatException {
+	return Integer.parseInt(properties.getProperty(KEY_POLYGON_MANIPULATION_STEP));
+    }
+    
+    private float parsePolygonManipulationMaxGradient(Properties properties) throws NumberFormatException {
+	return Float.parseFloat(properties.getProperty(KEY_POLYGON_MAX_GRADIENT));
     }
 
 }

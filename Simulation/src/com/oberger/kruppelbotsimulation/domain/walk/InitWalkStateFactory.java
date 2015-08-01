@@ -48,8 +48,8 @@ public class InitWalkStateFactory {
     }
 
     private ConcatPart createInitLegFunctionPartForward(Interpolator interpolator) {
-	Vector2 forwardStart = new Vector2(0, initSettings.angleStandYInDegrees - (initSettings.stepSizeYInDegrees / 2));
-	Vector2 forwardEnd = new Vector2(initSettings.periodInS - initSettings.repositionTimeInS, initSettings.angleStandYInDegrees + (initSettings.stepSizeYInDegrees / 2));
+	Vector2 forwardStart = new Vector2(initSettings.periodInS - initSettings.repositionTimeInS, initSettings.angleStandYInDegrees - (initSettings.stepSizeYInDegrees / 2));
+	Vector2 forwardEnd = new Vector2(initSettings.periodInS, initSettings.angleStandYInDegrees + (initSettings.stepSizeYInDegrees / 2));
 
 	List<IReadOnlyVector2> polygons = new LinkedList<>(interpolator.getPolygons(forwardStart, forwardEnd, initSettings.numberOfPolygonsForward));
 
@@ -57,8 +57,8 @@ public class InitWalkStateFactory {
     }
 
     private ConcatPart createInitLegFunctionPartBackward(Interpolator interpolator) {
-	Vector2 backwardStart = new Vector2(initSettings.periodInS - initSettings.repositionTimeInS, initSettings.angleStandYInDegrees + (initSettings.stepSizeYInDegrees / 2));
-	Vector2 backwardEnd = new Vector2(initSettings.periodInS, initSettings.angleStandYInDegrees - (initSettings.stepSizeYInDegrees / 2));
+	Vector2 backwardStart = new Vector2(0, initSettings.angleStandYInDegrees + (initSettings.stepSizeYInDegrees / 2));
+	Vector2 backwardEnd = new Vector2(initSettings.periodInS - initSettings.repositionTimeInS, initSettings.angleStandYInDegrees - (initSettings.stepSizeYInDegrees / 2));
 
 	List<IReadOnlyVector2> polygons = new LinkedList<>(interpolator.getPolygons(backwardStart, backwardEnd, initSettings.numberOfPolygonsBackward));
 

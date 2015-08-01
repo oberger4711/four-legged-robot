@@ -13,9 +13,6 @@ public class PartialPolyFunctionManipulator implements IManipulator<PartialPolyF
     private float maxAbsGradient;
 
     public PartialPolyFunctionManipulator(float manipulationStep, float maxAbsGradient) {
-	if (manipulationStep < 0) {
-	    throw new IllegalArgumentException("maxAbsManipulationStep must not be negative but was " + manipulationStep + ".");
-	}
 	if (maxAbsGradient < 0) {
 	    throw new IllegalArgumentException("maxAbsGradient must not be negative but was " + maxAbsGradient + ".");
 	}

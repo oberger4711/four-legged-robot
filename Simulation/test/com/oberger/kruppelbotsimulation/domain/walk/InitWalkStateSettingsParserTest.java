@@ -26,7 +26,7 @@ public class InitWalkStateSettingsParserTest {
 	return new InitWalkStateSettingsParser();
     }
 
-    private Properties createFakeProperties(float periodInS, float repositionTimeInS, float angleStandYInDegrees, float stepSizeYInDegrees, int numberOfPolygonsForward, int numberOfPolygonsBackward, String legOrder) {
+    private Properties createFakeProperties(float periodInS, float repositionTimeInS, float angleStandYInDegrees, float stepSizeYInDegrees, int numberOfPolygonsForward, int numberOfPolygonsBackward, String legOrder, int polygonManipulationStep, float polygonManipulationMaxGradient) {
 	Properties properties = new Properties();
 
 	properties.setProperty(InitWalkStateSettingsParser.KEY_PERIOD_IN_S, Float.toString(periodInS));
@@ -36,6 +36,8 @@ public class InitWalkStateSettingsParserTest {
 	properties.setProperty(InitWalkStateSettingsParser.KEY_NUMBER_OF_POLYGONS_FORWARD, Integer.toString(numberOfPolygonsForward));
 	properties.setProperty(InitWalkStateSettingsParser.KEY_NUMBER_OF_POLYGONS_BACKWARD, Integer.toString(numberOfPolygonsBackward));
 	properties.setProperty(InitWalkStateSettingsParser.KEY_LEG_ORDER, legOrder);
+	properties.setProperty(InitWalkStateSettingsParser.KEY_POLYGON_MANIPULATION_STEP, Integer.toString(polygonManipulationStep));
+	properties.setProperty(InitWalkStateSettingsParser.KEY_POLYGON_MAX_GRADIENT, Float.toString(polygonManipulationMaxGradient));
 
 	return properties;
     }
@@ -49,7 +51,7 @@ public class InitWalkStateSettingsParserTest {
 
     @Test
     public void fromProperties_WithLegitProperties_ParsesPeriodInS() {
-	Properties fakeProperties = createFakeProperties(4, 2, 90, 120, 5, 2, "BR-FL-BL-FR");
+	Properties fakeProperties = createFakeProperties(4, 2, 90, 120, 5, 2, "BR-FL-BL-FR", 1, 100f);
 	InitWalkStateSettingsParser testee = createParser();
 
 	InitWalkStateSettings parsed = testee.parseProperties(fakeProperties);
@@ -59,7 +61,7 @@ public class InitWalkStateSettingsParserTest {
 
     @Test
     public void fromProperties_WithLegitProperties_ParsesRepositionTimeInS() {
-	Properties fakeProperties = createFakeProperties(4, 2, 90, 120, 5, 2, "BR-FL-BL-FR");
+	Properties fakeProperties = createFakeProperties(4, 2, 90, 120, 5, 2, "BR-FL-BL-FR", 1, 100f);
 	InitWalkStateSettingsParser testee = createParser();
 
 	InitWalkStateSettings parsed = testee.parseProperties(fakeProperties);
@@ -69,7 +71,7 @@ public class InitWalkStateSettingsParserTest {
 
     @Test
     public void fromProperties_WithLegitProperties_ParsesAngleStandYInDegrees() {
-	Properties fakeProperties = createFakeProperties(4, 2, 90, 120, 5, 2, "BR-FL-BL-FR");
+	Properties fakeProperties = createFakeProperties(4, 2, 90, 120, 5, 2, "BR-FL-BL-FR", 1, 100f);
 	InitWalkStateSettingsParser testee = createParser();
 
 	InitWalkStateSettings parsed = testee.parseProperties(fakeProperties);
@@ -79,7 +81,7 @@ public class InitWalkStateSettingsParserTest {
 
     @Test
     public void fromProperties_WithLegitProperties_ParsesStepSizeInDegrees() {
-	Properties fakeProperties = createFakeProperties(4, 2, 90, 120, 5, 2, "BR-FL-BL-FR");
+	Properties fakeProperties = createFakeProperties(4, 2, 90, 120, 5, 2, "BR-FL-BL-FR", 1, 100f);
 	InitWalkStateSettingsParser testee = createParser();
 
 	InitWalkStateSettings parsed = testee.parseProperties(fakeProperties);
@@ -89,7 +91,7 @@ public class InitWalkStateSettingsParserTest {
 
     @Test
     public void fromProperties_WithLegitProperties_ParsesNumberOfPolygonsForward() {
-	Properties fakeProperties = createFakeProperties(4, 2, 90, 120, 5, 2, "BR-FL-BL-FR");
+	Properties fakeProperties = createFakeProperties(4, 2, 90, 120, 5, 2, "BR-FL-BL-FR", 1, 100f);
 	InitWalkStateSettingsParser testee = createParser();
 
 	InitWalkStateSettings parsed = testee.parseProperties(fakeProperties);
@@ -99,7 +101,7 @@ public class InitWalkStateSettingsParserTest {
 
     @Test
     public void fromProperties_WithLegitProperties_ParsesNumberOfPolygonsBackward() {
-	Properties fakeProperties = createFakeProperties(4, 2, 90, 120, 5, 2, "BR-FL-BL-FR");
+	Properties fakeProperties = createFakeProperties(4, 2, 90, 120, 5, 2, "BR-FL-BL-FR", 1, 100f);
 	InitWalkStateSettingsParser testee = createParser();
 
 	InitWalkStateSettings parsed = testee.parseProperties(fakeProperties);
@@ -109,12 +111,32 @@ public class InitWalkStateSettingsParserTest {
 
     @Test
     public void fromProperties_WithLegitProperties_ParsesLegOrder() {
-	Properties fakeProperties = createFakeProperties(4, 2, 90, 120, 5, 2, "BR-FL-BL-FR");
+	Properties fakeProperties = createFakeProperties(4, 2, 90, 120, 5, 2, "BR-FL-BL-FR", 1, 100f);
 	InitWalkStateSettingsParser testee = createParser();
 
 	InitWalkStateSettings parsed = testee.parseProperties(fakeProperties);
 
 	assertEquals(Arrays.asList(LegPosition.BR, LegPosition.FL, LegPosition.BL, LegPosition.FR), parsed.legOrder.getOrder());
+    }
+    
+    @Test
+    public void fromProperties_WithLegitProperties_ParsesPolygonManipulationStep() {
+	Properties fakeProperties = createFakeProperties(4, 2, 90, 120, 5, 2, "BR-FL-BL-FR", 1, 100f);
+	InitWalkStateSettingsParser testee = createParser();
+
+	InitWalkStateSettings parsed = testee.parseProperties(fakeProperties);
+
+	assertEquals(1, parsed.polygonManipulationStep);
+    }
+    
+    @Test
+    public void fromProperties_WithLegitProperties_ParsesPolygonManipulationMaxGradient() {
+	Properties fakeProperties = createFakeProperties(4, 2, 90, 120, 5, 2, "BR-FL-BL-FR", 1, 100f);
+	InitWalkStateSettingsParser testee = createParser();
+
+	InitWalkStateSettings parsed = testee.parseProperties(fakeProperties);
+
+	assertEquals(100f, parsed.polygonManipulationMaxGradient, 0.0001);
     }
 
 }
