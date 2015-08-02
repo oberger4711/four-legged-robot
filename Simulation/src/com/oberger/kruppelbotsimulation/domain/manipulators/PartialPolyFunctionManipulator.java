@@ -16,7 +16,7 @@ import java.util.List;
  * @author oberger
  */
 public abstract class PartialPolyFunctionManipulator implements IManipulator<PartialPolyFunction> {
-    
+
     private float manipulationStep;
 
     public PartialPolyFunctionManipulator(float manipulationStep) {
@@ -31,16 +31,31 @@ public abstract class PartialPolyFunctionManipulator implements IManipulator<Par
 	List<PartialPolyFunction> neighbours = new LinkedList<>();
 	for (int i = 0; i < originalInnerState.getInner().size(); i++) {
 	    List<IReadOnlyVector2> manipulatedInner = new LinkedList<>(originalInnerState.getInner());
+
+	    IReadOnlyVector2 previousPolygon = null;
+	    if (i == 0) {
+		previousPolygon = originalInnerState.getFirst();
+	    } else {
+		previousPolygon = manipulatedInner.get(i - 1);
+	    }
 	    IReadOnlyVector2 polygonToManipulate = manipulatedInner.get(i);
-	    IReadOnlyVector2 manipulatedPolygonOrNull = manipulatePolygon(polygonToManipulate, manipulationStep);
-	    manipulatedInner.remove(i);
-	    manipulatedInner.add(i, manipulatedPolygonOrNull);
-	    PartialPolyFunction manipulatedFunction = new PartialPolyFunction(originalInnerState.getFirst(), manipulatedInner, originalInnerState.getLast());
-	    neighbours.add(manipulatedFunction);
+	    IReadOnlyVector2 nextPolygon = null;
+	    if (i == originalInnerState.getInner().size() - 1) {
+		nextPolygon = originalInnerState.getLast();
+	    } else {
+		nextPolygon = manipulatedInner.get(i + 1);
+	    }
+	    IReadOnlyVector2 manipulatedPolygonOrNull = manipulatePolygonOrNull(previousPolygon, polygonToManipulate, nextPolygon, manipulationStep);
+	    if (manipulatedPolygonOrNull != null) {
+		manipulatedInner.remove(i);
+		manipulatedInner.add(i, manipulatedPolygonOrNull);
+		PartialPolyFunction manipulatedFunction = new PartialPolyFunction(originalInnerState.getFirst(), manipulatedInner, originalInnerState.getLast());
+		neighbours.add(manipulatedFunction);
+	    }
 	}
 	return neighbours;
     }
 
-    protected abstract IReadOnlyVector2 manipulatePolygon(IReadOnlyVector2 polygonToManipulate, float manipulationStep);
-    
+    protected abstract IReadOnlyVector2 manipulatePolygonOrNull(IReadOnlyVector2 polygonBefore, IReadOnlyVector2 polygonToManipulate, IReadOnlyVector2 polygonAfter, float manipulationStep);
+
 }

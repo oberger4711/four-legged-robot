@@ -5,31 +5,30 @@
  */
 package com.oberger.kruppelbotsimulation.domain.manipulators;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.PartialPolyFunction;
-import com.oberger.kruppelbotsimulation.localsearch.manipulator.IManipulator;
 import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import com.oberger.kruppelbotsimulation.util.Vector2;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  *
  * @author oberger
  */
 public class PartialPolyFunctionManipulatorX extends PartialPolyFunctionManipulator {
-    
+
     public PartialPolyFunctionManipulatorX(float manipulationStep) {
 	super(manipulationStep);
     }
 
     @Override
-    protected IReadOnlyVector2 manipulatePolygon(IReadOnlyVector2 polygonToManipulate, float manipulationStep) {
+    protected IReadOnlyVector2 manipulatePolygonOrNull(IReadOnlyVector2 polygonBefore, IReadOnlyVector2 polygonToManipulate, IReadOnlyVector2 polygonAfter, float manipulationStep) {
+	IReadOnlyVector2 manipulatedVectorOrNull = null;
+	
 	float newX = polygonToManipulate.getX() + manipulationStep;
-	float newY = polygonToManipulate.getY();
-	IReadOnlyVector2 manipulatedVectorOrNull = new Vector2(newX, newY);
+	if (newX < polygonAfter.getX() && newX > polygonBefore.getX()) {
+	    float newY = polygonToManipulate.getY();
+	    manipulatedVectorOrNull = new Vector2(newX, newY);
+	}
 
 	return manipulatedVectorOrNull;
     }
-    
+
 }

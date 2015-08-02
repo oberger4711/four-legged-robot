@@ -10,7 +10,7 @@ public class PartialPolyFunctionManipulatorY extends PartialPolyFunctionManipula
     }
 
     @Override
-    protected IReadOnlyVector2 manipulatePolygon(IReadOnlyVector2 polygonToManipulate, float manipulationStep) {
+    protected IReadOnlyVector2 manipulatePolygonOrNull(IReadOnlyVector2 polygonBefore, IReadOnlyVector2 polygonToManipulate, IReadOnlyVector2 polygonAfter, float manipulationStep) {
 	float newX = polygonToManipulate.getX();
 	float newY = polygonToManipulate.getY() + manipulationStep;
 	IReadOnlyVector2 manipulatedVectorOrNull = new Vector2(newX, newY);
