@@ -11,7 +11,7 @@ import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.le
 import com.oberger.kruppelbotsimulation.domain.manipulators.ConcatPolyFunctionManipulator;
 import com.oberger.kruppelbotsimulation.domain.manipulators.LegPolyFunctionsManipulator;
 import com.oberger.kruppelbotsimulation.domain.manipulators.PartialPolyFunctionGradientConstraint;
-import com.oberger.kruppelbotsimulation.domain.manipulators.PartialPolyFunctionManipulator;
+import com.oberger.kruppelbotsimulation.domain.manipulators.PartialPolyFunctionManipulatorY;
 import com.oberger.kruppelbotsimulation.localsearch.manipulator.ConstrainedManipulator;
 import com.oberger.kruppelbotsimulation.localsearch.manipulator.IConstraint;
 import com.oberger.kruppelbotsimulation.localsearch.manipulator.IManipulator;
@@ -47,8 +47,8 @@ public class ManipulatorFactory {
 	List<IManipulator<PartialPolyFunction>> manipulators = new ArrayList<>();
 	List<IConstraint<PartialPolyFunction>> constraints = new ArrayList<>();
 	constraints.add(new PartialPolyFunctionGradientConstraint(settings.polygonManipulationMaxGradient));
-	manipulators.add(new ConstrainedManipulator<>(new PartialPolyFunctionManipulator(settings.polygonManipulationStep), constraints));
-	manipulators.add(new ConstrainedManipulator<>(new PartialPolyFunctionManipulator(-settings.polygonManipulationStep), constraints));
+	manipulators.add(new ConstrainedManipulator<>(new PartialPolyFunctionManipulatorY(settings.polygonManipulationStep), constraints));
+	manipulators.add(new ConstrainedManipulator<>(new PartialPolyFunctionManipulatorY(-settings.polygonManipulationStep), constraints));
 	
 	return new ManipulatorGroup<>(manipulators);
     }

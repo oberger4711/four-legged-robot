@@ -26,8 +26,8 @@ public class PartialPolyFunctionManipulatorTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private PartialPolyFunctionManipulator createTestee(float manipulationStep) {
-	return new PartialPolyFunctionManipulator(manipulationStep);
+    private PartialPolyFunctionManipulatorY createTestee(float manipulationStep) {
+	return new PartialPolyFunctionManipulatorY(manipulationStep);
     }
 
     private PartialPolyFunction createPartialPolyFunction(Vector2... polygons) {
@@ -36,7 +36,7 @@ public class PartialPolyFunctionManipulatorTest {
 
     @Test
     public void manipulate_OnPassNull_ThrowsIllegalArgumentException() {
-	PartialPolyFunctionManipulator testee = createTestee(1);
+	PartialPolyFunctionManipulatorY testee = createTestee(1);
 
 	exception.expect(IllegalArgumentException.class);
 
@@ -45,7 +45,7 @@ public class PartialPolyFunctionManipulatorTest {
 
     @Test
     public void manipulate_OnCall_Steps() {
-	PartialPolyFunctionManipulator testee = createTestee(1);
+	PartialPolyFunctionManipulatorY testee = createTestee(1);
 	PartialPolyFunction fakeFunction = createPartialPolyFunction(new Vector2(0, 0), new Vector2(1, 0), new Vector2(2, 0), new Vector2(3, 0));
 
 	List<PartialPolyFunction> manipulatedFunctions = testee.createNeighbours(fakeFunction);
