@@ -69,7 +69,7 @@ public class InitWalkStateFactory {
 	ConcatPart partBackward = createInitLegFunctionPartBackward(interpolator);
 	ConcatPart partForward = createInitLegFunctionPartForward(interpolator);
 
-	return new LegPolyFunctionFactory(interpolator, Arrays.asList(partBackward, partForward), initSettings.periodInS).create(initSettings.legOrder);
+	return new LegPolyFunctionFactory(interpolator, Arrays.asList(partBackward, partForward)).create(initSettings.legOrder);
     }
 
     private Model createInitModel() {

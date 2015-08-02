@@ -19,7 +19,10 @@ public class LegPolyFunctionFactory {
     private List<ConcatPart> parts = null;
     private float period;
 
-    public LegPolyFunctionFactory(Interpolator interpolator, List<ConcatPart> parts, float period) {
+    public LegPolyFunctionFactory(Interpolator interpolator, List<ConcatPart> parts) {
+	if (interpolator == null || parts == null) {
+	    throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+	}
 	this.interpolator = interpolator;
 	this.parts = parts;
 	this.period = parts.get(parts.size() - 1).getFunction().getLast().getX();

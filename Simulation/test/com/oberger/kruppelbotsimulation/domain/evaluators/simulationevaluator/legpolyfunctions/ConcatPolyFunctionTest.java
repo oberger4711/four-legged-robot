@@ -23,13 +23,17 @@ import org.mockito.Mockito;
  *
  * @author oberger
  */
-public class ConcatPolyFunctionTests {
+public class ConcatPolyFunctionTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     public ConcatPolyFunction createTestee(Interpolator interpolator, List<ConcatPart> parts) {
-	return new ConcatPolyFunction(interpolator, parts, 10);
+	return new ConcatPolyFunction(interpolator, parts, 0);
+    }
+    
+    public ConcatPolyFunction createTestee(Interpolator interpolator, List<ConcatPart> parts, float offsetX) {
+	return new ConcatPolyFunction(interpolator, parts, offsetX);
     }
 
     public Interpolator createDummyInterpolator() {
@@ -118,6 +122,16 @@ public class ConcatPolyFunctionTests {
 	ConcatPolyFunction testee = createTestee(createDummyInterpolator(), Arrays.asList(part1));
 
 	Assert.assertThat(testee.getPart(23f), is(equalTo(part1)));
+    }
+    
+    @Test
+    public void getPart_WithTwoPartsAndShiftedAndWrappedX_ReturnsCorrectPart() {
+	ConcatPart part1 = new ConcatPart(new PartialPolyFunction(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1), new Vector2(2, 2), new Vector2(3, 3))), EManipulatable.FIXED, EBalanceMode.IRRELEVANT);
+	ConcatPart part2 = new ConcatPart(new PartialPolyFunction(Arrays.asList(new Vector2(3, 3), new Vector2(6, 0))), EManipulatable.FIXED, EBalanceMode.IRRELEVANT);
+	
+	ConcatPolyFunction testee = createTestee(createDummyInterpolator(), Arrays.asList(part1, part2), 1.5f);
+	
+	Assert.assertEquals(part2, testee.getPart(8f));
     }
 
 }

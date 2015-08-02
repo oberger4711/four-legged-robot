@@ -5,8 +5,7 @@ import java.util.List;
 
 /**
  * A decorator that wraps an {@link IPolyFunction} onto a given period (starting
- * at x = 0). {@link #getValue(float) } will return getValue( {@linkplain #mapOntoPeriod(float)
- * }(x + offsetX)).
+ * at x = 0). {@link #getValue(float) } will return getValue( {@link #wrapOntoPeriod(float)}(x + offsetX)).
  *
  * @author ole
  */
@@ -34,13 +33,13 @@ public class WrappedPolyFunction implements IPolyFunction {
 
     @Override
     public float getValue(float x) {
-	float mappedX = mapOntoPeriod(x + offsetX);
+	float mappedX = wrapOntoPeriod(x);
 
 	return decorated.getValue(mappedX);
     }
 
-    protected float mapOntoPeriod(float x) {
-	float mappedX = x;
+    protected float wrapOntoPeriod(float x) {
+	float mappedX = x + offsetX;
 
 	while (mappedX < 0) {
 	    mappedX += period;

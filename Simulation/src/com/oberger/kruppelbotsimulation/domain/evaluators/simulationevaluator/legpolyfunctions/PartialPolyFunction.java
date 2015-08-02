@@ -20,6 +20,9 @@ public class PartialPolyFunction {
     private IReadOnlyVector2 last = null;
 
     public PartialPolyFunction(IReadOnlyVector2 first, List<IReadOnlyVector2> inner, IReadOnlyVector2 last) {
+	if (first == null || inner == null || last == null) {
+	    throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+	}
 	this.first = first;
 	this.inner = inner;
 	this.last = last;

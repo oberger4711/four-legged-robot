@@ -20,7 +20,7 @@ import org.junit.rules.ExpectedException;
  *
  * @author oberger
  */
-public class PartialPolyFunctionTests {
+public class PartialPolyFunctionTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -59,7 +59,7 @@ public class PartialPolyFunctionTests {
 	PartialPolyFunction testee = createTestee(Arrays.asList(new Vector2(0, 0), new Vector2(1, 1), new Vector2(2, 2)));
 	Assert.assertThat(testee.getFirst(), is(equalTo(new Vector2(0, 0))));
 	Assert.assertThat(testee.getInner(), is(equalTo(Arrays.asList(new Vector2(1, 1)))));
-	Assert.assertThat(testee.getLast(), is(equalTo(Arrays.asList(new Vector2(2, 2)))));
+	Assert.assertThat(testee.getLast(), is(equalTo(new Vector2(2, 2))));
     }
 
 }

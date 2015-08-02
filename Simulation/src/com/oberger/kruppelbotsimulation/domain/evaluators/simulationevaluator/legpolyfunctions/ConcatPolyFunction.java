@@ -52,7 +52,7 @@ public class ConcatPolyFunction extends WrappedPolyFunction {
 
     public ConcatPart getPart(float x) {
 	ConcatPart containingPart = null;
-	float mappedX = mapOntoPeriod(x);
+	float mappedX = wrapOntoPeriod(x);
 	for (ConcatPart part : parts) {
 	    if (part.isInPart(mappedX)) {
 		containingPart = part;
