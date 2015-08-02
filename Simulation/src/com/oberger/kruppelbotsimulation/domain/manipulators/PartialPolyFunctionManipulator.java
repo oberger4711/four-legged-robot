@@ -10,14 +10,9 @@ import java.util.List;
 public class PartialPolyFunctionManipulator implements IManipulator<PartialPolyFunction> {
 
     private float manipulationStep;
-    private float maxAbsGradient;
 
-    public PartialPolyFunctionManipulator(float manipulationStep, float maxAbsGradient) {
-	if (maxAbsGradient < 0) {
-	    throw new IllegalArgumentException("maxAbsGradient must not be negative but was " + maxAbsGradient + ".");
-	}
+    public PartialPolyFunctionManipulator(float manipulationStep) {
 	this.manipulationStep = manipulationStep;
-	this.maxAbsGradient = maxAbsGradient;
     }
 
     @Override
@@ -44,7 +39,7 @@ public class PartialPolyFunctionManipulator implements IManipulator<PartialPolyF
 		nextPolygon = manipulatedInner.get(i + 1);
 	    }
 
-	    IReadOnlyVector2 manipulatedPolygonOrNull = manipulatePolygonIfPossibleOrNull(previousPolygon, polygonToManipulate, nextPolygon);
+	    IReadOnlyVector2 manipulatedPolygonOrNull = manipulatePolygon(previousPolygon, polygonToManipulate, nextPolygon);
 	    if (manipulatedPolygonOrNull != null) {
 		manipulatedInner.remove(i);
 		manipulatedInner.add(i, manipulatedPolygonOrNull);
@@ -57,21 +52,12 @@ public class PartialPolyFunctionManipulator implements IManipulator<PartialPolyF
 	return neighbours;
     }
 
-    private IReadOnlyVector2 manipulatePolygonIfPossibleOrNull(IReadOnlyVector2 previousPolygon, IReadOnlyVector2 polygonToManipulate, IReadOnlyVector2 nextPolygon) {
+    private IReadOnlyVector2 manipulatePolygon(IReadOnlyVector2 previousPolygon, IReadOnlyVector2 polygonToManipulate, IReadOnlyVector2 nextPolygon) {
 	float newX = polygonToManipulate.getX();
 	float newY = polygonToManipulate.getY() + manipulationStep;
 	IReadOnlyVector2 manipulatedVectorOrNull = new Vector2(newX, newY);
 
-	if (Math.abs(calcGradient(previousPolygon, manipulatedVectorOrNull)) > maxAbsGradient
-		|| Math.abs(calcGradient(manipulatedVectorOrNull, nextPolygon)) > maxAbsGradient) {
-	    manipulatedVectorOrNull = null;
-	}
-
 	return manipulatedVectorOrNull;
-    }
-
-    private float calcGradient(IReadOnlyVector2 v1, IReadOnlyVector2 v2) {
-	return (v2.getY() - v1.getY()) / (v2.getX() - v1.getX());
     }
 
 }
