@@ -26,7 +26,7 @@ public class InitWalkStateSettingsParserTest {
 	return new InitWalkStateSettingsParser();
     }
 
-    private Properties createFakeProperties(float periodInS, float repositionTimeInS, float angleStandYInDegrees, float stepSizeYInDegrees, int numberOfPolygonsForward, int numberOfPolygonsBackward, String legOrder, int polygonManipulationStep, float polygonManipulationMaxGradient) {
+    private Properties createFakeProperties(float periodInS, float repositionTimeInS, float angleStandYInDegrees, float stepSizeYInDegrees, int numberOfPolygonsForward, int numberOfPolygonsBackward, String legOrder, float polygonManipulationStep, float polygonManipulationMaxGradient) {
 	Properties properties = new Properties();
 
 	properties.setProperty(InitWalkStateSettingsParser.KEY_PERIOD_IN_S, Float.toString(periodInS));
@@ -36,7 +36,7 @@ public class InitWalkStateSettingsParserTest {
 	properties.setProperty(InitWalkStateSettingsParser.KEY_NUMBER_OF_POLYGONS_FORWARD, Integer.toString(numberOfPolygonsForward));
 	properties.setProperty(InitWalkStateSettingsParser.KEY_NUMBER_OF_POLYGONS_BACKWARD, Integer.toString(numberOfPolygonsBackward));
 	properties.setProperty(InitWalkStateSettingsParser.KEY_LEG_ORDER, legOrder);
-	properties.setProperty(InitWalkStateSettingsParser.KEY_POLYGON_MANIPULATION_STEP, Integer.toString(polygonManipulationStep));
+	properties.setProperty(InitWalkStateSettingsParser.KEY_POLYGON_MANIPULATION_STEP, Float.toString(polygonManipulationStep));
 	properties.setProperty(InitWalkStateSettingsParser.KEY_POLYGON_MAX_GRADIENT, Float.toString(polygonManipulationMaxGradient));
 
 	return properties;
@@ -121,12 +121,12 @@ public class InitWalkStateSettingsParserTest {
     
     @Test
     public void fromProperties_WithLegitProperties_ParsesPolygonManipulationStep() {
-	Properties fakeProperties = createFakeProperties(4, 2, 90, 120, 5, 2, "BR-FL-BL-FR", 1, 100f);
+	Properties fakeProperties = createFakeProperties(4, 2, 90, 120, 5, 2, "BR-FL-BL-FR", 1f, 100f);
 	InitWalkStateSettingsParser testee = createParser();
 
 	InitWalkStateSettings parsed = testee.parseProperties(fakeProperties);
 
-	assertEquals(1, parsed.polygonManipulationStep);
+	assertEquals(1f, parsed.polygonManipulationStep, 0.0001);
     }
     
     @Test

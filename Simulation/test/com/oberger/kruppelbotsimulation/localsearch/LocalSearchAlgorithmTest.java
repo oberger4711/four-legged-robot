@@ -22,8 +22,8 @@ public class LocalSearchAlgorithmTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private FakeLocalSearchAlgorithm createFakeLocalSearchAlgorithm() {
-	return new FakeLocalSearchAlgorithm();
+    private FakeLocalSearchAlgorithm createFakeLocalSearchAlgorithm(ExitCriterium exitCriterium) {
+	return new FakeLocalSearchAlgorithm(exitCriterium);
     }
 
     private State createFakeState(State... neighbourStates) {
@@ -34,35 +34,33 @@ public class LocalSearchAlgorithmTest {
     }
 
     @Test
-    public void run_OnPassStartStateNull_ThrowIllegalArgumentException() {
-	FakeLocalSearchAlgorithm fakeLocalSearchAlgorithm = createFakeLocalSearchAlgorithm();
-	ExitCriterium fakeExitCriterium = Mockito.mock(ExitCriterium.class);
-	Mockito.doReturn(true).when(fakeExitCriterium).isFinishState(null);
+    public void constructor_OnPassExitCriteriumNull_ThrowIllegalArgumentException() {
 
 	exception.expect(IllegalArgumentException.class);
 
-	fakeLocalSearchAlgorithm.run(null, fakeExitCriterium);
+	FakeLocalSearchAlgorithm fakeLocalSearchAlgorithm = createFakeLocalSearchAlgorithm(null);
     }
 
     @Test
-    public void run_OnPassExitCriteriumNull_ThrowIllegalArgumentException() {
-	FakeLocalSearchAlgorithm fakeLocalSearchAlgorithm = createFakeLocalSearchAlgorithm();
-	State fakeStartState = createFakeState();
+    public void run_OnPassStartStateNull_ThrowIllegalArgumentException() {
+	ExitCriterium fakeExitCriterium = Mockito.mock(ExitCriterium.class);
+	Mockito.doReturn(true).when(fakeExitCriterium).isFinishState(null);
+	FakeLocalSearchAlgorithm fakeLocalSearchAlgorithm = createFakeLocalSearchAlgorithm(fakeExitCriterium);
 
 	exception.expect(IllegalArgumentException.class);
 
-	fakeLocalSearchAlgorithm.run(fakeStartState, null);
+	fakeLocalSearchAlgorithm.run(null);
     }
 
     @Test
     public void run_WithFirstStateIsFinishState_ReturnsFirstState() {
 	State fakeStateNeighbour = createFakeState();
 	State fakeStartState = createFakeState(fakeStateNeighbour);
-	FakeLocalSearchAlgorithm fakeLocalSearchAlgorithm = createFakeLocalSearchAlgorithm();
 	ExitCriterium fakeExitCriterium = Mockito.mock(ExitCriterium.class);
 	Mockito.doReturn(true).when(fakeExitCriterium).isFinishState(fakeStartState);
+	FakeLocalSearchAlgorithm fakeLocalSearchAlgorithm = createFakeLocalSearchAlgorithm(fakeExitCriterium);
 
-	State exitState = fakeLocalSearchAlgorithm.run(fakeStartState, fakeExitCriterium);
+	State exitState = fakeLocalSearchAlgorithm.run(fakeStartState);
 
 	assertTrue(fakeStartState == exitState);
     }
@@ -72,11 +70,11 @@ public class LocalSearchAlgorithmTest {
 	State fakeStateNeighbourNeighbour = createFakeState();
 	State fakeStateNeighbour = createFakeState(fakeStateNeighbourNeighbour);
 	State fakeStartState = createFakeState(fakeStateNeighbour);
-	FakeLocalSearchAlgorithm fakeLocalSearchAlgorithm = createFakeLocalSearchAlgorithm();
 	ExitCriterium fakeExitCriterium = Mockito.mock(ExitCriterium.class);
 	Mockito.doReturn(true).when(fakeExitCriterium).isFinishState(fakeStateNeighbour);
+	FakeLocalSearchAlgorithm fakeLocalSearchAlgorithm = createFakeLocalSearchAlgorithm(fakeExitCriterium);
 
-	State exitState = fakeLocalSearchAlgorithm.run(fakeStartState, fakeExitCriterium);
+	State exitState = fakeLocalSearchAlgorithm.run(fakeStartState);
 
 	assertTrue(fakeStateNeighbour == exitState);
     }
@@ -84,11 +82,11 @@ public class LocalSearchAlgorithmTest {
     @Test
     public void run_WithStartStateNotExitStateButHavingNoNeighbour_ReturnsStartState() {
 	State fakeStartState = createFakeState();
-	FakeLocalSearchAlgorithm fakeLocalSearchAlgorithm = createFakeLocalSearchAlgorithm();
 	ExitCriterium fakeExitCriterium = Mockito.mock(ExitCriterium.class);
 	Mockito.doReturn(false).when(fakeExitCriterium).isFinishState(fakeStartState);
+	FakeLocalSearchAlgorithm fakeLocalSearchAlgorithm = createFakeLocalSearchAlgorithm(fakeExitCriterium);
 
-	State exitState = fakeLocalSearchAlgorithm.run(fakeStartState, fakeExitCriterium);
+	State exitState = fakeLocalSearchAlgorithm.run(fakeStartState);
 
 	assertTrue(fakeStartState == exitState);
     }
@@ -96,11 +94,11 @@ public class LocalSearchAlgorithmTest {
     @Test
     public void run_OnCall_CallsExitCriteriumReset() {
 	State fakeStartState = createFakeState();
-	FakeLocalSearchAlgorithm fakeLocalSearchAlgorithm = createFakeLocalSearchAlgorithm();
 	ExitCriterium fakeExitCriterium = Mockito.mock(ExitCriterium.class);
 	Mockito.doReturn(false).when(fakeExitCriterium).isFinishState(fakeStartState);
+	FakeLocalSearchAlgorithm fakeLocalSearchAlgorithm = createFakeLocalSearchAlgorithm(fakeExitCriterium);
 
-	State exitState = fakeLocalSearchAlgorithm.run(fakeStartState, fakeExitCriterium);
+	State exitState = fakeLocalSearchAlgorithm.run(fakeStartState);
 
 	Mockito.verify(fakeExitCriterium, Mockito.times(1)).reset();
     }

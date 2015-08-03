@@ -5,6 +5,7 @@
  */
 package com.oberger.kruppelbotsimulation.localsearch;
 
+import com.oberger.kruppelbotsimulation.localsearch.exitcriterium.ExitCriterium;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -24,8 +25,8 @@ public class HillClimbingTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private HillClimbing createHillClimbing() {
-	return new HillClimbing();
+    private HillClimbing createHillClimbing(ExitCriterium exitCriterium) {
+	return new HillClimbing(exitCriterium);
     }
 
     private List<State> createStateList(State... states) {
@@ -41,7 +42,7 @@ public class HillClimbingTest {
 
     @Test
     public void getNextState_OnPassNull_ThrowsIllegalArgumentException() {
-	HillClimbing hillClimbing = createHillClimbing();
+	HillClimbing hillClimbing = createHillClimbing(Mockito.mock(ExitCriterium.class));
 
 	exception.expect(IllegalArgumentException.class);
 
@@ -50,7 +51,7 @@ public class HillClimbingTest {
 
     @Test
     public void getNextState_OnPassEmptyList_ReturnsNull() {
-	HillClimbing hillClimbing = createHillClimbing();
+	HillClimbing hillClimbing = createHillClimbing(Mockito.mock(ExitCriterium.class));
 
 	State resultNextState = hillClimbing.getNextState(Collections.<State>emptyList());
 
@@ -59,7 +60,7 @@ public class HillClimbingTest {
 
     @Test
     public void getNextState_OnPassTwoStates_ReturnsStateWithHigherScore() {
-	HillClimbing hillClimbing = createHillClimbing();
+	HillClimbing hillClimbing = createHillClimbing(Mockito.mock(ExitCriterium.class));
 	State fakeNeighbourLowScore = createFakeNeighbour(0.3f);
 	State fakeNeighbourHighScore = createFakeNeighbour(0.8f);
 	List<State> fakeNeighbours = createStateList(fakeNeighbourLowScore, fakeNeighbourHighScore);

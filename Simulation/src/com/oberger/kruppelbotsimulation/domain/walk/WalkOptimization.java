@@ -37,10 +37,10 @@ public class WalkOptimization implements Runnable {
 	IEvaluator<WalkState> evaluator = new EvaluatorFactory(settings).createEvaluator();
 	IManipulator<WalkState> manipulator = new ManipulatorFactory(settings).createManipulator();
 	State<WalkState> initState = new State<>(initInnerState, evaluator, manipulator);
-	LocalSearchAlgorithm<WalkState> localSearchAlgo = new HillClimbing<>();
+	LocalSearchAlgorithm<WalkState> localSearchAlgo = new HillClimbing<>(new LocalMaximumExitCriterium());
 	System.out.println("Initial Score : " + initState.getScore());
 
-	State<WalkState> finalState = localSearchAlgo.run(initState, new LocalMaximumExitCriterium());
+	State<WalkState> finalState = localSearchAlgo.run(initState);
 	new LegPolyFunctionsCsvWriter().write(finalState.getInnerState().getLegFunctions(), "out.csv");
 
 	System.out.println("Done.");
