@@ -6,6 +6,7 @@ import com.oberger.kruppelbotsimulation.localsearch.State;
 import com.oberger.kruppelbotsimulation.localsearch.evaluator.IEvaluator;
 import com.oberger.kruppelbotsimulation.localsearch.exitcriterium.LocalMaximumExitCriterium;
 import com.oberger.kruppelbotsimulation.localsearch.manipulator.IManipulator;
+import com.oberger.kruppelbotsimulation.util.LegPolyFunctionCppCodeWriter;
 import com.oberger.kruppelbotsimulation.util.LegPolyFunctionsCsvWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,7 +42,8 @@ public class WalkOptimization implements Runnable {
 	System.out.println("Initial Score : " + initState.getScore());
 
 	State<WalkState> finalState = localSearchAlgo.run(initState);
-	new LegPolyFunctionsCsvWriter().write(finalState.getInnerState().getLegFunctions(), "out.csv");
+	new LegPolyFunctionsCsvWriter().write(finalState.getInnerState().getLegFunctions(), "out");
+	new LegPolyFunctionCppCodeWriter().write(finalState.getInnerState().getLegFunctions(), "LegPolyFunctionFactory");
 
 	System.out.println("Done.");
 	System.out.println("Final Score : " + finalState.getScore());

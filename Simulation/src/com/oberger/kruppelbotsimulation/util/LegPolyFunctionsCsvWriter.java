@@ -18,7 +18,7 @@ import java.util.List;
 public class LegPolyFunctionsCsvWriter {
 
     public void write(ILegPolyFunctions legFunctions, String filename) {
-	try (FileWriter writer = new FileWriter(filename)) {
+	try (FileWriter writer = new FileWriter(filename + ".csv")) {
 
 	    for (LegPosition position : LegPosition.values()) {
 		List<IReadOnlyVector2> polygons = legFunctions.getLegFunction(position).getPolygons();
