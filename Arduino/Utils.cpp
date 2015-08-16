@@ -1,4 +1,4 @@
-unsigned int interpolate(double xStart, double yStart, double xEnd, double yEnd, double t)
+int interpolate(double xStart, double yStart, double xEnd, double yEnd, double t)
 {
     double a = (yEnd - yStart) / (xEnd - xStart);
     double c = yEnd - a * xEnd;
@@ -6,7 +6,7 @@ unsigned int interpolate(double xStart, double yStart, double xEnd, double yEnd,
     return a * t + c;
 }
 
-unsigned int interpolateSquare(double xPoint, double yPoint, double xVertex, double yVertex, double t)
+int interpolateSquare(double xPoint, double yPoint, double xVertex, double yVertex, double t)
 {
     double a = (yPoint - yVertex) / ((xPoint - xVertex) * (xPoint - xVertex));
     double bracket = t - xVertex;
@@ -14,9 +14,9 @@ unsigned int interpolateSquare(double xPoint, double yPoint, double xVertex, dou
     return a * bracket * bracket + yVertex;
 }
 
-unsigned int max(unsigned int i1, unsigned int i2)
+int max(unsigned int i1, unsigned int i2)
 {
-    unsigned int max = i1;
+    int max = i1;
     if (i2 > i1)
     {
         max = i2;

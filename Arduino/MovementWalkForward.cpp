@@ -2,12 +2,26 @@
 
 MovementWalkForward::MovementWalkForward()
 {
+	PERIOD_IN_MS = 3000;
+	REPOSITION_TIME_IN_MS = 428;
+	STEP_SIZE_Y_IN_DEGREES = 120;
+	Vector2_t* polygonsBr = new Vector2_t[2];
 
+	polygonsBr[0].x = 0;
+	polygonsBr[0].y = 90;
+
+	polygonsBr[0].x = 0;
+	polygonsBr[0].y = 90;
+
+	fBr = new WrappedPolyFunction(polygonsBr, 2, 3000, 0);
 }
 
 MovementWalkForward::~MovementWalkForward()
 {
-
+	delete fBr;
+	delete fBl;
+	delete fFr;
+	delete fFl;
 }
 
 LegState MovementWalkForward::getLegStateBr(const unsigned int execTimeElapsedInMs)
