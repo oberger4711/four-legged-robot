@@ -16,6 +16,8 @@ private:
 public:
 	WrappedPolyFunction(Vector2_t* polygons, const int polygonsLength, const unsigned int period, const unsigned int offsetX);
 	int getY(const int x);
+	unsigned int getPeriod();
+	unsigned int getOffsetX();
 	~WrappedPolyFunction();
 };
 

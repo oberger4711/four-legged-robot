@@ -49,3 +49,13 @@ int WrappedPolyFunction::wrapOntoPeriod(int x)
 
 	return mappedX;
 }
+
+unsigned int WrappedPolyFunction::getPeriod()
+{
+	return period;
+}
+
+unsigned int WrappedPolyFunction::getOffsetX()
+{
+	return offsetX;
+}
