@@ -23,8 +23,11 @@ public class LegPolyFunctionCppCodeWriter {
 	    writer.append("#include \"" + filename + ".h\"\n");
 	    writer.append("\n");
 	    writeGetLegFunction(legFunctions, LegPosition.BR, writer);
+	    writer.append("\n");
 	    writeGetLegFunction(legFunctions, LegPosition.BL, writer);
+	    writer.append("\n");
 	    writeGetLegFunction(legFunctions, LegPosition.FR, writer);
+	    writer.append("\n");
 	    writeGetLegFunction(legFunctions, LegPosition.FL, writer);
 
 	    writer.flush();
@@ -34,7 +37,7 @@ public class LegPolyFunctionCppCodeWriter {
     }
 
     private void writeGetLegFunction(ILegPolyFunctions legFunctions, LegPosition position, FileWriter writer) throws IOException {
-	writer.append("LegPolyFunctionFactory::getPolyFunction" + position.toString().substring(0, 1).toUpperCase() + position.toString().substring(1, 2).toLowerCase() + "()\n");
+	writer.append("WrappedPolyFunction* LegPolyFunctionFactory::create" + position.toString().substring(0, 1).toUpperCase() + position.toString().substring(1, 2).toLowerCase() + "()\n");
 	writer.append("{\n");
 	writeGetLegFunctionBody(legFunctions, position, writer);
 	writer.append("}\n");
@@ -47,7 +50,7 @@ public class LegPolyFunctionCppCodeWriter {
 	for (int i = 0; i < polygons.size(); i++) {
 	    IReadOnlyVector2 polygon = polygons.get(i);
 	    writer.append("\t\n");
-	    writer.append("\tpolygons[" + i + "].x = " + (int) polygon.getX() + ";\n");
+	    writer.append("\tpolygons[" + i + "].x = " + (int) (polygon.getX() * 1000) + ";\n");
 	    writer.append("\tpolygons[" + i + "].y = " + (int) polygon.getY() + ";\n");
 	}
 	writer.append("\t\n");

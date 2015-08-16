@@ -4,6 +4,7 @@
 #include "Movement.h"
 #include "Utils.h"
 #include "WrappedPolyFunction.h"
+#include "LegPolyFunctionFactory.h"
 
 class MovementWalkForward : public Movement
 {
@@ -18,7 +19,6 @@ private:
     WrappedPolyFunction* fFl;
 
     unsigned int rotationX(const unsigned int execTimeElapsedInMs, const unsigned int indexFeet);
-    unsigned int rotationY(const unsigned int execTimeElapsedInMs, const unsigned int indexFeet);
 
 public:
     MovementWalkForward();
