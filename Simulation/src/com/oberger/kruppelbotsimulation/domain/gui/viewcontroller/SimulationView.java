@@ -16,6 +16,7 @@ import com.oberger.kruppelbotsimulation.util.Vector2;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -26,6 +27,8 @@ import javax.swing.JComponent;
  * @author oberger
  */
 public class SimulationView extends JComponent implements Observer {
+    
+    private final static int RADIUS_BALANCE_POINT = 7;
     
     private MvcModel model;
     
@@ -48,7 +51,8 @@ public class SimulationView extends JComponent implements Observer {
 	g2d.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
 	
 	if (model != null && model.getSimulationOrNull() != null) {
-	    model.getSimulationOrNull().getModel().getRoot().accept(new ISimObjectVisitor() {
+	    SimJoint root = model.getSimulationOrNull().getModel().getRoot();
+	    root.accept(new ISimObjectVisitor() {
 
 		@Override
 		public void visit(SimJoint joint) {
@@ -69,6 +73,7 @@ public class SimulationView extends JComponent implements Observer {
 		    // Draw SimJoint.
 		    Vector2 canvasPosition = mapGlobalPositionToCanvas(object.getGlobalPosition());
 		    // Connection to parent if any.
+		    g2d.setColor(Color.black);
 		    IParentSimObject parentOrNull = object.getParentOrNull();
 		    if (parentOrNull != null) {
 			IReadOnlyVector2 parentCanvasPosition = mapGlobalPositionToCanvas(parentOrNull.getGlobalPosition());
@@ -76,6 +81,10 @@ public class SimulationView extends JComponent implements Observer {
 		    }
 		}
 	    });
+	    // Draw balance point.
+	    g2d.setColor(Color.red);
+	    Vector2 canvasBalancePoint = mapGlobalPositionToCanvas(root.getGlobalBalancePoint().getPosition());
+	    g2d.fillOval((int)canvasBalancePoint.getX() - RADIUS_BALANCE_POINT / 2, (int)canvasBalancePoint.getY() - RADIUS_BALANCE_POINT / 2, RADIUS_BALANCE_POINT, RADIUS_BALANCE_POINT);
 	}
 	g2d.dispose();
     }
