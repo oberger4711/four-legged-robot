@@ -48,6 +48,7 @@ public abstract class SimObject {
 
 	globalRotation.set(parentGlobalRotation);
 	globalRotation.add(offsetRotation);
+	
 	globalPosition.set(parentGlobalPosition);
 	globalPosition.add(offsetPosition);
 	globalPosition.rotate(parentGlobalPosition, parentGlobalRotation.getRotationInDegreesCC());

@@ -31,7 +31,7 @@ public class Model {
 	servoBR.addChild(legBR);
 	root.addChild(servoBR);
 
-	servoBL = new SimJoint(new Vector2(-PLATFORM_WIDTH / 2, -PLATFORM_HEIGHT / 2f), new Rotation(0, true));
+	servoBL = new SimJoint(new Vector2(-PLATFORM_WIDTH / 2, -PLATFORM_HEIGHT / 2f), new Rotation(0, false));
 	legBL = new SimMass(new Vector2(-LEG_LENGTH, 0), new Weight(LEG_WEIGHT));
 	servoBL.addChild(legBL);
 	root.addChild(servoBL);
@@ -41,7 +41,7 @@ public class Model {
 	servoFR.addChild(legFR);
 	root.addChild(servoFR);
 
-	servoFL = new SimJoint(new Vector2(-PLATFORM_WIDTH / 2, PLATFORM_HEIGHT / 2f), new Rotation(0, true));
+	servoFL = new SimJoint(new Vector2(-PLATFORM_WIDTH / 2, PLATFORM_HEIGHT / 2f), new Rotation(0, false));
 	legFL = new SimMass(new Vector2(-LEG_LENGTH, 0), new Weight(LEG_WEIGHT));
 	servoFL.addChild(legFL);
 	root.addChild(servoFL);

@@ -132,7 +132,7 @@ public class SimObjectTest {
     }
 
     @Test
-    public void update_OnCall_SetsGlobalPositionAsRotatedSumOfGlobalParentPositionAndParentOffsetPosition() {
+    public void update_WithParentRotation90_SetsGlobalPositionAsRotatedSumOfGlobalParentPositionAndParentOffsetPosition() {
 	IParentSimObject parent = createFakeParentSimObject(new Vector2(2, 2), new Rotation(90, true));
 	FakeSimObject child = createFakeSimObject(new Vector2(1, 1), new Weight(), new Rotation(30, true));
 	child.setParentOrNull(parent);
@@ -140,6 +140,17 @@ public class SimObjectTest {
 	child.update();
 
 	assertEquals(new Vector2(1, 3), child.getGlobalPosition());
+    }
+    
+    @Test
+    public void update_WithParentRotation180_SetsGlobalPositionAsRotatedSumOfGlobalParentPositionAndParentOffsetPosition() {
+	IParentSimObject parent = createFakeParentSimObject(new Vector2(2, 2), new Rotation(180, true));
+	FakeSimObject child = createFakeSimObject(new Vector2(1, 1), new Weight(), new Rotation(30, true));
+	child.setParentOrNull(parent);
+
+	child.update();
+
+	assertEquals(new Vector2(1, 1), child.getGlobalPosition());
     }
 
     @Test

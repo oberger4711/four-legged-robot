@@ -3,19 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oberger.kruppelbotsimulation.domain.gui;
+package com.oberger.kruppelbotsimulation.domain.gui.viewcontroller;
 
+import com.oberger.kruppelbotsimulation.domain.gui.model.MvcModel;
 import com.oberger.kruppelbotsimulation.domain.simulation.Simulation;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  *
  * @author oberger
  */
-public class MainForm extends javax.swing.JFrame {
+public class MainForm extends javax.swing.JFrame implements Observer {
     
-    public MainForm(Simulation simulation) {
+    private MvcModel model;
+    
+    public MainForm(Simulation simulationOrNull) {
+	model = new MvcModel(simulationOrNull);
 	initComponents();
-	simulationView.setSimulation(simulation);
+	
+	simulationView.setModel(model);
+	model.addObserver(this);
+	update(model, null);
     }
 
     /**
@@ -28,7 +37,7 @@ public class MainForm extends javax.swing.JFrame {
     private void initComponents() {
 
         simulationPanel = new javax.swing.JPanel();
-        simulationView = new com.oberger.kruppelbotsimulation.domain.gui.SimulationView();
+        simulationView = new com.oberger.kruppelbotsimulation.domain.gui.viewcontroller.SimulationView();
         settingsPanel = new javax.swing.JPanel();
         frameSlider = new javax.swing.JSlider();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -51,13 +60,22 @@ public class MainForm extends javax.swing.JFrame {
         simulationPanelLayout.setVerticalGroup(
             simulationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(simulationPanelLayout.createSequentialGroup()
-                .addComponent(simulationView, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                .addComponent(simulationView, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         settingsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Settings"));
 
+        frameSlider.setMajorTickSpacing(100);
+        frameSlider.setMaximum(1000);
+        frameSlider.setPaintTicks(true);
+        frameSlider.setSnapToTicks(true);
         frameSlider.setEnabled(false);
+        frameSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                frameSliderStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout settingsPanelLayout = new javax.swing.GroupLayout(settingsPanel);
         settingsPanel.setLayout(settingsPanelLayout);
@@ -65,7 +83,7 @@ public class MainForm extends javax.swing.JFrame {
             settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(settingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(frameSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
+                .addComponent(frameSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                 .addContainerGap())
         );
         settingsPanelLayout.setVerticalGroup(
@@ -117,6 +135,22 @@ public class MainForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void frameSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_frameSliderStateChanged
+        model.setT(frameSlider.getValue());
+    }//GEN-LAST:event_frameSliderStateChanged
+
+    @Override
+    public final void update(Observable o, Object o1) {
+	frameSlider.setMaximum((int)(1000 * model.getTMax()));
+//	frameSlider.setValue((int)(1000 * model.getT()));
+	if (model.getSimulationOrNull() != null) {
+	    frameSlider.setEnabled(true);
+	}
+	else {
+	    frameSlider.setEnabled(false);
+	}
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSlider frameSlider;
     private javax.swing.JMenu jMenu1;
@@ -124,6 +158,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel settingsPanel;
     private javax.swing.JPanel simulationPanel;
-    private com.oberger.kruppelbotsimulation.domain.gui.SimulationView simulationView;
+    private com.oberger.kruppelbotsimulation.domain.gui.viewcontroller.SimulationView simulationView;
     // End of variables declaration//GEN-END:variables
+
 }

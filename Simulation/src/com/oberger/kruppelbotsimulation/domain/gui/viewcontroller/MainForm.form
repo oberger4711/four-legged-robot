@@ -90,14 +90,14 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="simulationView" pref="284" max="32767" attributes="0"/>
+                  <Component id="simulationView" pref="432" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="com.oberger.kruppelbotsimulation.domain.gui.SimulationView" name="simulationView">
+        <Container class="com.oberger.kruppelbotsimulation.domain.gui.viewcontroller.SimulationView" name="simulationView">
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
             <Property name="useNullLayout" type="boolean" value="true"/>
@@ -119,7 +119,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="frameSlider" pref="387" max="32767" attributes="0"/>
+                  <Component id="frameSlider" pref="322" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -136,8 +136,15 @@
       <SubComponents>
         <Component class="javax.swing.JSlider" name="frameSlider">
           <Properties>
+            <Property name="majorTickSpacing" type="int" value="100"/>
+            <Property name="maximum" type="int" value="1000"/>
+            <Property name="paintTicks" type="boolean" value="true"/>
+            <Property name="snapToTicks" type="boolean" value="true"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="frameSliderStateChanged"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

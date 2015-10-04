@@ -5,6 +5,7 @@
  */
 package com.oberger.kruppelbotsimulation.domain.gui;
 
+import com.oberger.kruppelbotsimulation.domain.gui.viewcontroller.MainForm;
 import com.oberger.kruppelbotsimulation.domain.simulation.Simulation;
 
 /**

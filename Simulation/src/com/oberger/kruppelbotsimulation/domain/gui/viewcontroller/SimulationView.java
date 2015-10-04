@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oberger.kruppelbotsimulation.domain.gui;
+package com.oberger.kruppelbotsimulation.domain.gui.viewcontroller;
 
+import com.oberger.kruppelbotsimulation.domain.gui.model.MvcModel;
+import com.oberger.kruppelbotsimulation.domain.simulation.Model;
 import com.oberger.kruppelbotsimulation.domain.simulation.Simulation;
 import com.oberger.kruppelbotsimulation.model.IParentSimObject;
 import com.oberger.kruppelbotsimulation.model.ISimObjectVisitor;
@@ -17,21 +19,19 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JComponent;
 
 /**
  *
  * @author oberger
  */
-public class SimulationView extends JComponent {
+public class SimulationView extends JComponent implements Observer {
     
-    private Simulation simulationOrNull;
-    private float t;
-    private float zoomFactor;
+    private MvcModel model;
     
     public SimulationView() {
-	t = 0;
-	zoomFactor = 10;
     }
 
     @Override
@@ -49,8 +49,8 @@ public class SimulationView extends JComponent {
 	g2d.setColor(Color.black);
 	g2d.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
 	
-	if (simulationOrNull != null) {
-	    simulationOrNull.getModel().getRoot().accept(new ISimObjectVisitor() {
+	if (model != null && model.getSimulationOrNull() != null) {
+	    model.getSimulationOrNull().getModel().getRoot().accept(new ISimObjectVisitor() {
 
 		@Override
 		public void visit(SimJoint joint) {
@@ -83,19 +83,22 @@ public class SimulationView extends JComponent {
     }
 
     private Vector2 mapGlobalPositionToCanvas(IReadOnlyVector2 globalPosition) {
-	return new Vector2((getWidth() / 2f) + globalPosition.getX() * zoomFactor, (getHeight() / 2f) + globalPosition.getY() * zoomFactor);
+	return new Vector2((getWidth() / 2f) + globalPosition.getX() * model.getScaleFactor(), (getHeight() / 2f) + globalPosition.getY() * model.getScaleFactor());
     }
-    
-    public void setSimulation(Simulation simulation) {
-	this.simulationOrNull = simulation;
-	// TODO: check t
+
+    @Override
+    public void update(Observable o, Object o1) {
 	revalidate();
 	repaint();
     }
 
-    public void setT(float t) {
-	this.t = t;
-	// TODO: redraw
+    public void setModel(MvcModel model) {
+	if (this.model != null) {
+	    this.model.deleteObserver(this);
+	}
+	this.model = model;
+	model.addObserver(this);
+	update(model, null);
     }
     
 }

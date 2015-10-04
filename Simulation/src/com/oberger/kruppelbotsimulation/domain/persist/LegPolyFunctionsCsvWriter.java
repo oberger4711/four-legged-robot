@@ -25,7 +25,7 @@ public class LegPolyFunctionsCsvWriter {
 		List<IReadOnlyVector2> polygons = legFunctions.getLegFunction(position).getPolygons();
 		
 		writer.append(position.toString() + "\n");
-		writer.append("x,y\n");
+		writer.append("t,rotation\n");
 		
 		for (IReadOnlyVector2 polygon : polygons) {
 		    writer.append(Float.toString(polygon.getX()));
