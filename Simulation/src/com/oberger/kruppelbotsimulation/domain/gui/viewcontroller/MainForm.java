@@ -10,7 +10,7 @@ import com.oberger.kruppelbotsimulation.domain.persist.LegPolyFunctionsCsvWriter
 import com.oberger.kruppelbotsimulation.domain.persist.SimulationSerializer;
 import com.oberger.kruppelbotsimulation.domain.simulation.Simulation;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
@@ -25,6 +25,9 @@ import javax.swing.Timer;
 public class MainForm extends javax.swing.JFrame implements Observer {
     
     private final static int PLAY_UPDATE_INTERVAL = 100;
+    private final static String DEFAULT_SIM_DIRECTORY = "simulations";
+    private final static String DEFAULT_CSV_DIRECTORY = "csvs";
+    private final static String DEFAULT_CPP_FILENAME = "../Arduino/LegPolyFunctionFactory";
 
     private MvcModel model;
     private Timer playTimer;
@@ -218,6 +221,7 @@ public class MainForm extends javax.swing.JFrame implements Observer {
     private void saveSimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveSimButtonActionPerformed
 	if (model.getSimulationOrNull() != null) {
 	    JFileChooser fc = new JFileChooser();
+	    fc.setCurrentDirectory(new File(DEFAULT_SIM_DIRECTORY));
 	    int ret = fc.showSaveDialog(this);
 	    if (ret == JFileChooser.APPROVE_OPTION) {
 		String filename = fc.getSelectedFile().getAbsolutePath();
@@ -233,6 +237,7 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 
     private void openSimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openSimButtonActionPerformed
 	JFileChooser fc = new JFileChooser();
+	fc.setCurrentDirectory(new File(DEFAULT_SIM_DIRECTORY));
 	int ret = fc.showOpenDialog(this);
 	if (ret == JFileChooser.APPROVE_OPTION) {
 	    String filename = fc.getSelectedFile().getAbsolutePath();
@@ -249,6 +254,7 @@ public class MainForm extends javax.swing.JFrame implements Observer {
     private void exportCsvButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportCsvButtonActionPerformed
 	if (model.getSimulationOrNull() != null) {
 	    JFileChooser fc = new JFileChooser();
+	    fc.setCurrentDirectory(new File(DEFAULT_CSV_DIRECTORY));
 	    int ret = fc.showSaveDialog(this);
 	    if (ret == JFileChooser.APPROVE_OPTION) {
 		String filename = fc.getSelectedFile().getAbsolutePath();
