@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author oberger
  */
-public class ConcatPolyFunction extends WrappedPolyFunction implements Serializable {
+public class ConcatPolyFunction extends WrappedPolyFunction {
 
     private List<ConcatPart> parts = null;
 

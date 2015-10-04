@@ -2,10 +2,11 @@ package com.oberger.kruppelbotsimulation.function;
 
 import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import com.oberger.kruppelbotsimulation.util.Vector2;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Interpolator {
+public abstract class Interpolator implements Serializable {
 
     public float getValue(List<IReadOnlyVector2> polygons, float x) {
 	if (polygons == null) {

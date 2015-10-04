@@ -34,6 +34,9 @@ public class MvcModel extends Observable {
 
     public void setSimulationOrNull(Simulation simulationOrNull) {
 	this.simulationOrNull = simulationOrNull;
+	if (simulationOrNull != null) {
+	    tMax = simulationOrNull.getLegFunctions().getLegFunctionBL().getPeriod();
+	}
 	setChanged();
 	notifyObservers();
     }

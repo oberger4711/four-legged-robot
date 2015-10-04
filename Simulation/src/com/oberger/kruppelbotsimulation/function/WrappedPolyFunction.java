@@ -1,6 +1,7 @@
 package com.oberger.kruppelbotsimulation.function;
 
 import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,12 +10,12 @@ import java.util.List;
  *
  * @author ole
  */
-public class WrappedPolyFunction implements IPolyFunction {
+public class WrappedPolyFunction implements IPolyFunction, Serializable {
 
     private IPolyFunction decorated = null;
     private float period;
     private float offsetX;
-
+    
     public WrappedPolyFunction(IPolyFunction decorated, float offsetX) {
 	this(decorated, decorated.getPolygons().get(decorated.getPolygons().size() - 1).getX(), offsetX);
     }

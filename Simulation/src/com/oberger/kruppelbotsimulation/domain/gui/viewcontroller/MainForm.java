@@ -157,14 +157,26 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 		try {
 		    new SimulationSerializer().serialize(model.getSimulationOrNull(), filename);
 		} catch (IOException e) {
-		    JOptionPane.showMessageDialog(this, "Saving failed.", e.getLocalizedMessage(), JOptionPane.ERROR_MESSAGE);
+		    JOptionPane.showMessageDialog(this, e.getMessage(), "Saving failed.", JOptionPane.ERROR_MESSAGE);
+		    e.printStackTrace();
 		}
 	    }
 	}
     }//GEN-LAST:event_saveSimButtonActionPerformed
 
     private void openSimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openSimButtonActionPerformed
-	// TODO add your handling code here:
+	JFileChooser fc = new JFileChooser();
+	int ret = fc.showOpenDialog(this);
+	if (ret == JFileChooser.APPROVE_OPTION) {
+	    String filename = fc.getSelectedFile().getAbsolutePath();
+	    try {
+		Simulation loaded = new SimulationSerializer().deserialize(filename);
+		model.setSimulationOrNull(loaded);
+	    } catch (IOException | ClassNotFoundException e) {
+		JOptionPane.showMessageDialog(this, e.getMessage(), "Loading failed.", JOptionPane.ERROR_MESSAGE);
+		e.printStackTrace();
+	    }
+	}
     }//GEN-LAST:event_openSimButtonActionPerformed
 
     @Override
