@@ -20,10 +20,10 @@ public class InitWalkStateSettings {
     public final int numberOfPolygonsForward;
     public final int numberOfPolygonsBackward;
     public final LegOrder legOrder;
-    public final int polygonManipulationStep;
+    public final float polygonManipulationStep;
     public final float polygonManipulationMaxGradient;
 
-    public InitWalkStateSettings(float periodInS, float repositionTimeInS, float angleStandYInDegrees, float stepSizeYInDegrees, int numberOfPolygonsForward, int numberOfPolygonsBackward, LegOrder legOrder, int polygonManipulationStep, float polygonManipulationMaxGradient) {
+    public InitWalkStateSettings(float periodInS, float repositionTimeInS, float angleStandYInDegrees, float stepSizeYInDegrees, int numberOfPolygonsForward, int numberOfPolygonsBackward, LegOrder legOrder, float polygonManipulationStep, float polygonManipulationMaxGradient) {
 	if (legOrder == null) {
 	    throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
 	}

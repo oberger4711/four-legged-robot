@@ -22,6 +22,15 @@ void CommandMove::onUpdate(unsigned int execTimeElapsedInMs, PeripheryContainer&
         periphery.legBL->setLegState(movement->getLegStateBl(execTimeElapsedInMs));
         periphery.legFR->setLegState(movement->getLegStateFr(execTimeElapsedInMs));
         periphery.legFL->setLegState(movement->getLegStateFl(execTimeElapsedInMs));
+
+	Serial.print(periphery.legBR->getCurrentLegState().getRotationY(), DEC);
+	Serial.print("--");
+	Serial.print(periphery.legBL->getCurrentLegState().getRotationY(), DEC);
+	Serial.print("--");
+	Serial.print(periphery.legFL->getCurrentLegState().getRotationY(), DEC);
+	Serial.print("--");
+	Serial.print(periphery.legFR->getCurrentLegState().getRotationY(), DEC);
+	Serial.println();
     }
     else
     {

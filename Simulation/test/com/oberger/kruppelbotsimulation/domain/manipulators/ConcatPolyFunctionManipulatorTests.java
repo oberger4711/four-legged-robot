@@ -6,13 +6,16 @@
 package com.oberger.kruppelbotsimulation.domain.manipulators;
 
 import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ConcatPart;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ConcatPolyFunction;
 import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.EBalanceMode;
 import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.EManipulatable;
 import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.PartialPolyFunction;
+import com.oberger.kruppelbotsimulation.function.LinearInterpolator;
 import com.oberger.kruppelbotsimulation.localsearch.manipulator.IManipulator;
 import com.oberger.kruppelbotsimulation.util.Vector2;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -50,17 +53,21 @@ public class ConcatPolyFunctionManipulatorTests {
     }
 
     @Test
-    public void createNeighbours_OnPassFunctionWithOneDynamicPart_ReturnsFunctionWithManipulatedPart() {
+    public void createNeighbours_OnPassFunctionWithOneDynamicPart_ReturnsFunctionWithSameOffset() {
 	PartialPolyFunction original = new PartialPolyFunction(new Vector2(0, 0), Arrays.asList(new Vector2(1, 1)), new Vector2(2, 2));
 	ConcatPart originalPart = new ConcatPart(original, EManipulatable.DYNAMIC, EBalanceMode.IRRELEVANT);
+	ConcatPolyFunction originalFunction = new ConcatPolyFunction(new LinearInterpolator(), Arrays.asList(originalPart), 1);
 
-	PartialPolyFunction neighbour = new PartialPolyFunction(new Vector2(0, 0), Arrays.asList(new Vector2(1, 2)), new Vector2(2, 2));
+	PartialPolyFunction neighbour = new PartialPolyFunction(Arrays.asList(new Vector2(0, 0), new Vector2(1, 2), new Vector2(2, 2)));
 	IManipulator<PartialPolyFunction> fakePartialManipulator = (IManipulator<PartialPolyFunction>) Mockito.mock(IManipulator.class);
 	Mockito.doReturn(Arrays.asList(neighbour)).when(fakePartialManipulator).createNeighbours(original);
 	ConcatPolyFunctionManipulator testee = createTestee(fakePartialManipulator);
 
-	Assert.fail();
-	// testee.createNeighbours(originalPart);
+	List<ConcatPolyFunction> neighbours = testee.createNeighbours(originalFunction);
+	
+	Assert.assertEquals(1, neighbours.get(0).getOffsetX(), 0.0001f);
     }
+    
+    // TODO: Tests for manipulation.
 
 }

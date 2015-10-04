@@ -9,6 +9,7 @@ import com.oberger.kruppelbotsimulation.localsearch.State;
 import com.oberger.kruppelbotsimulation.localsearch.evaluator.IEvaluator;
 import com.oberger.kruppelbotsimulation.localsearch.exitcriterium.LocalMaximumExitCriterium;
 import com.oberger.kruppelbotsimulation.localsearch.manipulator.IManipulator;
+import com.oberger.kruppelbotsimulation.util.LegPolyFunctionCppCodeWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -43,10 +44,13 @@ public class WalkOptimization implements Runnable {
 	State<WalkState> initState = new State<>(initInnerState, evaluator, manipulator);
 	//new GuiWrapper().show(new Simulation(initState.getInnerState().getLegFunctions(), initState.getInnerState().getModel()));
 	
-	LocalSearchAlgorithm<WalkState> localSearchAlgo = new HillClimbing<>();
+	LocalSearchAlgorithm<WalkState> localSearchAlgo = new HillClimbing<>(new LocalMaximumExitCriterium());
 	System.out.println("Initial Score : " + initState.getScore());
 
-	State<WalkState> finalState = localSearchAlgo.run(initState, new LocalMaximumExitCriterium());
+	State<WalkState> finalState = localSearchAlgo.run(initState);
+	new LegPolyFunctionCppCodeWriter().write(finalState.getInnerState().getLegFunctions(), "LegPolyFunctionFactory");
+
+	System.out.println("Done.");
 	System.out.println("Final Score : " + finalState.getScore());
 	
 	System.out.println("Starting GUI...");

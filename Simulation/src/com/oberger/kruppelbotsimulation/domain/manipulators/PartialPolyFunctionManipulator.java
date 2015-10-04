@@ -1,13 +1,21 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.oberger.kruppelbotsimulation.domain.manipulators;
 
 import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.PartialPolyFunction;
 import com.oberger.kruppelbotsimulation.localsearch.manipulator.IManipulator;
 import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
-import com.oberger.kruppelbotsimulation.util.Vector2;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PartialPolyFunctionManipulator implements IManipulator<PartialPolyFunction> {
+/**
+ *
+ * @author oberger
+ */
+public abstract class PartialPolyFunctionManipulator implements IManipulator<PartialPolyFunction> {
 
     private float manipulationStep;
 
@@ -20,7 +28,6 @@ public class PartialPolyFunctionManipulator implements IManipulator<PartialPolyF
 	if (originalInnerState == null) {
 	    throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
 	}
-
 	List<PartialPolyFunction> neighbours = new LinkedList<>();
 	for (int i = 0; i < originalInnerState.getInner().size(); i++) {
 	    List<IReadOnlyVector2> manipulatedInner = new LinkedList<>(originalInnerState.getInner());
@@ -38,26 +45,17 @@ public class PartialPolyFunctionManipulator implements IManipulator<PartialPolyF
 	    } else {
 		nextPolygon = manipulatedInner.get(i + 1);
 	    }
-
-	    IReadOnlyVector2 manipulatedPolygonOrNull = manipulatePolygon(previousPolygon, polygonToManipulate, nextPolygon);
+	    IReadOnlyVector2 manipulatedPolygonOrNull = manipulatePolygonOrNull(previousPolygon, polygonToManipulate, nextPolygon, manipulationStep);
 	    if (manipulatedPolygonOrNull != null) {
 		manipulatedInner.remove(i);
 		manipulatedInner.add(i, manipulatedPolygonOrNull);
-
 		PartialPolyFunction manipulatedFunction = new PartialPolyFunction(originalInnerState.getFirst(), manipulatedInner, originalInnerState.getLast());
 		neighbours.add(manipulatedFunction);
 	    }
 	}
-
 	return neighbours;
     }
 
-    private IReadOnlyVector2 manipulatePolygon(IReadOnlyVector2 previousPolygon, IReadOnlyVector2 polygonToManipulate, IReadOnlyVector2 nextPolygon) {
-	float newX = polygonToManipulate.getX();
-	float newY = polygonToManipulate.getY() + manipulationStep;
-	IReadOnlyVector2 manipulatedVectorOrNull = new Vector2(newX, newY);
-
-	return manipulatedVectorOrNull;
-    }
+    protected abstract IReadOnlyVector2 manipulatePolygonOrNull(IReadOnlyVector2 polygonBefore, IReadOnlyVector2 polygonToManipulate, IReadOnlyVector2 polygonAfter, float manipulationStep);
 
 }

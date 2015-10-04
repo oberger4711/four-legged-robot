@@ -88,8 +88,8 @@ public class InitWalkStateSettingsParser {
 	throw new IllegalArgumentException("Invalid leg position. Must be one of " + Arrays.toString(LegPosition.values()) + " but was " + value + ".");
     }
     
-    private int parsePolygonManipulationStep(Properties properties) throws NumberFormatException {
-	return Integer.parseInt(properties.getProperty(KEY_POLYGON_MANIPULATION_STEP));
+    private float parsePolygonManipulationStep(Properties properties) throws NumberFormatException {
+	return Float.parseFloat(properties.getProperty(KEY_POLYGON_MANIPULATION_STEP));
     }
     
     private float parsePolygonManipulationMaxGradient(Properties properties) throws NumberFormatException {

@@ -44,7 +44,7 @@ public class ConcatPolyFunctionManipulator implements IManipulator<ConcatPolyFun
 		    List<ConcatPart> parts = new ArrayList<>(concatFunction.getParts());
 		    parts.remove(i);
 		    parts.add(i, new ConcatPart(manipulatedPartialFunction, partToManipulate.getManipulatable(), partToManipulate.getBalanceMode()));
-		    ConcatPolyFunction manipulatedConcatFunction = new ConcatPolyFunction(concatFunction.getInterpolator(), parts, concatFunction.getPeriod(), concatFunction.getPeriod());
+		    ConcatPolyFunction manipulatedConcatFunction = new ConcatPolyFunction(concatFunction.getInterpolator(), parts, concatFunction.getPeriod(), concatFunction.getOffsetX());
 		    neighbours.add(manipulatedConcatFunction);
 		}
 	    }

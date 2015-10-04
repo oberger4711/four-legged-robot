@@ -13,21 +13,18 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  *
- * @author ole
+ * @author oberger
  */
-@RunWith(MockitoJUnitRunner.class)
-public class PartialPolyFunctionManipulatorTest {
+public class PartialPolyFunctionManipulatorXTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private PartialPolyFunctionManipulator createTestee(float manipulationStep) {
-	return new PartialPolyFunctionManipulator(manipulationStep);
+    private PartialPolyFunctionManipulatorX createTestee(float manipulationStep) {
+	return new PartialPolyFunctionManipulatorX(manipulationStep);
     }
 
     private PartialPolyFunction createPartialPolyFunction(Vector2... polygons) {
@@ -36,7 +33,7 @@ public class PartialPolyFunctionManipulatorTest {
 
     @Test
     public void manipulate_OnPassNull_ThrowsIllegalArgumentException() {
-	PartialPolyFunctionManipulator testee = createTestee(1);
+	PartialPolyFunctionManipulatorX testee = createTestee(1);
 
 	exception.expect(IllegalArgumentException.class);
 
@@ -45,13 +42,23 @@ public class PartialPolyFunctionManipulatorTest {
 
     @Test
     public void manipulate_OnCall_Steps() {
-	PartialPolyFunctionManipulator testee = createTestee(1);
+	PartialPolyFunctionManipulatorX testee = createTestee(0.5f);
 	PartialPolyFunction fakeFunction = createPartialPolyFunction(new Vector2(0, 0), new Vector2(1, 0), new Vector2(2, 0), new Vector2(3, 0));
 
 	List<PartialPolyFunction> manipulatedFunctions = testee.createNeighbours(fakeFunction);
 
-	assertEquals(Arrays.asList(new Vector2(1, 1), new Vector2(2, 0)), manipulatedFunctions.get(0).getInner());
-	assertEquals(Arrays.asList(new Vector2(1, 0), new Vector2(2, 1)), manipulatedFunctions.get(1).getInner());
+	assertEquals(Arrays.asList(new Vector2(1.5f, 0), new Vector2(2, 0)), manipulatedFunctions.get(0).getInner());
+	assertEquals(Arrays.asList(new Vector2(1, 0), new Vector2(2.5f, 0)), manipulatedFunctions.get(1).getInner());
+    }
+    
+    @Test
+    public void manipulate_WouldOvertakeNextPolygon_StepsOnlyIfNotExceeding() {
+	PartialPolyFunctionManipulatorX testee = createTestee(2);
+	PartialPolyFunction fakeFunction = createPartialPolyFunction(new Vector2(0, 0), new Vector2(1, 0), new Vector2(2, 0), new Vector2(5, 0));
+
+	List<PartialPolyFunction> manipulatedFunctions = testee.createNeighbours(fakeFunction);
+
+	assertEquals(Arrays.asList(new Vector2(1, 0), new Vector2(4, 0)), manipulatedFunctions.get(0).getInner());
     }
 
 }

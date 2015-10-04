@@ -22,7 +22,7 @@ public class InitWalkStateSettingsTest {
     public void constructor_OnPassLegOrderNull_ThrowsIllegalArgumentException() {
 	exception.expect(IllegalArgumentException.class);
 
-	new InitWalkStateSettings(0f, 0f, 0f, 0f, 0, 0, null, 0, 0f);
+	new InitWalkStateSettings(0f, 0f, 0f, 0f, 0, 0, null, 0f, 0f);
     }
 
 }

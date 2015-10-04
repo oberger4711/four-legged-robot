@@ -87,46 +87,48 @@ void loop()
 	CommandMove cmdStandUp(periphery, mvStandUp);
 	CommandMove cmdLayDown(periphery, mvLayDown);
 
-    delay(5000);
+	delay(5000);
 	cmdPrint.prepareExecution();
 	cmdPrint.update();
 
 	executeCommand(cmdStandUp);
-	delay(200);
+	delay(2000);
 	
 	for (int i = 0; i < 6; i++)
-    {
-        executeCommand(cmdWalkForward);
-    }
-    delay(200);
+	{
+		executeCommand(cmdWalkForward);
+	}
+	/*
+	delay(200);
 
-    for (int i = 0; i < 4; i++)
-    {
-        executeCommand(cmdTurnLeft);
-    }
-    delay(200);
-    
-    for (int i = 0; i < 4; i++)
-    {
-        executeCommand(cmdTurnRight);
-    }
-    delay(200);
-    
-    for (int i = 0; i < 2; i++)
-    {
-        executeCommand(cmdWalkBackward);
-    }
-    delay(200);
-    
-    executeCommand(cmdLayDown);
-    Serial.println("End of program.");
-    
-    delete mvLayDown;
-    delete mvStandUp;
-    delete mvTurnRight;
-    delete mvTurnLeft;
-    delete mvWalkBackward;
-    delete mvWalkForward;
-    
+	for (int i = 0; i < 4; i++)
+	{
+		executeCommand(cmdTurnLeft);
+	}
+	delay(200);
+
+	for (int i = 0; i < 4; i++)
+	{
+		executeCommand(cmdTurnRight);
+	}
+	delay(200);
+
+	for (int i = 0; i < 2; i++)
+	{
+		executeCommand(cmdWalkBackward);
+	}
+	delay(200);
+	*/
+
+	executeCommand(cmdLayDown);
+	Serial.println("End of program.");
+
+	delete mvLayDown;
+	delete mvStandUp;
+	delete mvTurnRight;
+	delete mvTurnLeft;
+	delete mvWalkBackward;
+	delete mvWalkForward;
+
 	while (true);
 }

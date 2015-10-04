@@ -2,37 +2,47 @@
 
 MovementWalkForward::MovementWalkForward()
 {
+	PERIOD_IN_MS = 3000;
+	REPOSITION_TIME_IN_MS = 428;
 
+	LegPolyFunctionFactory factory;
+	fBr = factory.createBr();
+	fBl = factory.createBl();
+	fFr = factory.createFr();
+	fFl = factory.createFl();
 }
 
 MovementWalkForward::~MovementWalkForward()
 {
-
+	delete fBr;
+	delete fBl;
+	delete fFr;
+	delete fFl;
 }
 
 LegState MovementWalkForward::getLegStateBr(const unsigned int execTimeElapsedInMs)
 {
-    return LegState(rotationX(execTimeElapsedInMs, 0), rotationY(execTimeElapsedInMs, 0));
+    return LegState(rotationX(execTimeElapsedInMs, 0), fBr->getY(execTimeElapsedInMs));
 }
 
 LegState MovementWalkForward::getLegStateFl(const unsigned int execTimeElapsedInMs)
 {
-    return LegState(rotationX(execTimeElapsedInMs, 1), rotationY(execTimeElapsedInMs, 1));
+    return LegState(rotationX(execTimeElapsedInMs, 1), fFl->getY(execTimeElapsedInMs));
 }
 
 LegState MovementWalkForward::getLegStateBl(const unsigned int execTimeElapsedInMs)
 {
-    return LegState(rotationX(execTimeElapsedInMs, 2), rotationY(execTimeElapsedInMs, 2));
+    return LegState(rotationX(execTimeElapsedInMs, 2), fBl->getY(execTimeElapsedInMs));
 }
 
 LegState MovementWalkForward::getLegStateFr(const unsigned int execTimeElapsedInMs)
 {
-    return LegState(rotationX(execTimeElapsedInMs, 3), rotationY(execTimeElapsedInMs, 3));
+    return LegState(rotationX(execTimeElapsedInMs, 3), fFr->getY(execTimeElapsedInMs));
 }
 
 unsigned int MovementWalkForward::getDurationInMs()
 {
-    return PERIOD_IN_MS;
+    return fBr->getPeriod();
 }
 
 
@@ -50,20 +60,4 @@ unsigned int MovementWalkForward::rotationX(const unsigned int execTimeElapsedIn
     }
     
     return rotationX;
-}
-
-unsigned int MovementWalkForward::rotationY(const unsigned int execTimeElapsedInMs, const unsigned int legIndex)
-{
-    unsigned int rotationY;
-    unsigned int mappedExecTimeInMs = (execTimeElapsedInMs + legIndex * (PERIOD_IN_MS / 4)) % PERIOD_IN_MS;
-    if (mappedExecTimeInMs < PERIOD_IN_MS - REPOSITION_TIME_IN_MS)
-    {
-        rotationY = interpolate(0, ANGLE_Y_STAND - STEP_SIZE_Y_IN_DEGREES / 2, PERIOD_IN_MS - REPOSITION_TIME_IN_MS, ANGLE_Y_STAND + STEP_SIZE_Y_IN_DEGREES / 2, mappedExecTimeInMs);
-    }
-    else
-    {
-        rotationY = interpolate(PERIOD_IN_MS - REPOSITION_TIME_IN_MS, ANGLE_Y_STAND + STEP_SIZE_Y_IN_DEGREES / 2, PERIOD_IN_MS, ANGLE_Y_STAND - STEP_SIZE_Y_IN_DEGREES / 2, mappedExecTimeInMs);
-    }
-    
-    return rotationY;
 }

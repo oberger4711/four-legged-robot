@@ -5,6 +5,7 @@
  */
 package com.oberger.kruppelbotsimulation.localsearch;
 
+import com.oberger.kruppelbotsimulation.localsearch.exitcriterium.ExitCriterium;
 import java.util.List;
 
 /**
@@ -16,7 +17,8 @@ import java.util.List;
  */
 public class FakeLocalSearchAlgorithm<T> extends LocalSearchAlgorithm<T> {
 
-    public FakeLocalSearchAlgorithm() {
+    public FakeLocalSearchAlgorithm(ExitCriterium exitCriterium) {
+	super(exitCriterium);
     }
 
     @Override

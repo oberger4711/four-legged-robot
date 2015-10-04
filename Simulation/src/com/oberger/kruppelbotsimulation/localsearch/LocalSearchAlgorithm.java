@@ -4,8 +4,17 @@ import com.oberger.kruppelbotsimulation.localsearch.exitcriterium.ExitCriterium;
 import java.util.List;
 
 public abstract class LocalSearchAlgorithm<T> {
+    
+    private ExitCriterium exitCriterium = null;
 
-    public State<T> run(State<T> startState, ExitCriterium exitCriterium) {
+    public LocalSearchAlgorithm(ExitCriterium exitCriterium) {
+	if (exitCriterium == null) {
+	    throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+	}
+	this.exitCriterium = exitCriterium;
+    }
+    
+    public State<T> run(State<T> startState) {
 	if (startState == null || exitCriterium == null) {
 	    throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
 	}

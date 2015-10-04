@@ -31,9 +31,9 @@ public class LocalSearchIntegrationTest {
 	State<NumericInnerState> startState = new State<>(startInnerState, evaluator, manipulator);
 
 	ExitCriterium exitCriterium = new LocalMaximumExitCriterium();
-	LocalSearchAlgorithm<NumericInnerState> searchAlgo = new HillClimbing<>();
+	LocalSearchAlgorithm<NumericInnerState> searchAlgo = new HillClimbing<>(exitCriterium);
 
-	State<NumericInnerState> optimumState = searchAlgo.run(startState, exitCriterium);
+	State<NumericInnerState> optimumState = searchAlgo.run(startState);
 
 	assertEquals(5, optimumState.getInnerState().getNumber());
     }

@@ -1,8 +1,13 @@
 package com.oberger.kruppelbotsimulation.localsearch;
 
+import com.oberger.kruppelbotsimulation.localsearch.exitcriterium.ExitCriterium;
 import java.util.List;
 
 public class HillClimbing<T> extends LocalSearchAlgorithm<T> {
+
+    public HillClimbing(ExitCriterium exitCriterium) {
+	super(exitCriterium);
+    }
 
     @Override
     State<T> getNextState(List<State<T>> neighbourStates) {
