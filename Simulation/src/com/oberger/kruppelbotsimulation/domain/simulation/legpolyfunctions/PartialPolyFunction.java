@@ -6,6 +6,7 @@
 package com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions;
 
 import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @author oberger
  */
-public class PartialPolyFunction {
+public class PartialPolyFunction implements Serializable {
 
     private IReadOnlyVector2 first = null;
     private List<IReadOnlyVector2> inner = null;
@@ -29,7 +30,7 @@ public class PartialPolyFunction {
     }
 
     public PartialPolyFunction(List<IReadOnlyVector2> vectors) {
-	this(vectors.get(0), vectors.subList(1, vectors.size() - 1), vectors.get(vectors.size() - 1));
+	this(vectors.get(0), new ArrayList(vectors.subList(1, vectors.size() - 1)), vectors.get(vectors.size() - 1));
     }
 
     public IReadOnlyVector2 getFirst() {

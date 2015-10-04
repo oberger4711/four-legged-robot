@@ -19,7 +19,7 @@ import org.junit.Test;
  *
  * @author ole
  */
-public class IntegrationTest {
+public class LocalSearchIntegrationTest {
 
     private final static int BEST_NUMBER = 5;
 

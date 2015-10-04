@@ -6,22 +6,26 @@
 package com.oberger.kruppelbotsimulation.domain.gui.viewcontroller;
 
 import com.oberger.kruppelbotsimulation.domain.gui.model.MvcModel;
+import com.oberger.kruppelbotsimulation.domain.persist.SimulationSerializer;
 import com.oberger.kruppelbotsimulation.domain.simulation.Simulation;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author oberger
  */
 public class MainForm extends javax.swing.JFrame implements Observer {
-    
+
     private MvcModel model;
-    
+
     public MainForm(Simulation simulationOrNull) {
 	model = new MvcModel(simulationOrNull);
 	initComponents();
-	
+
 	simulationView.setModel(model);
 	model.addObserver(this);
 	update(model, null);
@@ -42,7 +46,8 @@ public class MainForm extends javax.swing.JFrame implements Observer {
         frameSlider = new javax.swing.JSlider();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        openSimButton = new javax.swing.JMenuItem();
+        saveSimButton = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,13 +100,21 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 
         jMenu1.setText("File");
 
-        jMenuItem1.setText("Open...");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        openSimButton.setText("Open Simulation...");
+        openSimButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                openSimButtonActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(openSimButton);
+
+        saveSimButton.setText("Save Simulation...");
+        saveSimButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveSimButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(saveSimButton);
 
         jMenuBar1.add(jMenu1);
 
@@ -131,31 +144,48 @@ public class MainForm extends javax.swing.JFrame implements Observer {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
     private void frameSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_frameSliderStateChanged
-        model.setT(frameSlider.getValue());
+	model.setT(frameSlider.getValue());
     }//GEN-LAST:event_frameSliderStateChanged
+
+    private void saveSimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveSimButtonActionPerformed
+	if (model.getSimulationOrNull() != null) {
+	    JFileChooser fc = new JFileChooser();
+	    int ret = fc.showSaveDialog(this);
+	    if (ret == JFileChooser.APPROVE_OPTION) {
+		String filename = fc.getSelectedFile().getAbsolutePath();
+		try {
+		    new SimulationSerializer().serialize(model.getSimulationOrNull(), filename);
+		} catch (IOException e) {
+		    JOptionPane.showMessageDialog(this, "Saving failed.", e.getLocalizedMessage(), JOptionPane.ERROR_MESSAGE);
+		}
+	    }
+	}
+    }//GEN-LAST:event_saveSimButtonActionPerformed
+
+    private void openSimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openSimButtonActionPerformed
+	// TODO add your handling code here:
+    }//GEN-LAST:event_openSimButtonActionPerformed
 
     @Override
     public final void update(Observable o, Object o1) {
-	frameSlider.setMaximum((int)(1000 * model.getTMax()));
+	frameSlider.setMaximum((int) (1000 * model.getTMax()));
 //	frameSlider.setValue((int)(1000 * model.getT()));
 	if (model.getSimulationOrNull() != null) {
+	    saveSimButton.setEnabled(true);
 	    frameSlider.setEnabled(true);
-	}
-	else {
+	} else {
+	    saveSimButton.setEnabled(false);
 	    frameSlider.setEnabled(false);
 	}
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSlider frameSlider;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem openSimButton;
+    private javax.swing.JMenuItem saveSimButton;
     private javax.swing.JPanel settingsPanel;
     private javax.swing.JPanel simulationPanel;
     private com.oberger.kruppelbotsimulation.domain.gui.viewcontroller.SimulationView simulationView;

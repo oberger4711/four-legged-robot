@@ -1,5 +1,6 @@
 package com.oberger.kruppelbotsimulation.util;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  *
  * @author ole
  */
-public class Weight {
+public class Weight implements Serializable {
 
     private final static float EQUALS_THRESHOLD = 0.00001f;
     private final static float ZERO_WEIGHT_THRESHOLD = 0.0001f;

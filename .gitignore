@@ -12,3 +12,4 @@ Simulation/out.csv
 Simulation/.jacocoverage/
 Simulation/*.csv
 Simulation/*#
+Simulation/serialized_sim_int_test

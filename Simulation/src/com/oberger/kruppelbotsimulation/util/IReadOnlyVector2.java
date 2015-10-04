@@ -1,6 +1,8 @@
 package com.oberger.kruppelbotsimulation.util;
 
-public interface IReadOnlyVector2 {
+import java.io.Serializable;
+
+public interface IReadOnlyVector2 extends Serializable {
 
     float getX();
 

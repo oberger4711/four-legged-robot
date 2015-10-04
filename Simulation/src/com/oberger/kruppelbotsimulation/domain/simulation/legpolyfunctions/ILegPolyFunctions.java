@@ -6,12 +6,13 @@
 package com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions;
 
 import com.oberger.kruppelbotsimulation.domain.simulation.LegPosition;
+import java.io.Serializable;
 
 /**
  *
  * @author ole
  */
-public interface ILegPolyFunctions {
+public interface ILegPolyFunctions extends Serializable {
 
     public ConcatPolyFunction getLegFunctionBL();
 

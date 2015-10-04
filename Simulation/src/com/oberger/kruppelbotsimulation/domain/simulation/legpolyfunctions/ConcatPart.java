@@ -5,11 +5,13 @@
  */
 package com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions;
 
+import java.io.Serializable;
+
 /**
  *
  * @author oberger
  */
-public class ConcatPart {
+public class ConcatPart implements Serializable {
 
     private PartialPolyFunction function = null;
     private EManipulatable manipulatable;

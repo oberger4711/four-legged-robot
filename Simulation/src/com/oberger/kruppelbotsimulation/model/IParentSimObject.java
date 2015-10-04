@@ -7,12 +7,13 @@ package com.oberger.kruppelbotsimulation.model;
 
 import com.oberger.kruppelbotsimulation.util.Rotation;
 import com.oberger.kruppelbotsimulation.util.Vector2;
+import java.io.Serializable;
 
 /**
  *
  * @author ole
  */
-public interface IParentSimObject {
+public interface IParentSimObject extends Serializable {
     // TODO Remove this class. Use SimObject instead.
 
     public Vector2 getGlobalPosition();

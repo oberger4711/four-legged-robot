@@ -4,6 +4,7 @@ import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import com.oberger.kruppelbotsimulation.util.Rotation;
 import com.oberger.kruppelbotsimulation.util.Vector2;
 import com.oberger.kruppelbotsimulation.util.Weight;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  *
  * @author ole
  */
-public abstract class SimObject {
+public abstract class SimObject implements Serializable {
 
     private IParentSimObject parentOrNull = null;
 

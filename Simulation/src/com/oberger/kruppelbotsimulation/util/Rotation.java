@@ -1,12 +1,14 @@
 package com.oberger.kruppelbotsimulation.util;
 
+import java.io.Serializable;
+
 /**
  * A rotation mapped to the interval 0 to {@link #FULL_ROTATION_IN_DEGREES}.
  * Provides getters and setters for clockwise and counterclockwise rotation.
  *
  * @author ole
  */
-public class Rotation {
+public class Rotation implements Serializable {
 
     private final static float EQUALS_THRESHOLD = 0.00001f;
     private final static float FULL_ROTATION_IN_DEGREES = 360;

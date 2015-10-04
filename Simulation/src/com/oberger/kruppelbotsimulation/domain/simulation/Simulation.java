@@ -3,8 +3,9 @@ package com.oberger.kruppelbotsimulation.domain.simulation;
 import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.EBalanceMode;
 import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ILegPolyFunctions;
 import com.oberger.kruppelbotsimulation.util.Rotation;
+import java.io.Serializable;
 
-public class Simulation implements ISimulationState {
+public class Simulation implements ISimulationState, Serializable {
 
     private float totalElapsedTimeInS;
     private ILegPolyFunctions legFunctions = null;

@@ -5,11 +5,13 @@
  */
 package com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions;
 
+import java.io.Serializable;
+
 /**
  *
  * @author oberger
  */
-public enum EManipulatable {
+public enum EManipulatable implements Serializable {
 
     DYNAMIC, FIXED
 

@@ -5,8 +5,9 @@ import com.oberger.kruppelbotsimulation.model.SimMass;
 import com.oberger.kruppelbotsimulation.util.Rotation;
 import com.oberger.kruppelbotsimulation.util.Vector2;
 import com.oberger.kruppelbotsimulation.util.Weight;
+import java.io.Serializable;
 
-public class Model {
+public class Model implements Serializable {
 
     private final static float PLATFORM_WIDTH = 2;
     private final static float PLATFORM_HEIGHT = 4;
