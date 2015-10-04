@@ -125,9 +125,9 @@ public class SimulationTest {
 	testee.simulate(0);
 
 	Mockito.verify(fakeServoBL).setOffsetRotation(new Rotation(1f, true));
-	Mockito.verify(fakeServoBR).setOffsetRotation(new Rotation(2f, true));
+	Mockito.verify(fakeServoBR).setOffsetRotation(new Rotation(2f, false));
 	Mockito.verify(fakeServoFL).setOffsetRotation(new Rotation(3f, true));
-	Mockito.verify(fakeServoFR).setOffsetRotation(new Rotation(4f, true));
+	Mockito.verify(fakeServoFR).setOffsetRotation(new Rotation(4f, false));
     }
 
 }
