@@ -8,4 +8,5 @@ Documents/*.working
 Documents/KruppelBotSimulation.vpp~*
 Documents/KruppelBotSimulation.vpp.*
 Simulation/dist/
+Simulation/out.csv
 Simulation/.jacocoverage/
