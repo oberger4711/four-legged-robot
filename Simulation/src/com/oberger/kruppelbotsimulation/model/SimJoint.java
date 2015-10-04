@@ -4,6 +4,7 @@ import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import com.oberger.kruppelbotsimulation.util.Rotation;
 import com.oberger.kruppelbotsimulation.util.Weight;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -44,12 +45,22 @@ public class SimJoint extends SimObject implements IParentSimObject {
 	}
     }
 
+    @Override
+    public List<SimObject> getChilds() {
+	return Collections.unmodifiableList(childs);
+    }
+
+    @Override
+    public void accept(ISimObjectVisitor visitor) {
+	visitor.visit(this);
+    }
+    
     public void addChild(SimObject child) {
 	if (child == null) {
 	    throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
 	}
 	childs.add(child);
-	child.setParent(this);
+	child.setParentOrNull(this);
     }
 
     public void removeChild(SimObject child) {
@@ -57,7 +68,7 @@ public class SimJoint extends SimObject implements IParentSimObject {
 	    throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
 	}
 	childs.remove(child);
-	child.setParent(null);
+	child.setParentOrNull(null);
     }
 
     @Override

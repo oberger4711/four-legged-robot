@@ -114,7 +114,7 @@ public class SimJointTest {
 
 	simJoint.addChild(fakeChild);
 
-	verify(fakeChild, times(1)).setParent(simJoint);
+	verify(fakeChild, times(1)).setParentOrNull(simJoint);
     }
 
     @Test
@@ -145,7 +145,7 @@ public class SimJointTest {
 
 	simJoint.removeChild(fakeChild);
 
-	Mockito.verify(fakeChild, times(1)).setParent(null);
+	Mockito.verify(fakeChild, times(1)).setParentOrNull(null);
     }
 
     @Test

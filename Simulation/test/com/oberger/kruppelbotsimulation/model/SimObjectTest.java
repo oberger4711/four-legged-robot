@@ -101,7 +101,7 @@ public class SimObjectTest {
 	Vector2 parentGlobalPosition = new Vector2(1, 1);
 	IParentSimObject parent = createFakeParentSimObject(parentGlobalPosition, parentGlobalRotation);
 	FakeSimObject child = createFakeSimObject(new Vector2(4, 3), new Weight(23), new Rotation(30, true));
-	child.setParent(parent);
+	child.setParentOrNull(parent);
 
 	child.update();
 
@@ -113,7 +113,7 @@ public class SimObjectTest {
     public void update_OnCall_SetsGlobalRotationAsSumOfGlobalParentPositionAndOffsetRotation() {
 	IParentSimObject parent = createFakeParentSimObject(new Vector2(1, 2), new Rotation(45, true));
 	FakeSimObject child = createFakeSimObject(new Vector2(1, 2), new Weight(), new Rotation(5, true));
-	child.setParent(parent);
+	child.setParentOrNull(parent);
 
 	child.update();
 
@@ -124,7 +124,7 @@ public class SimObjectTest {
     public void update_OnPassRotationZero_SetsGlobalPositionAsSumOfGlobalParentPositionAndOffsetPosition() {
 	IParentSimObject parent = createFakeParentSimObject(new Vector2(1, 2), new Rotation(0, true));
 	FakeSimObject child = createFakeSimObject(new Vector2(1, 1), new Weight(), new Rotation(0, true));
-	child.setParent(parent);
+	child.setParentOrNull(parent);
 
 	child.update();
 
@@ -135,7 +135,7 @@ public class SimObjectTest {
     public void update_OnCall_SetsGlobalPositionAsRotatedSumOfGlobalParentPositionAndParentOffsetPosition() {
 	IParentSimObject parent = createFakeParentSimObject(new Vector2(2, 2), new Rotation(90, true));
 	FakeSimObject child = createFakeSimObject(new Vector2(1, 1), new Weight(), new Rotation(30, true));
-	child.setParent(parent);
+	child.setParentOrNull(parent);
 
 	child.update();
 
@@ -207,7 +207,7 @@ public class SimObjectTest {
 	IParentSimObject parent = createFakeParentSimObject(new Vector2(2, 2), new Rotation(90, true));
 	FakeSimObject simObject = createFakeSimObject(new Vector2(), new Weight(), new Rotation(0, true));
 
-	simObject.setParent(parent);
+	simObject.setParentOrNull(parent);
 
 	assertEquals(new Vector2(2, 2), simObject.getGlobalPosition());
 	assertEquals(new Rotation(90, true), simObject.getGlobalRotation());

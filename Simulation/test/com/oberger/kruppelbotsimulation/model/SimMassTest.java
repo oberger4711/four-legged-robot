@@ -64,7 +64,7 @@ public class SimMassTest {
     public void getBalancePoint_AfterUpdate_UsesUpdatedGlobalPosition() {
 	IParentSimObject parent = createFakeParentSimObject(new Vector2(1, 2), new Rotation(0, true));
 	SimMass simMass = createSimMass(new Vector2(2, 4), new Weight(5));
-	simMass.setParent(parent);
+	simMass.setParentOrNull(parent);
 
 	BalancePoint result = simMass.getGlobalBalancePoint();
 

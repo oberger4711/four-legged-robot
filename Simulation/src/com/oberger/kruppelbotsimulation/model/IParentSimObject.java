@@ -13,6 +13,7 @@ import com.oberger.kruppelbotsimulation.util.Vector2;
  * @author ole
  */
 public interface IParentSimObject {
+    // TODO Remove this class. Use SimObject instead.
 
     public Vector2 getGlobalPosition();
 

@@ -4,6 +4,7 @@ import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import com.oberger.kruppelbotsimulation.util.Rotation;
 import com.oberger.kruppelbotsimulation.util.Vector2;
 import com.oberger.kruppelbotsimulation.util.Weight;
+import java.util.List;
 
 /**
  * Abstract superclass of all simulation objects.
@@ -12,7 +13,7 @@ import com.oberger.kruppelbotsimulation.util.Weight;
  */
 public abstract class SimObject {
 
-    private IParentSimObject parent = null;
+    private IParentSimObject parentOrNull = null;
 
     private Vector2 globalPosition = null;
     private Weight globalWeight = null;
@@ -37,9 +38,9 @@ public abstract class SimObject {
 	Vector2 parentGlobalPosition = null;
 	Rotation parentGlobalRotation = null;
 
-	if (parent != null) {
-	    parentGlobalPosition = parent.getGlobalPosition();
-	    parentGlobalRotation = parent.getGlobalRotation();
+	if (parentOrNull != null) {
+	    parentGlobalPosition = parentOrNull.getGlobalPosition();
+	    parentGlobalRotation = parentOrNull.getGlobalRotation();
 	} else {
 	    parentGlobalPosition = new Vector2();
 	    parentGlobalRotation = new Rotation(0, true);
@@ -55,14 +56,22 @@ public abstract class SimObject {
     }
 
     protected abstract void updateChilds();
+    
+    public abstract List<SimObject> getChilds();
+    
+    public abstract void accept(ISimObjectVisitor visitor);
 
     public abstract BalancePoint getGlobalBalancePoint();
 
-    void setParent(IParentSimObject parent) {
-	this.parent = parent;
+    void setParentOrNull(IParentSimObject parent) {
+	this.parentOrNull = parent;
 	update();
     }
 
+    public IParentSimObject getParentOrNull() {
+	return parentOrNull;
+    }
+    
     public Vector2 getGlobalPosition() {
 	return new Vector2(globalPosition);
     }

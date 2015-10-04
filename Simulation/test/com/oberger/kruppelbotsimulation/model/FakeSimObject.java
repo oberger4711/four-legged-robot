@@ -8,6 +8,8 @@ package com.oberger.kruppelbotsimulation.model;
 import com.oberger.kruppelbotsimulation.util.Rotation;
 import com.oberger.kruppelbotsimulation.util.Vector2;
 import com.oberger.kruppelbotsimulation.util.Weight;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FakeSimObject extends SimObject {
 
@@ -31,6 +33,16 @@ public class FakeSimObject extends SimObject {
 	updateChildsCalled = true;
     }
 
+    @Override
+    public List<SimObject> getChilds() {
+	return null;
+    }
+    
+    @Override
+    public void accept(ISimObjectVisitor visitor) {
+	
+    }
+    
     @Override
     public BalancePoint getGlobalBalancePoint() {
 	return new BalancePoint(getGlobalPosition(), getGlobalWeight());
