@@ -23,6 +23,8 @@ import javax.swing.Timer;
  * @author oberger
  */
 public class MainForm extends javax.swing.JFrame implements Observer {
+    
+    private final static int PLAY_UPDATE_INTERVAL = 100;
 
     private MvcModel model;
     private Timer playTimer;
@@ -32,8 +34,8 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 
 	initComponents();
 
-	playTimer = new Timer(100, (ActionEvent ae) -> {
-	    model.setTInMs((model.getTInMs() + 100) % model.getTMax());
+	playTimer = new Timer(PLAY_UPDATE_INTERVAL, (ActionEvent ae) -> {
+	    model.setTInMs((model.getTInMs() + PLAY_UPDATE_INTERVAL) % model.getTMax());
 	});
 	simulationView.setModel(model);
 	model.addObserver(this);
