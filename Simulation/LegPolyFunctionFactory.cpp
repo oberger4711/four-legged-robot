@@ -7,22 +7,22 @@ WrappedPolyFunction* LegPolyFunctionFactory::createBr()
 	polygons[0].x = 0;
 	polygons[0].y = 150;
 	
-	polygons[1].x = 367;
+	polygons[1].x = 757;
 	polygons[1].y = 132;
 	
-	polygons[2].x = 734;
+	polygons[2].x = 844;
 	polygons[2].y = 115;
 	
-	polygons[3].x = 1102;
+	polygons[3].x = 932;
 	polygons[3].y = 98;
 	
-	polygons[4].x = 1469;
+	polygons[4].x = 1019;
 	polygons[4].y = 81;
 	
-	polygons[5].x = 1756;
+	polygons[5].x = 2246;
 	polygons[5].y = 64;
 	
-	polygons[6].x = 1844;
+	polygons[6].x = 2484;
 	polygons[6].y = 47;
 	
 	polygons[7].x = 2571;
@@ -47,22 +47,22 @@ WrappedPolyFunction* LegPolyFunctionFactory::createBl()
 	polygons[0].x = 0;
 	polygons[0].y = 150;
 	
-	polygons[1].x = 737;
+	polygons[1].x = 797;
 	polygons[1].y = 132;
 	
-	polygons[2].x = 824;
+	polygons[2].x = 884;
 	polygons[2].y = 115;
 	
-	polygons[3].x = 1102;
+	polygons[3].x = 972;
 	polygons[3].y = 98;
 	
-	polygons[4].x = 1469;
+	polygons[4].x = 1059;
 	polygons[4].y = 81;
 	
-	polygons[5].x = 1836;
+	polygons[5].x = 2336;
 	polygons[5].y = 64;
 	
-	polygons[6].x = 2204;
+	polygons[6].x = 2424;
 	polygons[6].y = 47;
 	
 	polygons[7].x = 2571;
@@ -87,22 +87,22 @@ WrappedPolyFunction* LegPolyFunctionFactory::createFr()
 	polygons[0].x = 0;
 	polygons[0].y = 150;
 	
-	polygons[1].x = 367;
+	polygons[1].x = 157;
 	polygons[1].y = 132;
 	
-	polygons[2].x = 734;
+	polygons[2].x = 244;
 	polygons[2].y = 115;
 	
-	polygons[3].x = 1002;
+	polygons[3].x = 1132;
 	polygons[3].y = 98;
 	
-	polygons[4].x = 1089;
+	polygons[4].x = 1629;
 	polygons[4].y = 81;
 	
-	polygons[5].x = 1176;
+	polygons[5].x = 1716;
 	polygons[5].y = 64;
 	
-	polygons[6].x = 1264;
+	polygons[6].x = 1804;
 	polygons[6].y = 47;
 	
 	polygons[7].x = 2571;
@@ -127,22 +127,22 @@ WrappedPolyFunction* LegPolyFunctionFactory::createFl()
 	polygons[0].x = 0;
 	polygons[0].y = 150;
 	
-	polygons[1].x = 367;
+	polygons[1].x = 187;
 	polygons[1].y = 132;
 	
-	polygons[2].x = 734;
+	polygons[2].x = 274;
 	polygons[2].y = 115;
 	
-	polygons[3].x = 1102;
+	polygons[3].x = 1512;
 	polygons[3].y = 98;
 	
-	polygons[4].x = 1469;
+	polygons[4].x = 1599;
 	polygons[4].y = 81;
 	
-	polygons[5].x = 1836;
+	polygons[5].x = 1686;
 	polygons[5].y = 64;
 	
-	polygons[6].x = 2204;
+	polygons[6].x = 1774;
 	polygons[6].y = 47;
 	
 	polygons[7].x = 2571;

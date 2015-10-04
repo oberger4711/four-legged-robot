@@ -11,7 +11,7 @@ public class Model implements Serializable {
 
     private final static float PLATFORM_WIDTH = 2;
     private final static float PLATFORM_HEIGHT = 4;
-    private final static float LEG_LENGTH = 0.5f;
+    private final static float LEG_LENGTH = 1f;
     private final static float LEG_WEIGHT = 0.5f;
 
     private final SimJoint root;
