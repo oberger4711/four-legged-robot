@@ -82,7 +82,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="simulationView1" max="32767" attributes="0"/>
+                  <Component id="simulationView" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -90,14 +90,14 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="simulationView1" pref="284" max="32767" attributes="0"/>
+                  <Component id="simulationView" pref="284" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="com.oberger.kruppelbotsimulation.domain.gui.SimulationView" name="simulationView1">
+        <Container class="com.oberger.kruppelbotsimulation.domain.gui.SimulationView" name="simulationView">
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
             <Property name="useNullLayout" type="boolean" value="true"/>
