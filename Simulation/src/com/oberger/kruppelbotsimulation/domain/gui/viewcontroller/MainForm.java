@@ -157,7 +157,7 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 		try {
 		    new SimulationSerializer().serialize(model.getSimulationOrNull(), filename);
 		} catch (IOException e) {
-		    JOptionPane.showMessageDialog(this, e.getMessage(), "Saving failed.", JOptionPane.ERROR_MESSAGE);
+		    JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), "Saving failed.", JOptionPane.ERROR_MESSAGE);
 		    e.printStackTrace();
 		}
 	    }
@@ -173,7 +173,7 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 		Simulation loaded = new SimulationSerializer().deserialize(filename);
 		model.setSimulationOrNull(loaded);
 	    } catch (IOException | ClassNotFoundException e) {
-		JOptionPane.showMessageDialog(this, e.getMessage(), "Loading failed.", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), "Loading failed.", JOptionPane.ERROR_MESSAGE);
 		e.printStackTrace();
 	    }
 	}
