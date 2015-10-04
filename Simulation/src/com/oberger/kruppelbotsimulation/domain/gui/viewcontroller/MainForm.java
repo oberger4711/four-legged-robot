@@ -17,13 +17,15 @@ import java.util.Observer;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
  * @author oberger
  */
 public class MainForm extends javax.swing.JFrame implements Observer {
-    
+
     private final static int PLAY_UPDATE_INTERVAL = 100;
     private final static String DEFAULT_SIM_DIRECTORY = "simulations";
     private final static String DEFAULT_CSV_DIRECTORY = "csvs";
@@ -222,9 +224,13 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 	if (model.getSimulationOrNull() != null) {
 	    JFileChooser fc = new JFileChooser();
 	    fc.setCurrentDirectory(new File(DEFAULT_SIM_DIRECTORY));
+	    fc.setFileFilter(new FileNameExtensionFilter("Simulation files (*.sim)", "sim"));
 	    int ret = fc.showSaveDialog(this);
 	    if (ret == JFileChooser.APPROVE_OPTION) {
 		String filename = fc.getSelectedFile().getAbsolutePath();
+		if (!filename.endsWith(".sim")) {
+		    filename = filename + ".sim";
+		}
 		try {
 		    new SimulationSerializer().serialize(model.getSimulationOrNull(), filename);
 		} catch (IOException e) {
@@ -238,6 +244,7 @@ public class MainForm extends javax.swing.JFrame implements Observer {
     private void openSimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openSimButtonActionPerformed
 	JFileChooser fc = new JFileChooser();
 	fc.setCurrentDirectory(new File(DEFAULT_SIM_DIRECTORY));
+	fc.setFileFilter(new FileNameExtensionFilter("Simulation files (*.sim)", "sim"));
 	int ret = fc.showOpenDialog(this);
 	if (ret == JFileChooser.APPROVE_OPTION) {
 	    String filename = fc.getSelectedFile().getAbsolutePath();
@@ -255,9 +262,13 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 	if (model.getSimulationOrNull() != null) {
 	    JFileChooser fc = new JFileChooser();
 	    fc.setCurrentDirectory(new File(DEFAULT_CSV_DIRECTORY));
+	    fc.setFileFilter(new FileNameExtensionFilter("Comma separated vector files (*.csv)", "csv"));
 	    int ret = fc.showSaveDialog(this);
 	    if (ret == JFileChooser.APPROVE_OPTION) {
 		String filename = fc.getSelectedFile().getAbsolutePath();
+		if (!filename.endsWith(".csv")) {
+		    filename = filename + ".csv";
+		}
 		try {
 		    new LegPolyFunctionsCsvWriter().write(model.getSimulationOrNull().getLegFunctions(), filename);
 		} catch (IOException e) {
