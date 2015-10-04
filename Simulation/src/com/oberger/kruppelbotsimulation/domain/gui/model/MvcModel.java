@@ -18,6 +18,7 @@ public class MvcModel extends Observable {
     private int tMaxInMs;
     private int tInMs;
     private int scaleFactor;
+    private boolean playing;
     
     public MvcModel(Simulation simulationOrNull) {
 	this.simulationOrNull = simulationOrNull;
@@ -38,6 +39,7 @@ public class MvcModel extends Observable {
 	    tMaxInMs = (int)(simulationOrNull.getLegFunctions().getLegFunctionBL().getPeriod() * 1000);
 	}
 	tInMs = 0;
+	playing = false;
 	setChanged();
 	notifyObservers();
     }
@@ -71,6 +73,16 @@ public class MvcModel extends Observable {
 
     public void setScaleFactor(int scaleFactor) {
 	this.scaleFactor = scaleFactor;
+	setChanged();
+	notifyObservers();
+    }
+
+    public boolean isPlaying() {
+	return playing;
+    }
+
+    public void setPlaying(boolean playing) {
+	this.playing = playing;
 	setChanged();
 	notifyObservers();
     }
