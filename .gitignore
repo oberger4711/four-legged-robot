@@ -10,3 +10,5 @@ Documents/KruppelBotSimulation.vpp.*
 Simulation/dist/
 Simulation/out.csv
 Simulation/.jacocoverage/
+Simulation/*.csv
+Simulation/*#

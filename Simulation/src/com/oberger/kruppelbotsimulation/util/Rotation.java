@@ -14,96 +14,94 @@ public class Rotation {
     private float rotationInDegreesCC = 0;
 
     public Rotation(float rotationInDegrees, boolean counterClockwise) {
-        if (counterClockwise) {
-            setRotationCC(rotationInDegrees);
-        } else {
-            setRotationCW(rotationInDegrees);
-        }
+	if (counterClockwise) {
+	    setRotationCC(rotationInDegrees);
+	} else {
+	    setRotationCW(rotationInDegrees);
+	}
     }
 
     public Rotation(Rotation rotationToCopy) {
-        set(rotationToCopy);
+	set(rotationToCopy);
     }
 
     public Rotation add(Rotation secondSummand) {
-        if (secondSummand == null) {
-            throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
-        }
-        setRotationCC(rotationInDegreesCC + secondSummand.getRotationInDegreesCC());
+	if (secondSummand == null) {
+	    throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+	}
+	setRotationCC(rotationInDegreesCC + secondSummand.getRotationInDegreesCC());
 
-        return this;
+	return this;
     }
 
     public Rotation subtract(Rotation subtrahend) {
-        if (subtrahend == null) {
-            throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
-        }
-        setRotationCC(rotationInDegreesCC - subtrahend.getRotationInDegreesCC());
+	if (subtrahend == null) {
+	    throw new IllegalArgumentException(new NullPointerException("Passing null is not allowed."));
+	}
+	setRotationCC(rotationInDegreesCC - subtrahend.getRotationInDegreesCC());
 
-        return this;
+	return this;
     }
 
     public final void set(Rotation rotation) {
-        this.rotationInDegreesCC = rotation.rotationInDegreesCC;
+	this.rotationInDegreesCC = rotation.rotationInDegreesCC;
     }
 
     public final void setRotationCC(float rotationInDegreesCounterClockwise) {
-        rotationInDegreesCC = mapOntoZeroToFullRotationInDegrees(rotationInDegreesCounterClockwise);
+	rotationInDegreesCC = mapOntoZeroToFullRotationInDegrees(rotationInDegreesCounterClockwise);
     }
 
     public final void setRotationCW(float rotationInDegreesClockwise) {
-        rotationInDegreesCC = FULL_ROTATION_IN_DEGREES - mapOntoZeroToFullRotationInDegrees(rotationInDegreesClockwise);
+	rotationInDegreesCC = FULL_ROTATION_IN_DEGREES - mapOntoZeroToFullRotationInDegrees(rotationInDegreesClockwise);
     }
 
     private static float mapOntoZeroToFullRotationInDegrees(float rotationInDegrees) {
-        float mappedRotationInDegrees = rotationInDegrees;
-        while (mappedRotationInDegrees < 0) {
-            mappedRotationInDegrees += FULL_ROTATION_IN_DEGREES;
-        }
-        mappedRotationInDegrees %= FULL_ROTATION_IN_DEGREES; // Map rotation into positive.
+	float mappedRotationInDegrees = rotationInDegrees;
+	while (mappedRotationInDegrees < 0) {
+	    mappedRotationInDegrees += FULL_ROTATION_IN_DEGREES;
+	}
+	mappedRotationInDegrees %= FULL_ROTATION_IN_DEGREES; // Map rotation into positive.
 
-        return mappedRotationInDegrees;
+	return mappedRotationInDegrees;
     }
 
     public float getRotationInDegreesCC() {
-        return rotationInDegreesCC;
+	return rotationInDegreesCC;
     }
 
     public float getRotationInDegreesCW() {
-        return FULL_ROTATION_IN_DEGREES - rotationInDegreesCC;
+	return FULL_ROTATION_IN_DEGREES - rotationInDegreesCC;
     }
 
     @Override
     public boolean equals(Object obj) {
-        boolean areEqual;
-        if (obj instanceof Rotation) {
-            Rotation otherRotation = (Rotation) obj;
+	boolean areEqual;
+	if (obj instanceof Rotation) {
+	    Rotation otherRotation = (Rotation) obj;
 
-            areEqual = Math.abs(rotationInDegreesCC - otherRotation.rotationInDegreesCC) < EQUALS_THRESHOLD;
-        } else {
-            areEqual = super.equals(obj);
-        }
-        
-        return areEqual;
+	    areEqual = Math.abs(rotationInDegreesCC - otherRotation.rotationInDegreesCC) < EQUALS_THRESHOLD;
+	} else {
+	    areEqual = super.equals(obj);
+	}
+
+	return areEqual;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + Float.floatToIntBits(this.rotationInDegreesCC);
-        
-        return hash;
+	int hash = 7;
+	hash = 53 * hash + Float.floatToIntBits(this.rotationInDegreesCC);
+
+	return hash;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(rotationInDegreesCC);
-        sb.append("°");
-        
-        return sb.toString();
+	StringBuilder sb = new StringBuilder();
+	sb.append(rotationInDegreesCC);
+	sb.append("°");
+
+	return sb.toString();
     }
 
-    
-    
 }
