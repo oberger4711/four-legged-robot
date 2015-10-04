@@ -15,16 +15,16 @@ import java.util.Observable;
 public class MvcModel extends Observable {
     
     private Simulation simulationOrNull;
-    private float tMax;
-    private float t;
-    private float scaleFactor;
+    private int tMaxInMs;
+    private int tInMs;
+    private int scaleFactor;
     
     public MvcModel(Simulation simulationOrNull) {
 	this.simulationOrNull = simulationOrNull;
 	if (simulationOrNull != null) {
-	    tMax = simulationOrNull.getLegFunctions().getLegFunctionBL().getPeriod();
+	    tMaxInMs = (int)(simulationOrNull.getLegFunctions().getLegFunctionBL().getPeriod() * 1000);
 	}
-	t = 0;
+	tInMs = 0;
 	scaleFactor = 70;
     }
 
@@ -35,40 +35,41 @@ public class MvcModel extends Observable {
     public void setSimulationOrNull(Simulation simulationOrNull) {
 	this.simulationOrNull = simulationOrNull;
 	if (simulationOrNull != null) {
-	    tMax = simulationOrNull.getLegFunctions().getLegFunctionBL().getPeriod();
+	    tMaxInMs = (int)(simulationOrNull.getLegFunctions().getLegFunctionBL().getPeriod() * 1000);
 	}
+	tInMs = 0;
 	setChanged();
 	notifyObservers();
     }
     
-    public float getT() {
-	return t;
+    public int getTInMs() {
+	return tInMs;
     }
 
-    public void setT(float t) {
-	this.t = t;
+    public void setTInMs(int t) {
+	this.tInMs = t;
 	if (simulationOrNull != null) {
-	    simulationOrNull.simulate(t / 1000);
+	    simulationOrNull.simulate(t / 1000f);
 	}
 	setChanged();
 	notifyObservers();
     }
     
-    public float getTMax() {
-	return tMax;
+    public int getTMax() {
+	return tMaxInMs;
     }
 
-    public void settMax(float tMax) {
-	this.tMax = tMax;
+    public void settMax(int tMax) {
+	this.tMaxInMs = tMax;
 	setChanged();
 	notifyObservers();
     }
     
-    public float getScaleFactor() {
+    public int getScaleFactor() {
 	return scaleFactor;
     }
 
-    public void setScaleFactor(float scaleFactor) {
+    public void setScaleFactor(int scaleFactor) {
 	this.scaleFactor = scaleFactor;
 	setChanged();
 	notifyObservers();

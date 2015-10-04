@@ -43,7 +43,10 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 
         simulationPanel = new javax.swing.JPanel();
         simulationView = new com.oberger.kruppelbotsimulation.domain.gui.viewcontroller.SimulationView();
+        jLabel2 = new javax.swing.JLabel();
+        scaleSlider = new javax.swing.JSlider();
         settingsPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         frameSlider = new javax.swing.JSlider();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -56,6 +59,18 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 
         simulationPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Current State"));
 
+        jLabel2.setText("Scale:");
+
+        scaleSlider.setMaximum(200);
+        scaleSlider.setMinimum(1);
+        scaleSlider.setOrientation(javax.swing.JSlider.VERTICAL);
+        scaleSlider.setValue(70);
+        scaleSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                scaleSliderStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout simulationPanelLayout = new javax.swing.GroupLayout(simulationPanel);
         simulationPanel.setLayout(simulationPanelLayout);
         simulationPanelLayout.setHorizontalGroup(
@@ -63,21 +78,33 @@ public class MainForm extends javax.swing.JFrame implements Observer {
             .addGroup(simulationPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(simulationView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(simulationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scaleSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addContainerGap())
         );
         simulationPanelLayout.setVerticalGroup(
             simulationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(simulationPanelLayout.createSequentialGroup()
-                .addComponent(simulationView, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
+                .addGroup(simulationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(simulationView, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
+                    .addGroup(simulationPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(scaleSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
         settingsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Settings"));
 
+        jLabel1.setText("t (ms):");
+
         frameSlider.setMajorTickSpacing(100);
         frameSlider.setMaximum(1000);
         frameSlider.setPaintTicks(true);
         frameSlider.setSnapToTicks(true);
+        frameSlider.setValue(0);
         frameSlider.setEnabled(false);
         frameSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -89,9 +116,11 @@ public class MainForm extends javax.swing.JFrame implements Observer {
         settingsPanel.setLayout(settingsPanelLayout);
         settingsPanelLayout.setHorizontalGroup(
             settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(settingsPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, settingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(frameSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(14, 14, 14)
+                .addComponent(frameSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                 .addContainerGap())
         );
         settingsPanelLayout.setVerticalGroup(
@@ -99,6 +128,10 @@ public class MainForm extends javax.swing.JFrame implements Observer {
             .addGroup(settingsPanelLayout.createSequentialGroup()
                 .addComponent(frameSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(settingsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jMenu1.setText("File");
@@ -120,7 +153,7 @@ public class MainForm extends javax.swing.JFrame implements Observer {
         jMenu1.add(openSimButton);
         jMenu1.add(jSeparator1);
 
-        exportCsvButton.setText("Export Roation CSV...");
+        exportCsvButton.setText("Export Rotation CSV...");
         exportCsvButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exportCsvButtonActionPerformed(evt);
@@ -157,7 +190,7 @@ public class MainForm extends javax.swing.JFrame implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void frameSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_frameSliderStateChanged
-	model.setT(frameSlider.getValue());
+	model.setTInMs(frameSlider.getValue());
     }//GEN-LAST:event_frameSliderStateChanged
 
     private void saveSimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveSimButtonActionPerformed
@@ -207,27 +240,39 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 	}
     }//GEN-LAST:event_exportCsvButtonActionPerformed
 
+    private void scaleSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_scaleSliderStateChanged
+        model.setScaleFactor(scaleSlider.getValue());
+    }//GEN-LAST:event_scaleSliderStateChanged
+
     @Override
     public final void update(Observable o, Object o1) {
-	frameSlider.setMaximum((int) (1000 * model.getTMax()));
-//	frameSlider.setValue((int)(1000 * model.getT()));
+	frameSlider.setMaximum((int) (model.getTMax()));
+	frameSlider.setValue(model.getTInMs());
+	scaleSlider.setValue(model.getScaleFactor());
 	if (model.getSimulationOrNull() != null) {
 	    saveSimButton.setEnabled(true);
+	    exportCsvButton.setEnabled(true);
 	    frameSlider.setEnabled(true);
+	    scaleSlider.setEnabled(true);
 	} else {
 	    saveSimButton.setEnabled(false);
+	    exportCsvButton.setEnabled(false);
 	    frameSlider.setEnabled(false);
+	    scaleSlider.setEnabled(false);
 	}
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem exportCsvButton;
     private javax.swing.JSlider frameSlider;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuItem openSimButton;
     private javax.swing.JMenuItem saveSimButton;
+    private javax.swing.JSlider scaleSlider;
     private javax.swing.JPanel settingsPanel;
     private javax.swing.JPanel simulationPanel;
     private com.oberger.kruppelbotsimulation.domain.gui.viewcontroller.SimulationView simulationView;
