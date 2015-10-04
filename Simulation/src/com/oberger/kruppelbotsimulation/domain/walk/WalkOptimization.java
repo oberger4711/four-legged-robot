@@ -41,6 +41,8 @@ public class WalkOptimization implements Runnable {
 	IEvaluator<WalkState> evaluator = new EvaluatorFactory(settings).createEvaluator();
 	IManipulator<WalkState> manipulator = new ManipulatorFactory(settings).createManipulator();
 	State<WalkState> initState = new State<>(initInnerState, evaluator, manipulator);
+	//new GuiWrapper().show(new Simulation(initState.getInnerState().getLegFunctions(), initState.getInnerState().getModel()));
+	
 	LocalSearchAlgorithm<WalkState> localSearchAlgo = new HillClimbing<>();
 	System.out.println("Initial Score : " + initState.getScore());
 

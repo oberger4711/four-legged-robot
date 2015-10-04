@@ -24,13 +24,13 @@ public class Simulation implements ISimulationState {
 	Rotation rotationBL = new Rotation(legFunctions.getLegFunctionBL().getValue(totalElapsedTimeInS), true);
 	model.getServoBL().setOffsetRotation(rotationBL);
 
-	Rotation rotationBR = new Rotation(legFunctions.getLegFunctionBR().getValue(totalElapsedTimeInS), true);
+	Rotation rotationBR = new Rotation(legFunctions.getLegFunctionBR().getValue(totalElapsedTimeInS), false);
 	model.getServoBR().setOffsetRotation(rotationBR);
 
 	Rotation rotationFL = new Rotation(legFunctions.getLegFunctionFL().getValue(totalElapsedTimeInS), true);
 	model.getServoFL().setOffsetRotation(rotationFL);
 
-	Rotation rotationFR = new Rotation(legFunctions.getLegFunctionFR().getValue(totalElapsedTimeInS), true);
+	Rotation rotationFR = new Rotation(legFunctions.getLegFunctionFR().getValue(totalElapsedTimeInS), false);
 	model.getServoFR().setOffsetRotation(rotationFR);
     }
 

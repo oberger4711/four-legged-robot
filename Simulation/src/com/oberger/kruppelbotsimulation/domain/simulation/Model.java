@@ -27,22 +27,22 @@ public class Model {
 	root = new SimJoint(new Vector2(0, 0), new Rotation(0, true));
 
 	servoBR = new SimJoint(new Vector2(PLATFORM_WIDTH / 2, -PLATFORM_HEIGHT / 2f), new Rotation(0, true));
-	legBR = new SimMass(new Vector2(LEG_LENGTH, 0), new Weight(LEG_WEIGHT));
+	legBR = new SimMass(new Vector2(0, LEG_LENGTH), new Weight(LEG_WEIGHT));
 	servoBR.addChild(legBR);
 	root.addChild(servoBR);
 
-	servoBL = new SimJoint(new Vector2(-PLATFORM_WIDTH / 2, -PLATFORM_HEIGHT / 2f), new Rotation(0, false));
-	legBL = new SimMass(new Vector2(-LEG_LENGTH, 0), new Weight(LEG_WEIGHT));
+	servoBL = new SimJoint(new Vector2(-PLATFORM_WIDTH / 2, -PLATFORM_HEIGHT / 2f), new Rotation(0, true));
+	legBL = new SimMass(new Vector2(0, LEG_LENGTH), new Weight(LEG_WEIGHT));
 	servoBL.addChild(legBL);
 	root.addChild(servoBL);
 
 	servoFR = new SimJoint(new Vector2(PLATFORM_WIDTH / 2, PLATFORM_HEIGHT / 2f), new Rotation(0, true));
-	legFR = new SimMass(new Vector2(LEG_LENGTH, 0), new Weight(LEG_WEIGHT));
+	legFR = new SimMass(new Vector2(0, LEG_LENGTH), new Weight(LEG_WEIGHT));
 	servoFR.addChild(legFR);
 	root.addChild(servoFR);
 
-	servoFL = new SimJoint(new Vector2(-PLATFORM_WIDTH / 2, PLATFORM_HEIGHT / 2f), new Rotation(0, false));
-	legFL = new SimMass(new Vector2(-LEG_LENGTH, 0), new Weight(LEG_WEIGHT));
+	servoFL = new SimJoint(new Vector2(-PLATFORM_WIDTH / 2, PLATFORM_HEIGHT / 2f), new Rotation(0, true));
+	legFL = new SimMass(new Vector2(0, LEG_LENGTH), new Weight(LEG_WEIGHT));
 	servoFL.addChild(legFL);
 	root.addChild(servoFL);
     }
