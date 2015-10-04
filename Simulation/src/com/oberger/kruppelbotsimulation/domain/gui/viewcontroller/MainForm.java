@@ -6,6 +6,7 @@
 package com.oberger.kruppelbotsimulation.domain.gui.viewcontroller;
 
 import com.oberger.kruppelbotsimulation.domain.gui.model.MvcModel;
+import com.oberger.kruppelbotsimulation.domain.persist.LegPolyFunctionCppCodeWriter;
 import com.oberger.kruppelbotsimulation.domain.persist.LegPolyFunctionsCsvWriter;
 import com.oberger.kruppelbotsimulation.domain.persist.SimulationSerializer;
 import com.oberger.kruppelbotsimulation.domain.simulation.Simulation;
@@ -29,6 +30,7 @@ public class MainForm extends javax.swing.JFrame implements Observer {
     private final static int PLAY_UPDATE_INTERVAL = 100;
     private final static String DEFAULT_SIM_DIRECTORY = "simulations";
     private final static String DEFAULT_CSV_DIRECTORY = "csvs";
+    private final static String DEFAULT_CPP_DIRECTORY = "../Arduino";
     private final static String DEFAULT_CPP_FILENAME = "../Arduino/LegPolyFunctionFactory";
 
     private MvcModel model;
@@ -70,6 +72,8 @@ public class MainForm extends javax.swing.JFrame implements Observer {
         openSimButton = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         exportCsvButton = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        exportCppButton = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -187,6 +191,15 @@ public class MainForm extends javax.swing.JFrame implements Observer {
             }
         });
         jMenu1.add(exportCsvButton);
+        jMenu1.add(jSeparator2);
+
+        exportCppButton.setText("Export C++ Factory");
+        exportCppButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportCppButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(exportCppButton);
 
         jMenuBar1.add(jMenu1);
 
@@ -229,7 +242,7 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 	    if (ret == JFileChooser.APPROVE_OPTION) {
 		String filename = fc.getSelectedFile().getAbsolutePath();
 		if (!filename.endsWith(".sim")) {
-		    filename = filename + ".sim";
+		    filename += ".sim";
 		}
 		try {
 		    new SimulationSerializer().serialize(model.getSimulationOrNull(), filename);
@@ -267,12 +280,12 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 	    if (ret == JFileChooser.APPROVE_OPTION) {
 		String filename = fc.getSelectedFile().getAbsolutePath();
 		if (!filename.endsWith(".csv")) {
-		    filename = filename + ".csv";
+		    filename += ".csv";
 		}
 		try {
 		    new LegPolyFunctionsCsvWriter().write(model.getSimulationOrNull().getLegFunctions(), filename);
 		} catch (IOException e) {
-		    JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), "Export failed.", JOptionPane.ERROR_MESSAGE);
+		    JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), "Export CSV failed.", JOptionPane.ERROR_MESSAGE);
 		    e.printStackTrace();
 		}
 	    }
@@ -292,6 +305,28 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 	    }
 	}
     }//GEN-LAST:event_playStopButtonActionPerformed
+
+    private void exportCppButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportCppButtonActionPerformed
+        if (model.getSimulationOrNull() != null) {
+	    JFileChooser fc = new JFileChooser();
+	    fc.setCurrentDirectory(new File(DEFAULT_CPP_DIRECTORY));
+	    fc.setSelectedFile(new File(DEFAULT_CPP_FILENAME));
+	    fc.setFileFilter(new FileNameExtensionFilter("C++ file (*.cpp)", "cpp"));
+	    int ret = fc.showSaveDialog(this);
+	    if (ret == JFileChooser.APPROVE_OPTION) {
+		String filename = fc.getSelectedFile().getAbsolutePath();
+		if (!filename.endsWith(".cpp")) {
+		    filename += ".cpp";
+		}
+		try {
+		    new LegPolyFunctionCppCodeWriter().write(model.getSimulationOrNull().getLegFunctions(), filename);
+		} catch (IOException e) {
+		    JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), "Export C++ failed.", JOptionPane.ERROR_MESSAGE);
+		    e.printStackTrace();
+		}
+	    }
+	}
+    }//GEN-LAST:event_exportCppButtonActionPerformed
 
     @Override
     public final void update(Observable o, Object o1) {
@@ -313,6 +348,7 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 	if (model.getSimulationOrNull() != null) {
 	    saveSimButton.setEnabled(true);
 	    exportCsvButton.setEnabled(true);
+	    exportCppButton.setEnabled(true);
 	    if (model.isPlaying()) {
 		frameSlider.setEnabled(false);
 	    } else {
@@ -324,6 +360,7 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 	} else {
 	    saveSimButton.setEnabled(false);
 	    exportCsvButton.setEnabled(false);
+	    exportCppButton.setEnabled(false);
 	    frameSlider.setEnabled(false);
 	    scaleSlider.setEnabled(false);
 	    playStopButton.setEnabled(false);
@@ -343,6 +380,7 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 	model.setPlaying(false);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem exportCppButton;
     private javax.swing.JMenuItem exportCsvButton;
     private javax.swing.JSlider frameSlider;
     private javax.swing.JLabel jLabel1;
@@ -350,6 +388,7 @@ public class MainForm extends javax.swing.JFrame implements Observer {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenuItem openSimButton;
     private javax.swing.JToggleButton playStopButton;
     private javax.swing.JMenuItem saveSimButton;

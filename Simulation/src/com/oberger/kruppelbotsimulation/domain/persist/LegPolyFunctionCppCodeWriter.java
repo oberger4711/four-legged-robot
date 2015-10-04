@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oberger.kruppelbotsimulation.util;
+package com.oberger.kruppelbotsimulation.domain.persist;
 
 import com.oberger.kruppelbotsimulation.domain.simulation.LegPosition;
 import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ConcatPolyFunction;
 import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ILegPolyFunctions;
+import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -18,9 +19,10 @@ import java.util.List;
  */
 public class LegPolyFunctionCppCodeWriter {
 
-    public void write(ILegPolyFunctions legFunctions, String filename) {
-	try (FileWriter writer = new FileWriter(filename + ".cpp")) {
-	    writer.append("#include \"" + filename + ".h\"\n");
+    public void write(ILegPolyFunctions legFunctions, String fileName) throws IOException {
+	String fileNameBase = getFileNameBase(fileName);
+	try (FileWriter writer = new FileWriter(fileName)) {
+	    writer.append("#include \"" + fileNameBase + ".h\"\n");
 	    writer.append("\n");
 	    writeGetLegFunction(legFunctions, LegPosition.BR, writer);
 	    writer.append("\n");
@@ -31,9 +33,16 @@ public class LegPolyFunctionCppCodeWriter {
 	    writeGetLegFunction(legFunctions, LegPosition.FL, writer);
 
 	    writer.flush();
-	} catch (IOException e) {
-	    e.printStackTrace();
 	}
+    }
+    
+    public String getFileNameBase(String fileName) {
+	int fileEndingIndex = fileName.lastIndexOf(".cpp");
+	if (fileEndingIndex == -1) {
+	    fileEndingIndex = fileName.length();
+	}
+	
+	return fileName.substring(0, fileEndingIndex);
     }
 
     private void writeGetLegFunction(ILegPolyFunctions legFunctions, LegPosition position, FileWriter writer) throws IOException {
