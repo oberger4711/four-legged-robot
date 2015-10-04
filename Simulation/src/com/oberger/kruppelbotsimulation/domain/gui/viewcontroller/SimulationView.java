@@ -28,7 +28,13 @@ import javax.swing.JComponent;
  */
 public class SimulationView extends JComponent implements Observer {
     
+    private final static int RADIUS_JOINT_AND_MASS = 10;
     private final static int RADIUS_BALANCE_POINT = 7;
+    
+    private final static Color COLOR_LINK = Color.black;
+    private final static Color COLOR_JOINT = Color.blue;
+    private final static Color COLOR_MASS = Color.gray;
+    private final static Color COLOR_BALANCE_POINT = Color.red;
     
     private MvcModel model;
     
@@ -56,6 +62,11 @@ public class SimulationView extends JComponent implements Observer {
 
 		@Override
 		public void visit(SimJoint joint) {
+		    // Draw circle.
+		    g2d.setColor(COLOR_JOINT);
+		    Vector2 canvasPosition = mapGlobalPositionToCanvas(joint.getGlobalPosition());
+		    g2d.drawOval((int)canvasPosition.getX() - RADIUS_JOINT_AND_MASS / 2, (int)canvasPosition.getY() - RADIUS_JOINT_AND_MASS / 2, RADIUS_JOINT_AND_MASS, RADIUS_JOINT_AND_MASS);
+		    // Common
 		    visitGeneral(joint);
 		    // Visit the chids recursively.
 		    List<SimObject> childs = joint.getChilds();
@@ -66,6 +77,11 @@ public class SimulationView extends JComponent implements Observer {
 
 		@Override
 		public void visit(SimMass mass) {
+		    // Draw box.
+		    g2d.setColor(COLOR_MASS);
+		    Vector2 canvasPosition = mapGlobalPositionToCanvas(mass.getGlobalPosition());
+		    g2d.drawRect((int)canvasPosition.getX() - RADIUS_JOINT_AND_MASS / 2, (int)canvasPosition.getY() - RADIUS_JOINT_AND_MASS / 2, RADIUS_JOINT_AND_MASS, RADIUS_JOINT_AND_MASS);
+		    // Common
 		    visitGeneral(mass);
 		}
 		
@@ -73,7 +89,7 @@ public class SimulationView extends JComponent implements Observer {
 		    // Draw SimJoint.
 		    Vector2 canvasPosition = mapGlobalPositionToCanvas(object.getGlobalPosition());
 		    // Connection to parent if any.
-		    g2d.setColor(Color.black);
+		    g2d.setColor(COLOR_LINK);
 		    IParentSimObject parentOrNull = object.getParentOrNull();
 		    if (parentOrNull != null) {
 			IReadOnlyVector2 parentCanvasPosition = mapGlobalPositionToCanvas(parentOrNull.getGlobalPosition());
@@ -82,7 +98,7 @@ public class SimulationView extends JComponent implements Observer {
 		}
 	    });
 	    // Draw balance point.
-	    g2d.setColor(Color.red);
+	    g2d.setColor(COLOR_BALANCE_POINT);
 	    Vector2 canvasBalancePoint = mapGlobalPositionToCanvas(root.getGlobalBalancePoint().getPosition());
 	    g2d.fillOval((int)canvasBalancePoint.getX() - RADIUS_BALANCE_POINT / 2, (int)canvasBalancePoint.getY() - RADIUS_BALANCE_POINT / 2, RADIUS_BALANCE_POINT, RADIUS_BALANCE_POINT);
 	}
