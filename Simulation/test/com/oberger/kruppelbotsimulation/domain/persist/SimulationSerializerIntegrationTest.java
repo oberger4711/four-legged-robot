@@ -7,10 +7,8 @@ package com.oberger.kruppelbotsimulation.domain.persist;
 
 import com.oberger.kruppelbotsimulation.domain.simulation.Model;
 import com.oberger.kruppelbotsimulation.domain.simulation.Simulation;
-import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.LegPolyFunctionFactory;
 import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.LegPolyFunctions;
 import java.io.IOException;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 

@@ -16,7 +16,6 @@ import com.oberger.kruppelbotsimulation.util.Vector2;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Stroke;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;

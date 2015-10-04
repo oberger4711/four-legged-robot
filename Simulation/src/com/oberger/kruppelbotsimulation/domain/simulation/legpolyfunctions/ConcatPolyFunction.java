@@ -9,7 +9,6 @@ import com.oberger.kruppelbotsimulation.function.Interpolator;
 import com.oberger.kruppelbotsimulation.function.PolyFunction;
 import com.oberger.kruppelbotsimulation.function.WrappedPolyFunction;
 import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
