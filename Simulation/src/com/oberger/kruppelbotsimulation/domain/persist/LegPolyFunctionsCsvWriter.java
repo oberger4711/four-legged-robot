@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oberger.kruppelbotsimulation.util;
+package com.oberger.kruppelbotsimulation.domain.persist;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.LegPosition;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.ILegPolyFunctions;
+import com.oberger.kruppelbotsimulation.domain.simulation.LegPosition;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ILegPolyFunctions;
+import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;

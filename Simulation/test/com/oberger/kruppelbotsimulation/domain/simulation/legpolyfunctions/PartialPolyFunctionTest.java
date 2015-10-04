@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions;
+package com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions;
 
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.PartialPolyFunction;
 import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import com.oberger.kruppelbotsimulation.util.Vector2;
 import java.util.Arrays;

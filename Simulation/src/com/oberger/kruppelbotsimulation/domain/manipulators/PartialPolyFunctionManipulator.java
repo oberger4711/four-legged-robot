@@ -1,6 +1,6 @@
 package com.oberger.kruppelbotsimulation.domain.manipulators;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.PartialPolyFunction;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.PartialPolyFunction;
 import com.oberger.kruppelbotsimulation.localsearch.manipulator.IManipulator;
 import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import com.oberger.kruppelbotsimulation.util.Vector2;

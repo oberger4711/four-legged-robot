@@ -5,8 +5,8 @@
  */
 package com.oberger.kruppelbotsimulation.domain.walk;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.Model;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.ILegPolyFunctions;
+import com.oberger.kruppelbotsimulation.domain.simulation.Model;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ILegPolyFunctions;
 
 /**
  *

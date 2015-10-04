@@ -5,9 +5,9 @@
  */
 package com.oberger.kruppelbotsimulation.domain.manipulators;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.ConcatPolyFunction;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.ILegPolyFunctions;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.LegPolyFunctions;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ConcatPolyFunction;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ILegPolyFunctions;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.LegPolyFunctions;
 import com.oberger.kruppelbotsimulation.localsearch.manipulator.IManipulator;
 import java.util.LinkedList;
 import java.util.List;

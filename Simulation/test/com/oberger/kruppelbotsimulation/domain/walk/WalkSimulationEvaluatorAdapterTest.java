@@ -5,9 +5,9 @@
  */
 package com.oberger.kruppelbotsimulation.domain.walk;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.Model;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.Simulation;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.ILegPolyFunctions;
+import com.oberger.kruppelbotsimulation.domain.simulation.Model;
+import com.oberger.kruppelbotsimulation.domain.simulation.Simulation;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ILegPolyFunctions;
 import com.oberger.kruppelbotsimulation.localsearch.evaluator.IEvaluator;
 import static org.junit.Assert.assertEquals;
 import org.junit.Rule;

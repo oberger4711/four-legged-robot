@@ -1,7 +1,7 @@
-package com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator;
+package com.oberger.kruppelbotsimulation.domain.simulation;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.EBalanceMode;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.ILegPolyFunctions;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.EBalanceMode;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ILegPolyFunctions;
 import com.oberger.kruppelbotsimulation.util.Rotation;
 
 public class Simulation implements ISimulationState {

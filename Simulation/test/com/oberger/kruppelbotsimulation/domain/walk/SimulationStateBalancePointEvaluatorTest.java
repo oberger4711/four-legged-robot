@@ -5,10 +5,10 @@
  */
 package com.oberger.kruppelbotsimulation.domain.walk;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.ISimulationState;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.LegPosition;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.Model;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.EBalanceMode;
+import com.oberger.kruppelbotsimulation.domain.simulation.ISimulationState;
+import com.oberger.kruppelbotsimulation.domain.simulation.LegPosition;
+import com.oberger.kruppelbotsimulation.domain.simulation.Model;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.EBalanceMode;
 import com.oberger.kruppelbotsimulation.model.BalancePoint;
 import com.oberger.kruppelbotsimulation.model.SimJoint;
 import com.oberger.kruppelbotsimulation.util.Vector2;

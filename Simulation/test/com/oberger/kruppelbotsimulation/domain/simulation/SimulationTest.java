@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator;
+package com.oberger.kruppelbotsimulation.domain.simulation;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.ConcatPolyFunction;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.ILegPolyFunctions;
+import com.oberger.kruppelbotsimulation.domain.simulation.Model;
+import com.oberger.kruppelbotsimulation.domain.simulation.Simulation;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ConcatPolyFunction;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ILegPolyFunctions;
 import com.oberger.kruppelbotsimulation.model.SimJoint;
 import com.oberger.kruppelbotsimulation.util.Rotation;
 import org.junit.Rule;

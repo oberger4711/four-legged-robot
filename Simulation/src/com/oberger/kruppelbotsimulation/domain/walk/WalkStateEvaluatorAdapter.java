@@ -5,7 +5,7 @@
  */
 package com.oberger.kruppelbotsimulation.domain.walk;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.Simulation;
+import com.oberger.kruppelbotsimulation.domain.simulation.Simulation;
 import com.oberger.kruppelbotsimulation.localsearch.evaluator.IEvaluator;
 
 /**

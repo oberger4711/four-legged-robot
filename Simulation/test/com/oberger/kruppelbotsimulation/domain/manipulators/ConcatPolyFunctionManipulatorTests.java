@@ -5,10 +5,10 @@
  */
 package com.oberger.kruppelbotsimulation.domain.manipulators;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.ConcatPart;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.EBalanceMode;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.EManipulatable;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.PartialPolyFunction;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ConcatPart;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.EBalanceMode;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.EManipulatable;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.PartialPolyFunction;
 import com.oberger.kruppelbotsimulation.localsearch.manipulator.IManipulator;
 import com.oberger.kruppelbotsimulation.util.Vector2;
 import java.util.Arrays;

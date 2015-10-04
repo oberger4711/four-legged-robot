@@ -5,8 +5,8 @@
  */
 package com.oberger.kruppelbotsimulation.domain.walk;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.Model;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.LegPolyFunctions;
+import com.oberger.kruppelbotsimulation.domain.simulation.Model;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.LegPolyFunctions;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

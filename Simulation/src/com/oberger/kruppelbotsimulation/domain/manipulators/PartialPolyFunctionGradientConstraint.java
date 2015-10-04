@@ -5,7 +5,7 @@
  */
 package com.oberger.kruppelbotsimulation.domain.manipulators;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.PartialPolyFunction;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.PartialPolyFunction;
 import com.oberger.kruppelbotsimulation.localsearch.manipulator.IConstraint;
 import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import java.util.List;

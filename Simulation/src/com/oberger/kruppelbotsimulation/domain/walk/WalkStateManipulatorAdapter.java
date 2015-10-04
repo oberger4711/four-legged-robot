@@ -5,7 +5,7 @@
  */
 package com.oberger.kruppelbotsimulation.domain.walk;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.ILegPolyFunctions;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ILegPolyFunctions;
 import com.oberger.kruppelbotsimulation.localsearch.manipulator.IManipulator;
 import java.util.ArrayList;
 import java.util.List;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions;
+package com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions;
 
 import com.oberger.kruppelbotsimulation.function.Interpolator;
 import com.oberger.kruppelbotsimulation.function.PolyFunction;

@@ -1,4 +1,4 @@
-package com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator;
+package com.oberger.kruppelbotsimulation.domain.simulation;
 
 import com.oberger.kruppelbotsimulation.model.SimJoint;
 import com.oberger.kruppelbotsimulation.model.SimMass;

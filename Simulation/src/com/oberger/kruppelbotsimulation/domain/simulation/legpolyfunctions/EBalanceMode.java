@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator;
+package com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions;
 
 /**
  *
- * @author ole
+ * @author oberger
  */
-public enum LegPosition {
+public enum EBalanceMode {
 
-    BR, BL, FR, FL
+    CRITICAL, IRRELEVANT
 
 }

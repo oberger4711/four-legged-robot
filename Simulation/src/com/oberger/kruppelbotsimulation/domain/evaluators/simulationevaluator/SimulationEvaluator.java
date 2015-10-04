@@ -1,5 +1,7 @@
 package com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator;
 
+import com.oberger.kruppelbotsimulation.domain.simulation.ISimulationState;
+import com.oberger.kruppelbotsimulation.domain.simulation.Simulation;
 import com.oberger.kruppelbotsimulation.localsearch.evaluator.IEvaluator;
 import java.util.List;
 

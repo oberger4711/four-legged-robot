@@ -5,8 +5,8 @@
  */
 package com.oberger.kruppelbotsimulation.domain.walk;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.LegOrder;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.LegPosition;
+import com.oberger.kruppelbotsimulation.domain.simulation.LegOrder;
+import com.oberger.kruppelbotsimulation.domain.simulation.LegPosition;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;

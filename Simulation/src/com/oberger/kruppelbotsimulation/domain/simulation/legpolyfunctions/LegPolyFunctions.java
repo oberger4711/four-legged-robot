@@ -1,6 +1,6 @@
-package com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions;
+package com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.LegPosition;
+import com.oberger.kruppelbotsimulation.domain.simulation.LegPosition;
 
 public class LegPolyFunctions implements ILegPolyFunctions {
 

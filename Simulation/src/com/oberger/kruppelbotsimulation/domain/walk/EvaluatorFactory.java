@@ -5,9 +5,9 @@
  */
 package com.oberger.kruppelbotsimulation.domain.walk;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.ISimulationState;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.LegPosition;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.Simulation;
+import com.oberger.kruppelbotsimulation.domain.simulation.ISimulationState;
+import com.oberger.kruppelbotsimulation.domain.simulation.LegPosition;
+import com.oberger.kruppelbotsimulation.domain.simulation.Simulation;
 import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.SimulationEvaluator;
 import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.SimulationEvaluatorParameters;
 import com.oberger.kruppelbotsimulation.localsearch.evaluator.IEvaluator;

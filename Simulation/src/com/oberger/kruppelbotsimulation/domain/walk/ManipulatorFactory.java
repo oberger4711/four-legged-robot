@@ -5,9 +5,9 @@
  */
 package com.oberger.kruppelbotsimulation.domain.walk;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.ConcatPolyFunction;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.ILegPolyFunctions;
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.legpolyfunctions.PartialPolyFunction;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ConcatPolyFunction;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ILegPolyFunctions;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.PartialPolyFunction;
 import com.oberger.kruppelbotsimulation.domain.manipulators.ConcatPolyFunctionManipulator;
 import com.oberger.kruppelbotsimulation.domain.manipulators.LegPolyFunctionsManipulator;
 import com.oberger.kruppelbotsimulation.domain.manipulators.PartialPolyFunctionGradientConstraint;

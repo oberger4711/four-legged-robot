@@ -5,7 +5,7 @@
  */
 package com.oberger.kruppelbotsimulation.domain.walk;
 
-import com.oberger.kruppelbotsimulation.domain.evaluators.simulationevaluator.LegOrder;
+import com.oberger.kruppelbotsimulation.domain.simulation.LegOrder;
 
 /**
  *
