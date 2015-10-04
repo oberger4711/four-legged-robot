@@ -28,7 +28,9 @@ public class WalkOptimization implements Runnable {
 	    return;
 	} finally {
 	    try {
-		is.close();
+		if (is != null) {
+		    is.close();
+		}
 	    } catch (IOException e) {
 	    }
 	}
@@ -45,7 +47,6 @@ public class WalkOptimization implements Runnable {
 
 	System.out.println("Done.");
 	System.out.println("Final Score : " + finalState.getScore());
-
     }
 
 }
