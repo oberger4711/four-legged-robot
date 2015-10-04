@@ -5,13 +5,13 @@
  */
 package com.oberger.kruppelbotsimulation.domain.walk;
 
-import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ConcatPolyFunction;
-import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ILegPolyFunctions;
-import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.PartialPolyFunction;
 import com.oberger.kruppelbotsimulation.domain.manipulators.ConcatPolyFunctionManipulator;
 import com.oberger.kruppelbotsimulation.domain.manipulators.LegPolyFunctionsManipulator;
 import com.oberger.kruppelbotsimulation.domain.manipulators.PartialPolyFunctionGradientConstraint;
 import com.oberger.kruppelbotsimulation.domain.manipulators.PartialPolyFunctionManipulator;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ConcatPolyFunction;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ILegPolyFunctions;
+import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.PartialPolyFunction;
 import com.oberger.kruppelbotsimulation.localsearch.manipulator.ConstrainedManipulator;
 import com.oberger.kruppelbotsimulation.localsearch.manipulator.IConstraint;
 import com.oberger.kruppelbotsimulation.localsearch.manipulator.IManipulator;

@@ -6,8 +6,6 @@
 package com.oberger.kruppelbotsimulation.domain.gui.viewcontroller;
 
 import com.oberger.kruppelbotsimulation.domain.gui.model.MvcModel;
-import com.oberger.kruppelbotsimulation.domain.simulation.Model;
-import com.oberger.kruppelbotsimulation.domain.simulation.Simulation;
 import com.oberger.kruppelbotsimulation.model.IParentSimObject;
 import com.oberger.kruppelbotsimulation.model.ISimObjectVisitor;
 import com.oberger.kruppelbotsimulation.model.SimJoint;

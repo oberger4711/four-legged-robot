@@ -5,8 +5,6 @@
  */
 package com.oberger.kruppelbotsimulation.domain.simulation;
 
-import com.oberger.kruppelbotsimulation.domain.simulation.LegPosition;
-import com.oberger.kruppelbotsimulation.domain.simulation.LegOrder;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

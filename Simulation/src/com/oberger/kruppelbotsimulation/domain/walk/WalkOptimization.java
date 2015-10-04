@@ -1,14 +1,14 @@
 package com.oberger.kruppelbotsimulation.domain.walk;
 
 import com.oberger.kruppelbotsimulation.domain.gui.GuiWrapper;
+import com.oberger.kruppelbotsimulation.domain.persist.LegPolyFunctionsCsvWriter;
+import com.oberger.kruppelbotsimulation.domain.simulation.Simulation;
 import com.oberger.kruppelbotsimulation.localsearch.HillClimbing;
 import com.oberger.kruppelbotsimulation.localsearch.LocalSearchAlgorithm;
 import com.oberger.kruppelbotsimulation.localsearch.State;
 import com.oberger.kruppelbotsimulation.localsearch.evaluator.IEvaluator;
 import com.oberger.kruppelbotsimulation.localsearch.exitcriterium.LocalMaximumExitCriterium;
 import com.oberger.kruppelbotsimulation.localsearch.manipulator.IManipulator;
-import com.oberger.kruppelbotsimulation.domain.persist.LegPolyFunctionsCsvWriter;
-import com.oberger.kruppelbotsimulation.domain.simulation.Simulation;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;

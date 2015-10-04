@@ -5,11 +5,6 @@
  */
 package com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions;
 
-import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.PartialPolyFunction;
-import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.EManipulatable;
-import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ConcatPolyFunction;
-import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.EBalanceMode;
-import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ConcatPart;
 import com.oberger.kruppelbotsimulation.function.Interpolator;
 import com.oberger.kruppelbotsimulation.util.IReadOnlyVector2;
 import com.oberger.kruppelbotsimulation.util.Vector2;

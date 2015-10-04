@@ -8,7 +8,6 @@ package com.oberger.kruppelbotsimulation.model;
 import com.oberger.kruppelbotsimulation.util.Rotation;
 import com.oberger.kruppelbotsimulation.util.Vector2;
 import com.oberger.kruppelbotsimulation.util.Weight;
-import java.util.ArrayList;
 import java.util.List;
 
 public class FakeSimObject extends SimObject {

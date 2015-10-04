@@ -5,12 +5,6 @@
  */
 package com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions;
 
-import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.PartialPolyFunction;
-import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ILegPolyFunctions;
-import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.EManipulatable;
-import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.EBalanceMode;
-import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ConcatPart;
-import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.LegPolyFunctionFactory;
 import com.oberger.kruppelbotsimulation.domain.simulation.LegOrder;
 import com.oberger.kruppelbotsimulation.domain.simulation.LegPosition;
 import com.oberger.kruppelbotsimulation.function.Interpolator;
@@ -20,8 +14,6 @@ import com.oberger.kruppelbotsimulation.util.Vector2;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.hamcrest.Matchers;
-import static org.hamcrest.Matchers.is;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;

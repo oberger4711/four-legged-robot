@@ -5,8 +5,6 @@
  */
 package com.oberger.kruppelbotsimulation.domain.simulation;
 
-import com.oberger.kruppelbotsimulation.domain.simulation.Model;
-import com.oberger.kruppelbotsimulation.domain.simulation.Simulation;
 import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ConcatPolyFunction;
 import com.oberger.kruppelbotsimulation.domain.simulation.legpolyfunctions.ILegPolyFunctions;
 import com.oberger.kruppelbotsimulation.model.SimJoint;
