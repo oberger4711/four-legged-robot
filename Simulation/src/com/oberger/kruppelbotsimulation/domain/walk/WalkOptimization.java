@@ -49,9 +49,6 @@ public class WalkOptimization implements Runnable {
 	State<WalkState> finalState = localSearchAlgo.run(initState, new LocalMaximumExitCriterium());
 	System.out.println("Final Score : " + finalState.getScore());
 	
-	System.out.println("Writing CSV File...");
-	new LegPolyFunctionsCsvWriter().write(finalState.getInnerState().getLegFunctions(), "out.csv");
-	
 	System.out.println("Starting GUI...");
 	new GuiWrapper().show(new Simulation(finalState.getInnerState().getLegFunctions(), finalState.getInnerState().getModel()));
 

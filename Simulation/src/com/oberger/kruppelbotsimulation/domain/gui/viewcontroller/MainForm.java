@@ -6,6 +6,7 @@
 package com.oberger.kruppelbotsimulation.domain.gui.viewcontroller;
 
 import com.oberger.kruppelbotsimulation.domain.gui.model.MvcModel;
+import com.oberger.kruppelbotsimulation.domain.persist.LegPolyFunctionsCsvWriter;
 import com.oberger.kruppelbotsimulation.domain.persist.SimulationSerializer;
 import com.oberger.kruppelbotsimulation.domain.simulation.Simulation;
 import java.io.IOException;
@@ -46,8 +47,10 @@ public class MainForm extends javax.swing.JFrame implements Observer {
         frameSlider = new javax.swing.JSlider();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        openSimButton = new javax.swing.JMenuItem();
         saveSimButton = new javax.swing.JMenuItem();
+        openSimButton = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        exportCsvButton = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,14 +103,6 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 
         jMenu1.setText("File");
 
-        openSimButton.setText("Open Simulation...");
-        openSimButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openSimButtonActionPerformed(evt);
-            }
-        });
-        jMenu1.add(openSimButton);
-
         saveSimButton.setText("Save Simulation...");
         saveSimButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,6 +110,23 @@ public class MainForm extends javax.swing.JFrame implements Observer {
             }
         });
         jMenu1.add(saveSimButton);
+
+        openSimButton.setText("Open Simulation...");
+        openSimButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openSimButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(openSimButton);
+        jMenu1.add(jSeparator1);
+
+        exportCsvButton.setText("Export Roation CSV...");
+        exportCsvButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportCsvButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(exportCsvButton);
 
         jMenuBar1.add(jMenu1);
 
@@ -179,6 +191,22 @@ public class MainForm extends javax.swing.JFrame implements Observer {
 	}
     }//GEN-LAST:event_openSimButtonActionPerformed
 
+    private void exportCsvButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportCsvButtonActionPerformed
+        if (model.getSimulationOrNull() != null) {
+	    JFileChooser fc = new JFileChooser();
+	    int ret = fc.showSaveDialog(this);
+	    if (ret == JFileChooser.APPROVE_OPTION) {
+		String filename = fc.getSelectedFile().getAbsolutePath();
+		try {
+		    new LegPolyFunctionsCsvWriter().write(model.getSimulationOrNull().getLegFunctions(), filename);
+		} catch (IOException e) {
+		    JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), "Export failed.", JOptionPane.ERROR_MESSAGE);
+		    e.printStackTrace();
+		}
+	    }
+	}
+    }//GEN-LAST:event_exportCsvButtonActionPerformed
+
     @Override
     public final void update(Observable o, Object o1) {
 	frameSlider.setMaximum((int) (1000 * model.getTMax()));
@@ -193,9 +221,11 @@ public class MainForm extends javax.swing.JFrame implements Observer {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem exportCsvButton;
     private javax.swing.JSlider frameSlider;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuItem openSimButton;
     private javax.swing.JMenuItem saveSimButton;
     private javax.swing.JPanel settingsPanel;

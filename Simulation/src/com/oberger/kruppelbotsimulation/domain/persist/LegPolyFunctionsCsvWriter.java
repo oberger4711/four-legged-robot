@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class LegPolyFunctionsCsvWriter {
 
-    public void write(ILegPolyFunctions legFunctions, String filename) {
+    public void write(ILegPolyFunctions legFunctions, String filename) throws IOException {
 	try (FileWriter writer = new FileWriter(filename)) {
 
 	    for (LegPosition position : LegPosition.values()) {
@@ -36,8 +36,6 @@ public class LegPolyFunctionsCsvWriter {
 	    }
 
 	    writer.flush();
-	} catch (IOException e) {
-	    e.printStackTrace();
 	}
     }
 
