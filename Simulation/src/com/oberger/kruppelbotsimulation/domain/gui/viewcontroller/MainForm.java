@@ -192,7 +192,7 @@ public class MainForm extends javax.swing.JFrame implements Observer {
         jMenu1.add(exportCsvButton);
         jMenu1.add(jSeparator2);
 
-        exportCppButton.setText("Export C++ Factory");
+        exportCppButton.setText("Export C++ Factory...");
         exportCppButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exportCppButtonActionPerformed(evt);

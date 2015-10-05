@@ -39,7 +39,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="exportCppButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Export C++ Factory"/>
+                <Property name="text" type="java.lang.String" value="Export C++ Factory..."/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportCppButtonActionPerformed"/>
