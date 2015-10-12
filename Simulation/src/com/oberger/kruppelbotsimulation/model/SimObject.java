@@ -47,12 +47,12 @@ public abstract class SimObject implements Serializable {
 	    parentGlobalRotation = new Rotation(0, true);
 	}
 
-	globalRotation.set(parentGlobalRotation);
-	globalRotation.add(offsetRotation);
+	globalRotation = new Rotation(parentGlobalRotation)
+		.add(offsetRotation);
 	
-	globalPosition.set(parentGlobalPosition);
-	globalPosition.add(offsetPosition);
-	globalPosition.rotate(parentGlobalPosition, parentGlobalRotation.getRotationInDegreesCC());
+	globalPosition = new Vector2(parentGlobalPosition)
+		.add(offsetPosition)
+		.rotate(parentGlobalPosition, parentGlobalRotation.getRotationInDegreesCC());
 
 	updateChilds();
     }
@@ -100,7 +100,7 @@ public abstract class SimObject implements Serializable {
     }
 
     protected Rotation getOffsetRotation() {
-	return offsetRotation;
+	return new Rotation(offsetRotation);
     }
 
     protected void setOffsetRotation(Rotation offsetRotation) {
