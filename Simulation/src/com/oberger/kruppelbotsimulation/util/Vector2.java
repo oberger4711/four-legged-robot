@@ -57,7 +57,7 @@ public class Vector2 implements IReadOnlyVector2 {
     }
 
     /**
-     * Returns the sum of the two vectors. Does not modify this vector but
+     * Returns the sum of the two vectors. Modifies this vector and returns itself for chaining
      * returns a new instance.
      *
      * @param otherVector
@@ -74,8 +74,7 @@ public class Vector2 implements IReadOnlyVector2 {
     }
 
     /**
-     * Returns the subtraction of the vectors. Does not modify this vector but
-     * returns a new instance.
+     * Returns the subtraction of the vectors. Modifies this vector and returns itself for chaining.
      *
      * @param otherVector
      * @return
@@ -91,8 +90,7 @@ public class Vector2 implements IReadOnlyVector2 {
     }
 
     /**
-     * Returns a scaled version of this vector. Does not modify this vector but
-     * returns a new instance.
+     * Returns a scaled version of this vector. Modifies this vector and returns itself for chaining
      *
      * @param factor
      * @return
@@ -110,7 +108,7 @@ public class Vector2 implements IReadOnlyVector2 {
 	}
 	double radiansCC = Math.toRadians(degreesCC);
 	double rotatedX = Math.cos(radiansCC) * (x - center.getX()) - Math.sin(radiansCC) * (y - center.getY()) + center.getX();
-	double rotatedY = Math.sin(radiansCC * (x - center.getX())) + Math.cos(radiansCC) * (y - center.getY()) + center.getY();
+	double rotatedY = Math.sin(radiansCC) * (x - center.getX()) + Math.cos(radiansCC) * (y - center.getY()) + center.getY();
 	x = (float) rotatedX;
 	y = (float) rotatedY;
 
