@@ -105,7 +105,7 @@ public class SimulationView extends JComponent implements Observer {
     }
 
     private Vector2 mapGlobalPositionToCanvas(IReadOnlyVector2 globalPosition) {
-	return new Vector2((getWidth() / 2f) + globalPosition.getX() * model.getScaleFactor(), (getHeight() / 2f) + globalPosition.getY() * model.getScaleFactor());
+	return new Vector2((getWidth() / 2f) + globalPosition.getX() * model.getScaleFactor(), (getHeight() / 2f) - globalPosition.getY() * model.getScaleFactor());
     }
 
     @Override
